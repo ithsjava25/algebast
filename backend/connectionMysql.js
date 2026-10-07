@@ -1,6 +1,25 @@
 
 const mysql = require('mysql2/promise');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
+
+const getSslOptions = () => {
+  if (process.env.DB_SSL !== 'true') return undefined;
+
+  const sslConfig = {
+    rejectUnauthorized: true
+  };
+
+  if (process.env.DB_SSL_CA) {
+    const caPath = path.resolve(__dirname, process.env.DB_SSL_CA);
+    if (fs.existsSync(caPath)) {
+      sslConfig.ca = fs.readFileSync(caPath);
+        }
+  }
+
+  return sslConfig;
+};
 
 // Skapa en pool med anslutningar mot Aiven
 const pool = mysql.createPool({
@@ -9,10 +28,7 @@ const pool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  ssl: process.env.DB_SSL === 'true' ? {
-    // Krävs för att Aivens SSL-kryptering ska fungera sömlöst i Node.js
-    rejectUnauthorized: false
-  } : undefined,
+  ssl: getSslOptions(),
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
@@ -26,7 +42,11 @@ const pool = mysql.createPool({
     connection.release();
   } catch (error) {
     console.error('Kunde inte ansluta till Aiven-databasen:', error.message);
-  }
+  } finally {
+    if (require.main === module) {
+     await pool.end();
+    }
+}
 })();
 
 module.exports = pool;
