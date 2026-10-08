@@ -43,6 +43,9 @@ const pool = mysql.createPool({
     connection.release();
   } catch (error) {
     console.error('Kunde inte ansluta till Aiven-databasen:', error.message);
+    if (require.main === module) {
+      process.exitCode = 1;
+    }
   } finally {
     if (require.main === module) {
      await pool.end();
