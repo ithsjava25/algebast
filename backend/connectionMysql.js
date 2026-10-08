@@ -7,18 +7,19 @@ require('dotenv').config();
 const getSslOptions = () => {
   if (process.env.DB_SSL !== 'true') return undefined;
 
-  const sslConfig = {
-    rejectUnauthorized: true
-  };
-
-  if (process.env.DB_SSL_CA) {
-    const caPath = path.resolve(__dirname, process.env.DB_SSL_CA);
-    if (fs.existsSync(caPath)) {
-      sslConfig.ca = fs.readFileSync(caPath);
-        }
+  if (!process.env.DB_SSL_CA) {
+    throw new Error('DB_SSL är aktiverat men DB_SSL_CA är inte definierad i .env');
   }
 
-  return sslConfig;
+  const caPath = path.resolve(__dirname, process.env.DB_SSL_CA);
+  if (!fs.existsSync(caPath)) {
+    throw new Error(`Certifikatfilen för DB_SSL_CA hittades inte på sökvägen: ${caPath}`);
+  }
+
+  return {
+    rejectUnauthorized: true,
+    ca: fs.readFileSync(caPath)
+  };
 };
 
 // Skapa en pool med anslutningar mot Aiven
