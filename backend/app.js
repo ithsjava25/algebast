@@ -19,4 +19,6 @@ const categoryRoutes = require('./routes/categoryRoutes');
 app.use(bookRoutes);
 app.use(categoryRoutes);
 
+app.use('/api/exams', require('./routes/examRoutes'));
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
