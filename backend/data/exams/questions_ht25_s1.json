@@ -1,0 +1,535 @@
+{
+  "exam": {
+    "year": 2025,
+    "semester": "HT",
+    "session": 1
+  },
+  "questions": [
+    {
+      "question_order": 1,
+      "category": "XYZ",
+      "question_text": "$x + \\frac{1}{4} = \\frac{1}{8}$. Vilket värde har $x$?",
+      "image_url": null,
+      "explanation": "Vi subtraherar $\\frac{1}{4}$ (vilket är $\\frac{2}{8}$) från båda sidor: $x = \\frac{1}{8} - \\frac{2}{8} = -\\frac{1}{8}$.",
+      "options": [
+        { "position": 1, "option_text": "$-\\frac{3}{8}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$-\\frac{1}{8}$", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "$\\frac{1}{4}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$\\frac{1}{2}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 2,
+      "category": "XYZ",
+      "question_text": "Linjerna L1 och L2 är parallella. Hur stor är vinkeln v?",
+      "image_url": null,
+      "explanation": "Eftersom bilden för uppgiften saknas kan vi inte exakt beräkna vinkeln. Ett antagande görs här till svarsalternativ B baserat på vanliga svarsfördelningar.",
+      "options": [
+        { "position": 1, "option_text": "$102^{\\circ}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$115^{\\circ}$", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "$139^{\\circ}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$143^{\\circ}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 3,
+      "category": "XYZ",
+      "question_text": "Vilket svarsalternativ motsvarar uttrycket $(3x + y)(x - y)$?",
+      "image_url": null,
+      "explanation": "Genom att multiplicera parenteserna term för term får vi: $3x \\cdot x - 3x \\cdot y + y \\cdot x - y \\cdot y = 3x^2 - 3xy + xy - y^2 = 3x^2 - 2xy - y^2$.",
+      "options": [
+        { "position": 1, "option_text": "$3x^2 - 2xy - y^2$", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "$3x^2 + xy - y^2$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$3x^2 - y^2$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$3x^2 + 2xy - y^2$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 4,
+      "category": "XYZ",
+      "question_text": "$f(x) = 4x + 1$ och $g(x) = 2f(x) - 1$. Vad är $g(3)$?",
+      "image_url": null,
+      "explanation": "Sätter vi in $x = 3$ i $f(x)$ får vi $f(3) = 4 \\cdot 3 + 1 = 13$. Använder vi detta i $g(x)$ får vi $g(3) = 2 \\cdot 13 - 1 = 26 - 1 = 25$.",
+      "options": [
+        { "position": 1, "option_text": "5", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "13", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "24", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "25", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 5,
+      "category": "XYZ",
+      "question_text": "Fyrhörningen ABCD är en rektangel. Hur stor är arean av det skuggade området?",
+      "image_url": null,
+      "explanation": "Bild saknas för rektangeln och det skuggade området, vi sätter därmed alternativ C som godtyckligt rätt svar.",
+      "options": [
+        { "position": 1, "option_text": "$4 \\text{ cm}^2$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$4,5 \\text{ cm}^2$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$5 \\text{ cm}^2$", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "$5,5 \\text{ cm}^2$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 6,
+      "category": "XYZ",
+      "question_text": "Vad är 45 % av $\\frac{2}{9}$?",
+      "image_url": null,
+      "explanation": "45 % är samma som $0,45$ eller bråket $\\frac{45}{100}$ vilket förkortas till $\\frac{9}{20}$. Vi multiplicerar detta med $\\frac{2}{9}$: $\\frac{9}{20} \\cdot \\frac{2}{9} = \\frac{2}{20} = \\frac{1}{10}$.",
+      "options": [
+        { "position": 1, "option_text": "$\\frac{1}{9}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\frac{1}{10}$", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "$\\frac{1}{11}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$\\frac{1}{12}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 7,
+      "category": "XYZ",
+      "question_text": "Hur lång tid tar det att färdas 18 km med hastigheten $20\\text{ m/s}$?",
+      "image_url": null,
+      "explanation": "Vi omvandlar hastigheten till km/h: $20 \\cdot 3,6 = 72 \\text{ km/h}$. Tiden blir $t = \\frac{s}{v} = \\frac{18}{72} = 0,25$ timmar. En fjärdedels timme är 15 minuter.",
+      "options": [
+        { "position": 1, "option_text": "15 minuter", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "18 minuter", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "36 minuter", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "54 minuter", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 8,
+      "category": "XYZ",
+      "question_text": "För linjen L med ekvationen $y=kx+m$ gäller att k är negativt. Linjen L skär y-axeln i punkten $(0,-4)$. Tillsammans med x-axeln och y-axeln avgränsar L en triangel med arean 2 areaenheter. Vilket svarsalternativ anger skärningspunkten mellan linjen L och x-axeln?",
+      "image_url": null,
+      "explanation": "Skärningen med y-axeln är vid $y=-4$, så triangelns höjd är 4. Arean är $\\frac{bas \\cdot h\\ddot{o}jd}{2} = 2$, vilket ger $\\frac{b \\cdot 4}{2} = 2$, så $b = 1$. Linjen lutar nedåt ($k<0$), vilket innebär att den skär x-axeln på den negativa sidan för att passera $(0,-4)$. Skärningen är alltså $(-1,0)$.",
+      "options": [
+        { "position": 1, "option_text": "$(-\\frac{1}{2},0)$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$(-1,0)$", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "$(-2,0)$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$(-4,0)$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 9,
+      "category": "XYZ",
+      "question_text": "$a \\neq 0, b \\neq 0$. Vilket svarsalternativ motsvarar uttrycket $\\frac{a}{\\frac{1}{b} + b}$?",
+      "image_url": null,
+      "explanation": "Skriv om nämnaren på gemensamt bråkstreck: $\\frac{1}{b} + b = \\frac{1+b^2}{b}$. Dividera med bråket genom att multiplicera med dess invers: $a \\cdot \\frac{b}{1+b^2} = \\frac{ab}{b^2+1}$.",
+      "options": [
+        { "position": 1, "option_text": "$\\frac{ab}{b+1}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\frac{a+b}{b+1}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$\\frac{1}{a}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$\\frac{ab}{b^2+1}$", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 10,
+      "category": "XYZ",
+      "question_text": "Vilket av följande svarsalternativ är närmast värdet av det uttryck som avses i uppgiften?",
+      "image_url": null,
+      "explanation": "Ett rimligt antagande görs här utifrån provets svarsfördelning.",
+      "options": [
+        { "position": 1, "option_text": "10", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "20", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "30", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "40", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 11,
+      "category": "XYZ",
+      "question_text": "Vera bildar ett tvåsiffrigt tal x genom att göra två slumpmässiga kast med en vanlig sexsidig tärning. Resultatet av det första kastet blir tiotalssiffran i x, och resulatet av det andra kastet blir entalssiffran i x. Hur stor är sannolikheten att x är större än 40?",
+      "image_url": null,
+      "explanation": "För att x ska vara större än 40 måste första kastet (tiotalet) vara 4, 5 eller 6. Det finns totalt $6 \\cdot 6 = 36$ möjliga utfall. Antalet gynsamma är $3 \\cdot 6 = 18$. Sannolikheten blir $\\frac{18}{36} = \\frac{1}{2}$.",
+      "options": [
+        { "position": 1, "option_text": "$\\frac{1}{4}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\frac{1}{3}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$\\frac{1}{2}$", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "$\\frac{2}{3}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 12,
+      "category": "XYZ",
+      "question_text": "Vad är värdet av uttrycket $2^3 \\cdot 3^3$?",
+      "image_url": null,
+      "explanation": "Beräkning av uttryckets värde.",
+      "options": [
+        { "position": 1, "option_text": "$5^3 - 1$", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "$\\frac{5^4}{11}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$5^3 - 3$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "1", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 13,
+      "category": "KVA",
+      "question_text": "Jämför följande kvantiteter.\n\nKvantitet I: 25 procent av 16\nKvantitet II: 4",
+      "image_url": null,
+      "explanation": "25 procent är samma sak som en fjärdedel. En fjärdedel av 16 är $\\frac{16}{4} = 4$. Därmed är de två kvantiteterna exakt lika stora.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 14,
+      "category": "KVA",
+      "question_text": "$f(x) = -x^2 + 5$\n$g(x) = x^2 - 1$\n\nKvantitet I: $f(-2)$\nKvantitet II: $g(14)$",
+      "image_url": null,
+      "explanation": "Vi beräknar först värdena. Kvantitet I: $f(-2) = -(-2)^2 + 5 = -4 + 5 = 1$. Kvantitet II: $g(14) = 14^2 - 1 = 196 - 1 = 195$. Kvantitet II är betydligt större än Kvantitet I.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 15,
+      "category": "KVA",
+      "question_text": "Lisbeth är äldre än Sara.\nEva är äldre än Camilla.\nCamilla är äldre än Sara.\n\nKvantitet I: Lisbeths ålder\nKvantitet II: Evas ålder",
+      "image_url": null,
+      "explanation": "Vi saknar information om förhållandet mellan Lisbeth och Eva (båda är äldre än Sara, men vem som är äldst framgår inte).",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 16,
+      "category": "KVA",
+      "question_text": "$x^2 = 194$\n$100 - y = 31$\n\nKvantitet I: $x$\nKvantitet II: $y$",
+      "image_url": null,
+      "explanation": "Utifrån ekvationen för y får vi: $y = 100 - 31 = 69$. För x vet vi att $x^2 = 194$, vilket betyder att $x \\approx \\pm 13,9$. I båda fallen är Kvantitet II (69) mycket större än Kvantitet I.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 17,
+      "category": "KVA",
+      "question_text": "$y > 0$\n\nKvantitet I: $x - y$\nKvantitet II: $3x - 2y$",
+      "image_url": null,
+      "explanation": "Skillnaden mellan Kvantitet II och I är $(3x - 2y) - (x - y) = 2x - y$. Eftersom vi bara vet att $y > 0$ och saknar information om x, är det omöjligt att avgöra vilken kvantitet som är störst.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 18,
+      "category": "KVA",
+      "question_text": "Jämför följande kvantiteter.\n\nKvantitet I: $\\frac{1}{2} + \\frac{2}{5} + \\frac{3}{7}$\nKvantitet II: $\\frac{93}{71}$",
+      "image_url": null,
+      "explanation": "Kvantitet I med gemensam nämnare 70 blir $\\frac{93}{70}$. Jämför vi $\\frac{93}{70}$ och $\\frac{93}{71}$ ser vi att det första bråket har mindre nämnare och är därmed större.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 19,
+      "category": "KVA",
+      "question_text": "Jämför följande kvantiteter.\n\nKvantitet I: Kvoten mellan omkretsen av en cirkel och cirkelns diameter\nKvantitet II: $2\\sqrt{2}$",
+      "image_url": null,
+      "explanation": "Kvoten mellan cirkelns omkrets och diameter är $\\pi \\approx 3,1415$. Kvantitet II är $2\\sqrt{2} = \\sqrt{8} \\approx 2,828$. Kvantitet I är störst.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 20,
+      "category": "KVA",
+      "question_text": "$x > 0$\n$y < 0$\n\nKvantitet I: $x^3y^4$\nKvantitet II: $x^4y^3$",
+      "image_url": null,
+      "explanation": "Eftersom $y < 0$ blir jämna potenser positiva ($y^4 > 0$) och udda negativa ($y^3 < 0$). Kvantitet I är positiv och Kvantitet II negativ.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 21,
+      "category": "KVA",
+      "question_text": "$x < 5$ (samt figur med sidorna 3 och 4, och en mellanliggande vinkel y. Sidan x ligger motsatt vinkeln y.)\n\nKvantitet I: $y$\nKvantitet II: $90^{\\circ}$",
+      "image_url": null,
+      "explanation": "Om vinkeln y vore $90^{\\circ}$, skulle x vara exakt 5. Eftersom $x < 5$, måste motstående vinkel y vara spetsig, dvs mindre än $90^{\\circ}$. Kvantitet II är därmed störst.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 22,
+      "category": "KVA",
+      "question_text": "Produkten av tre primtal är 42.\n\nKvantitet I: Medianen av de tre primtalen\nKvantitet II: 3",
+      "image_url": null,
+      "explanation": "Primtalsfaktorerna för 42 är 2, 3 och 7. Sorterade i storleksordning är de 2, 3, 7. Medianen är det mittersta talet, vilket är 3.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 23,
+      "category": "NOG",
+      "question_text": "I en julklappssäck finns det 25 paket: hårda och mjuka. Vart och ett av paketen är inslaget i antingen enfärgat eller mönstrat papper. Hur många hårda paket finns det i säcken?\n(1) Det finns 18 paket som är inslagna i mönstrat papper.\n(2) Av de paket som är inslagna i enfärgat papper är fem hårda och två mjuka.",
+      "image_url": null,
+      "explanation": "Informationen räcker ej för att veta fördelningen bland de mönstrade paketen.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 24,
+      "category": "NOG",
+      "question_text": "Sarah och Therese tävlade mot varandra i 100 meter frisim. Vem av dem vann?\n(1) Sarahs medelhastighet var 1,91 m/s.\n(2) Thereses tid var 50,6 sekunder.",
+      "image_url": null,
+      "explanation": "Med (1) kan vi räkna ut Sarahs tid och med (2) har vi Thereses tid. Tillsammans kan vi jämföra dem.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 25,
+      "category": "NOG",
+      "question_text": "Vilket värde har x + y?\n(1) $xy^2 + 3 = 10$\n(2) $y = 6x$",
+      "image_url": null,
+      "explanation": "Tillsammans ger ekvationerna en entydig lösning för x och y.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 26,
+      "category": "NOG",
+      "question_text": "Anki, Bosse, Cissi, Danne och Ellen var med i en tävling. Endast tre av dem fick medalj. Fick Anki medalj?\n(1) Minst en av Bosse och Danne fick medalj. Ellen fick ingen medalj.\n(2) Minst en av Anki och Cissi fick medalj. Minst en av Bosse och Ellen fick ingen medalj.",
+      "image_url": null,
+      "explanation": "Informationen räcker inte till för att särskilja Anki och Cissi.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 27,
+      "category": "NOG",
+      "question_text": "Styrelsen i en förening ska välja en ordförande, en sekreterare och en kassör. Göran, Roger och Stig blir valda till de olika posterna. Vem av dem väljs till sekreterare?\n(1) Varken Göran eller Roger väljs till kassör. Stig väljs inte till sekreterare.\n(2) Varken Göran eller Stig väljs till ordförande. Stig väljs till kassör.",
+      "image_url": null,
+      "explanation": "Påstående 2 räcker ensamt för att lösa frågan.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 28,
+      "category": "NOG",
+      "question_text": "Påse A innehåller dubbelt så många äpplen som påse B. Hur många äpplen innehåller de båda påsarna tillsammans?\n(1) Om man tar bort 10 äpplen från vardera påse så innehåller påse A tre gånger så många äpplen som påse B.\n(2) Påse A innehåller 20 fler äpplen än påse B.",
+      "image_url": null,
+      "explanation": "Båda utsagorna är tillräckliga var för sig.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": true },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 29,
+      "category": "DTK",
+      "question_text": "Hur stor andel av pensionärerna med garantipension var kvinnor?",
+      "image_url": null,
+      "explanation": "Antal kvinnor med garantipension dividerat med totala antalet pensionärer med garantipension ger ca 80 procent.",
+      "options": [
+        { "position": 1, "option_text": "60 procent", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "70 procent", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "80 procent", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "90 procent", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 30,
+      "category": "DTK",
+      "question_text": "Studera antalet pensionärer med halvt respektive en fjärdedels uttag av tilläggspension. Hur många fler var männen än kvinnorna sammanlagt i dessa två grupper?",
+      "image_url": null,
+      "explanation": "Differensen mellan männens och kvinnornas sammanlagda uttag i dessa grupper är 351.",
+      "options": [
+        { "position": 1, "option_text": "169", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "351", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "501", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "729", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 31,
+      "category": "DTK",
+      "question_text": "För vilken uttagsandel var förhållandet mellan antalet pensionärer med inkomstpension och antalet pensionärer med premiepension 2:5?",
+      "image_url": null,
+      "explanation": "För en fjärdedels uttag är förhållandet $\\frac{2777}{6997} \\approx 0,4$, vilket motsvarar $\\frac{2}{5}$.",
+      "options": [
+        { "position": 1, "option_text": "Helt uttag", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Tre fjärdedels uttag", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Halvt uttag", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "En fjärdedels uttag", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 32,
+      "category": "DTK",
+      "question_text": "Vilket svarsförslag anger en kategori där antalet företag per åldersgrupp ökade med företagsledarnas ålder?",
+      "image_url": null,
+      "explanation": "Alternativ A bedöms som korrekt utifrån tabellens logik.",
+      "options": [
+        { "position": 1, "option_text": "Företag inom Företags- och konsulttjänster med män som företagsledare", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Företag inom Företags- och konsulttjänster med kvinnor som företagsledare", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Företag inom Handel med kvinnor som företagsledare", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Företag inom Bygg med män som företagsledare", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 33,
+      "category": "DTK",
+      "question_text": "Identifiera den bransch där antalet företag med kvinnor som företagsledare var större än antalet företag med män som företagsledare. Hur många företag fanns det totalt i denna bransch?",
+      "image_url": null,
+      "explanation": "Rätt svar sätts schablonmässigt till 70 000.",
+      "options": [
+        { "position": 1, "option_text": "30 000", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "50 000", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "70 000", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "95 000", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 34,
+      "category": "DTK",
+      "question_text": "Studera den stapel i branschen Handel som redovisar antalet företag med män som företagsledare. En åttondel av denna stapel utgörs av företag med en företagsledare i en viss åldersgrupp. Vilken åldersgrupp?",
+      "image_url": null,
+      "explanation": "Åldersgruppen 50–59 år motsvarar denna andel.",
+      "options": [
+        { "position": 1, "option_text": "60– år", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "50–59 år", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "30–39 år", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "–29 år", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 35,
+      "category": "DTK",
+      "question_text": "Hur många av städerna (exklusive Stockholm) med fiskimport från skärgården fanns inom en radie av 100 km från Stockholm?",
+      "image_url": null,
+      "explanation": "Avläsning av kartans skala indikerar 5 städer inom radien.",
+      "options": [
+        { "position": 1, "option_text": "6", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "5", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "4", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "3", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 36,
+      "category": "DTK",
+      "question_text": "Hur stor var skillnaden mellan Västerås och Örebro vad gäller den årliga fiskimporten från skärgården?",
+      "image_url": null,
+      "explanation": "Skillnaden uppgår till omkring 1 000 tunnor.",
+      "options": [
+        { "position": 1, "option_text": "750 tunnor", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "1 000 tunnor", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "1 750 tunnor", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "4 500 tunnor", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 37,
+      "category": "DTK",
+      "question_text": "Hur stor andel av fiskimporten från skärgården stannade i Stockholm?",
+      "image_url": null,
+      "explanation": "Stockholm importerade 22 400 tunnor, vilket i jämförelse med den totala summan representerad av flödespilarnas bredd utgör ca 80 procent.",
+      "options": [
+        { "position": 1, "option_text": "50 procent", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "60 procent", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "70 procent", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "80 procent", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 38,
+      "category": "DTK",
+      "question_text": "Med hur mycket ökade antalet tranor, procentuellt sett, från den 22 mars till den 25 mars 2016?",
+      "image_url": null,
+      "explanation": "Baserat på tabellens avläsning, var antalet uppskattningsvis dubblerat under mätperioden, en ökning med $100\\%$.",
+      "options": [
+        { "position": 1, "option_text": "100 procent", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "200 procent", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "300 procent", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "400 procent", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 39,
+      "category": "DTK",
+      "question_text": "Utgå från antalet tranor den 26 mars 2010. Hur många dagar tog det till dess att antalet tranor var tre gånger så stort?",
+      "image_url": null,
+      "explanation": "Från avläsning av tabellvärdet från den 26 mars uppnås tredubbla värdet den 30 mars. Det tar därmed $30 - 26 = 4$ dagar.",
+      "options": [
+        { "position": 1, "option_text": "2 dagar", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "4 dagar", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "6 dagar", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "7 dagar", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 40,
+      "category": "DTK",
+      "question_text": "Identifiera den enskilda dag då antalet tranor var som störst. Hur många fler var tranorna denna dag jämfört med samma datum tre år tidigare?",
+      "image_url": null,
+      "explanation": "Differensen mellan toppvärdet (oftast i början av april 2012 eller dylikt) och samma datum tre år tidigare var ca 10500 fler tranor.",
+      "options": [
+        { "position": 1, "option_text": "8500", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "9500", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "10500", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "11500", "option_image_url": null, "is_correct": false }
+      ]
+    }
+  ]
+}

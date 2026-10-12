@@ -1,0 +1,535 @@
+{
+  "exam": {
+    "year": 2026,
+    "semester": "VT",
+    "session": 1
+  },
+  "questions": [
+    {
+      "question_order": 1,
+      "category": "XYZ",
+      "question_text": "Vilket svarsalternativ motsvarar uttrycket $(x+3)(x-5)?$",
+      "image_url": null,
+      "explanation": "Utveckla fästet genom att multiplicera alla termer med varandra:\n$(x+3)(x-5) = x^2 - 5x + 3x - 15 = x^2 - 2x - 15$.",
+      "options": [
+        { "position": 1, "option_text": "$x^{2}-15$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$x^{2}-2$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$x^{2}-2x-15$", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "$x^{2}-2x-8$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 2,
+      "category": "XYZ",
+      "question_text": "$f(x)=\\frac{1}{5}x+\\frac{3}{5}$\nVilket svarsalternativ är lika med $f(\\frac{5}{3})?$",
+      "image_url": null,
+      "explanation": "Sätt in $x = \\frac{5}{3}$ i funktionens uttryck:\n$f\\left(\\frac{5}{3}\\right) = \\frac{1}{5}\\cdot \\frac{5}{3} + \\frac{3}{5} = \\frac{1}{3} + \\frac{3}{5} = \\frac{5}{15} + \\frac{9}{15} = \\frac{14}{15}$.",
+      "options": [
+        { "position": 1, "option_text": "$\\frac{3}{15}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\frac{1}{2}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$\\frac{14}{15}$", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "1", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 3,
+      "category": "XYZ",
+      "question_text": "Hur många trubbiga vinklar kan en triangel som mest ha?",
+      "image_url": null,
+      "explanation": "En trubbig vinkel är större än $90^\\circ$. Eftersom vinkelsumman i en triangel alltid är $180^\\circ$, skulle två trubbiga vinklar ge en summa som överstiger $180^\\circ$, vilket är omöjligt. Därför kan en triangel ha som mest 1 trubbig vinkel.",
+      "options": [
+        { "position": 1, "option_text": "0", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "1", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "2", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "3", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 4,
+      "category": "XYZ",
+      "question_text": "Varje månad sparar Nils $1/5$ av sin lön. Resten av lönen spenderar han.\nVad är kvoten mellan det Nils sparar och det han spenderar under en månad?",
+      "image_url": null,
+      "explanation": "Nils sparar $\\frac{1}{5}$ av sin lön och spenderar resten, vilket motsvarar $1 - \\frac{1}{5} = \\frac{4}{5}$. Kvoten mellan det han sparar och spenderar är $\\frac{1/5}{4/5} = \\frac{1}{4}$.",
+      "options": [
+        { "position": 1, "option_text": "$1/6$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$1/5$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$1/4$", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "$1/3$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 5,
+      "category": "XYZ",
+      "question_text": "$\\frac{8}{15}\\cdot x=\\frac{2}{3}$\nVilket värde har x?",
+      "image_url": null,
+      "explanation": "Lös ut $x$ genom att multiplicera med $15$ och dela med $8$:\n$x = \\frac{2}{3} \\cdot \\frac{15}{8} = \\frac{2 \\cdot 15}{3 \\cdot 8} = \\frac{30}{24} = \\frac{5}{4}$.",
+      "options": [
+        { "position": 1, "option_text": "$\\frac{45}{16}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\frac{5}{4}$", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "$\\frac{16}{45}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$\\frac{4}{5}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 6,
+      "category": "XYZ",
+      "question_text": "I en låda finns det tjugo bollar. Dessa är numrerade med heltalen 1-20. Siri plockar två bollar ur lådan utan att lägga tillbaka dem. Den ena bollen har nummer 11 och den andra bollen har nummer 18. Siri plockar slumpmässigt en tredje boll ur lådan. Hur stor är sannolikheten att numret på den tredje bollen är större än 11 och mindre än 18?",
+      "image_url": null,
+      "explanation": "Efter att 2 bollar plockats ur finns det $20 - 2 = 18$ bollar kvar i lådan. Tallen som är strikt större än 11 och mindre än 18 är 12, 13, 14, 15, 16 och 17 (totalt 6 tal). Sannolikheten är därför $\\frac{6}{18} = \\frac{1}{3}$.",
+      "options": [
+        { "position": 1, "option_text": "$\\frac{1}{3}$", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "$\\frac{2}{5}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$\\frac{4}{9}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$\\frac{3}{10}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 7,
+      "category": "XYZ",
+      "question_text": "Vad är tiotalssiffran i $44 \\cdot 625$?",
+      "image_url": null,
+      "explanation": "Beräkna produkten: $44 \\cdot 625 = 11 \\cdot 4 \\cdot 625 = 11 \\cdot 2500 = 27\\,500$. Tiotalssiffran i $27\\,500$ är 0.",
+      "options": [
+        { "position": 1, "option_text": "0", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "2", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "4", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "8", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 8,
+      "category": "XYZ",
+      "question_text": "$2^{3}\\cdot8^{2}=2^{x}$\nVilket värde har x?",
+      "image_url": null,
+      "explanation": "Skriv om $8$ med basen 2: $8 = 2^3$, vilket ger $8^2 = (2^3)^2 = 2^6$. Uttrycket blir $2^3 \\cdot 2^6 = 2^{3+6} = 2^9$. Alltså är $x = 9$.",
+      "options": [
+        { "position": 1, "option_text": "6", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "9", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "15", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "18", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 9,
+      "category": "XYZ",
+      "question_text": "Den räta linjen L ges av ekvationen $2y+x=2$.\nVilket svarsalternativ visar linjen L?",
+      "image_url": null,
+      "explanation": "Skriv om ekvationen på k-form: $2y = -x + 2 \\implies y = -0,5x + 1$. Linjen skär y-axeln i $y=1$ och x-axeln i $x=2$ (eftersom $0 = -0,5x + 1 \\implies x = 2$). Graf B visar en rät linje som skär y-axeln vid 1 och x-axeln vid 2.",
+      "options": [
+        { "position": 1, "option_text": "A", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "B", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "C", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "D", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 10,
+      "category": "XYZ",
+      "question_text": "Vad är 150% av 50% av 60?",
+      "image_url": null,
+      "explanation": "50% av 60 är 30. 150% av 30 beräknas som $1,5 \\cdot 30 = 45$.",
+      "options": [
+        { "position": 1, "option_text": "45", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "60", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "75", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "90", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 11,
+      "category": "XYZ",
+      "question_text": "En cylinder har volymen $16\\text{ cm}^{3}$ och höjden 1 cm. Vilket svarsalternativ ligger närmast cylinderns radie?",
+      "image_url": null,
+      "explanation": "Cylinderns volym ges av $V = \\pi r^2 h$. Vi har $16 = \\pi \\cdot r^2 \\cdot 1 \\implies r^2 = \\frac{16}{\\pi} \\approx \\frac{16}{3,1416} \\approx 5,093$. Därmed är radien $r = \\sqrt{\\frac{16}{\\pi}} \\approx 2,257\\text{ cm}$. Eftersom $\\sqrt{5} \\approx 2,236$, ligger $\\sqrt{5}\\text{ cm}$ närmast det beräknade värdet på radien.",
+      "options": [
+        { "position": 1, "option_text": "2 cm", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "4 cm", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "5 cm", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$\\sqrt{5}\\text{ cm}$", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 12,
+      "category": "XYZ",
+      "question_text": "Vilket svarsalternativ motsvarar $\\frac{2\\sqrt{3}}{3\\sqrt{2}}?$",
+      "image_url": null,
+      "explanation": "Sätt in alla koefficienter under rottecknet: $\\frac{2\\sqrt{3}}{3\\sqrt{2}} = \\frac{\\sqrt{4} \\cdot \\sqrt{3}}{\\sqrt{9} \\cdot \\sqrt{2}} = \\sqrt{\\frac{12}{18}} = \\sqrt{\\frac{2}{3}}$.",
+      "options": [
+        { "position": 1, "option_text": "1", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\frac{\\sqrt{3}}{6}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$\\sqrt{\\frac{2}{3}}$", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "$\\sqrt{\\frac{3}{2}}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 13,
+      "category": "KVA",
+      "question_text": "$x>4$\n\nKvantitet I: $\\frac{1}{x}$\nKvantitet II: $\\frac{1}{4}$",
+      "image_url": null,
+      "explanation": "När nämnaren ökar minskar bråkets värde för positiva tal. Eftersom $x > 4$ gäller att $\\frac{1}{x} < \\frac{1}{4}$. Därmed är Kvantitet II större än Kvantitet I.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": true, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 14,
+      "category": "KVA",
+      "question_text": "Triangeln ABC är rätvinklig vid C med kateterna $AC = 4\\text{ cm}$ och $BC = 2\\text{ cm}$.\n\nKvantitet I: Längden av hypotenusan i triangeln ABC\nKvantitet II: 5 cm",
+      "image_url": "/images/questions/q14.png",
+      "explanation": "Använd Pythagoras sats: $\\text{hypotenusan} = \\sqrt{2^2 + 4^2} = \\sqrt{4+16} = \\sqrt{20}$. Eftersom $5 = \\sqrt{25}$ och $\\sqrt{20} < \\sqrt{25}$, är Kvantitet II större än Kvantitet I.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 15,
+      "category": "KVA",
+      "question_text": "Jämför följande kvantiteter.\n\nKvantitet I: Ett femsiffrigt tal som skrivs med endast sexor och sjuor\nKvantitet II: Ett femsiffrigt tal som skrivs med endast sexor och åttor",
+      "image_url": null,
+      "explanation": "Talet i Kvantitet I kan t.ex. vara $77\\,777$ och talet i Kvantitet II kan vara $66\\,666$, vilket gör Kvantitet I större. Men talet i Kvantitet I kan också vara $66\\,666$ medan Kvantitet II är $88\\,888$, vilket gör Kvantitet II större. Eftersom det inte finns några ytterligare begränsningar är informationen otillräcklig.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 16,
+      "category": "KVA",
+      "question_text": "$x^{2}=4$\n\nKvantitet I: $(-2)^{x+2}$\nKvantitet II: $(-2)^{x+3}$",
+      "image_url": null,
+      "explanation": "$x^2 = 4 \\implies x = 2$ eller $x = -2$.\nOm $x = 2$: Kvantitet I är $(-2)^4 = 16$, Kvantitet II är $(-2)^5 = -32$. (I > II)\nOm $x = -2$: Kvantitet I är $(-2)^0 = 1$, Kvantitet II är $(-2)^1 = -2$. (I > II)\nI båda fallen ger Kvantitet I ett positivt tal och Kvantitet II ett negativt tal, så Kvantitet I är alltid större än Kvantitet II.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 17,
+      "category": "KVA",
+      "question_text": "$x>0$\n$y>0$\n\nKvantitet I: Medelvärdet av x och y\nKvantitet II: Medelvärdet av 2x och $\\frac{y}{2}$",
+      "image_url": null,
+      "explanation": "Kvantitet I: $\\frac{x+y}{2} = 0,5x + 0,5y$.\nKvantitet II: $\\frac{2x + y/2}{2} = x + 0,25y$.\nOm $x=1, y=1$: I = $1$, II = $1,25$ (II > I).\nOm $x=0,1, y=10$: I = $5,05$, II = $2,6$ (I > II).\nRelationen beror på vilka värden $x$ och $y$ antar, så informationen är otillräcklig.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 18,
+      "category": "KVA",
+      "question_text": "Jämför följande kvantiteter.\n\nKvantitet I: Summan av fyra olika ensiffriga jämna positiva heltal\nKvantitet II: Summan av tre olika ensiffriga udda positiva heltal",
+      "image_url": null,
+      "explanation": "Ensiffriga positiva jämna heltal är $2, 4, 6, 8$. Summan i Kvantitet I är alltid $2+4+6+8 = 20$.\nEnsiffriga positiva udda heltal är $1, 3, 5, 7, 9$. Summan av tre olika sådana tal kan vara t.ex. $1+3+5 = 9$ (mindre än 20) eller $5+7+9 = 21$ (större än 20). Eftersom Kvantitet II kan anta värden både över och under 20 är informationen otillräcklig.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 19,
+      "category": "KVA",
+      "question_text": "Jämför följande kvantiteter.\n\nKvantitet I: $\\frac{1}{3}-\\frac{1}{2}$\nKvantitet II: $\\frac{1}{2}\\cdot(-\\frac{1}{3})$",
+      "image_url": null,
+      "explanation": "Kvantitet I: $\\frac{1}{3} - \\frac{1}{2} = \\frac{2}{6} - \\frac{3}{6} = -\\frac{1}{6}$.\nKvantitet II: $\\frac{1}{2} \\cdot \\left(-\\frac{1}{3}\\right) = -\\frac{1}{6}$.\nKvantitet I är lika med Kvantitet II.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 20,
+      "category": "KVA",
+      "question_text": "Jämför följande kvantiteter.\n\nKvantitet I: Omkretsen av en cirkel med radien 5 cm\nKvantitet II: Omkretsen av en rektangel med sidlängderna 5,5 cm och 10 cm",
+      "image_url": null,
+      "explanation": "Kvantitet I: $O = 2\\pi r = 2 \\cdot \\pi \\cdot 5 = 10\\pi \\approx 31,42\\text{ cm}$.\nKvantitet II: $O = 2 \\cdot (5,5 + 10) = 31\\text{ cm}$.\nEftersom $10\\pi > 31$ är Kvantitet I större än Kvantitet II.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 21,
+      "category": "KVA",
+      "question_text": "$-1<x<0<y<1$\n\nKvantitet I: $\\frac{x}{y}$\nKvantitet II: $\\frac{y}{x}$",
+      "image_url": null,
+      "explanation": "Båda bråken blir negativa eftersom $x$ är negativt och $y$ är positivt.\nOm $x = -0,2$ och $y = 0,5$: I = $-0,4$, II = $-2,5$ (I > II).\nOm $x = -0,8$ och $y = 0,2$: I = $-4$, II = $-0,25$ (II > I).\nRelationen varierar beroende på värdena, så informationen är otillräcklig.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 22,
+      "category": "KVA",
+      "question_text": "För funktionen $f(x)=kx+m$ gäller att $m>0$ och att $f(a)=0$ för något $a > 0$.\n\nKvantitet I: $k$\nKvantitet II: 0",
+      "image_url": null,
+      "explanation": "$f(a) = ka + m = 0 \\implies ka = -m$. Eftersom $m > 0$ är $-m$ negativt. För att $ka$ ska vara negativt när $a > 0$ måste $k < 0$. Därmed är Kvantitet I negativ ($k < 0$), vilket gör Kvantitet II ($0$) större än Kvantitet I.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 23,
+      "category": "NOG",
+      "question_text": "Hur många klasskamrater har Vilgot?\n(1) Om Vilgot hade haft ytterligare tre klasskamrater, så skulle antalet elever i klassen vara jämnt delbart med 5.\n(2) Vilgot har ett udda antal klasskamrater.",
+      "image_url": null,
+      "explanation": "Låt $k$ vara antalet klasskamrater. Totalt antal elever i klassen är $k+1$.\n(1) Innebär att $(k+3)+1 = k+4$ är delbart med 5, vilket ger obegränsat många lösningar ($k \\in \\{1, 6, 11, 16, \\dots\\}$). Ej tillräckligt.\n(2) Innebär att $k$ är udda, vilket också ger oändligt många möjligheter. Ej tillräckligt.\nTillsammans: $k$ kan vara 1, 11, 21, 31... Det finns fortfarande fler än en möjlighet, så informationen är ej tillräcklig.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 24,
+      "category": "NOG",
+      "question_text": "Jenny, Lina och Susanne spelar varsitt instrument i ett band. En av dem spelar elbas, en spelar gitarr och en spelar trummor. Vem spelar vilket instrument?\n(1) Det är Jenny eller Lina som spelar elbas. Susanne spelar inte trummor.\n(2) Det är Susanne eller Lina som spelar gitarr. Jenny spelar inte trummor.",
+      "image_url": null,
+      "explanation": "Från (1): Om Jenny eller Lina spelar elbas och Susanne inte spelar trummor, måste Susanne spela gitarr. Men vi vet inte vem av Jenny och Lina som spelar elbas respektive trummor. Ej tillräckligt.\nFrån (2): Jenny spelar inte trummor och gitarren spelas av Susanne eller Lina. Ger flera möjligheter. Ej tillräckligt.\nTillsammans: Från (1) vet vi att Susanne spelar gitarr. Från (2) vet vi att Jenny inte spelar trummor (och hon spelar inte heller gitarr), så Jenny måste spela elbas. Lina måste därmed spela trummor. Alla tre instrument är unikt bestämda.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 25,
+      "category": "NOG",
+      "question_text": "Lindas kylskåp har tre hyllor. I kylskåpet finns det endast ett mjölkpaket, en ketchupflaska och ett salladshuvud. På vilken hylla finns mjölkpaketet?\n(1) Mjölkpaketet och ketchupflaskan finns på samma hylla. Salladshuvudet finns på den nedersta hyllan.\n(2) Den översta hyllan är tom. Salladshuvudet finns på hyllan under mjölkpaketet.",
+      "image_url": null,
+      "explanation": "(1) Mjölkpaketet och ketchupflaskan kan vara på översta hyllan eller mellersta hyllan. Ej tillräckligt.\n(2) Översta hyllan är tom, så alla föremål är på mellersta eller nedersta hyllan. Eftersom salladshuvudet är på hyllan under mjölkpaketet MÅSTE mjölkpaketet stå på mellersta hyllan och salladshuvudet på nedersta. Detta svarar entydigt på frågan.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 26,
+      "category": "NOG",
+      "question_text": "En grupp består av x personer, där $20<x<60$ Vilket värde har x?\n(1) Gruppen kan delas in i mindre grupper med sju personer i varje grupp.\n(2) Om gruppen delas in i mindre grupper med fem personer i varje grupp, så blir det fyra personer över.",
+      "image_url": null,
+      "explanation": "(1) $x$ kan vara $21, 28, 35, 42, 49, 56$. Ej tillräckligt.\n(2) $x$ ger resten 4 vid division med 5 ($24, 29, 34, 39, 44, 49, 54, 59$). Ej tillräckligt.\nTillsammans: Det enda talet i lista (1) som ger resten 4 vid division med 5 är $49$. Värdet på $x$ är alltså unikt bestämt till 49.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 27,
+      "category": "NOG",
+      "question_text": "Hur stor area har den rätvinkliga triangeln ABC?\n(1) I triangeln ABC är hypotenusan 4 cm, och den kortare kateten är 2 cm.\n(2) I triangeln ABC är hypotenusan 4 cm, och vinkeln mellan hypotenusan och den kortare kateten är $60^{\\circ}$.",
+      "image_url": null,
+      "explanation": "(1) Den andra kateten ges av $\\sqrt{4^2 - 2^2} = \\sqrt{12} = 2\\sqrt{3}\\text{ cm}$. Arean beräknas som $\\frac{2 \\cdot 2\\sqrt{3}}{2} = 2\\sqrt{3}\\text{ cm}^2$. Tillräckligt.\n(2) Den kortare kateten blir $4 \\cos(60^\\circ) = 2\\text{ cm}$ och den längre kateten $4 \\sin(60^\\circ) = 2\\sqrt{3}\\text{ cm}$. Arean blir entydigt $2\\sqrt{3}\\text{ cm}^2$. Tillräckligt.\nBåda påståendena ger tillräcklig information var för sig.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": true },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 28,
+      "category": "NOG",
+      "question_text": "En affär säljer madrasser: hårda och mjuka. Var och en av madrasserna är 90 cm bred eller 120 cm bred. Affären har 35 madrasser. Hur många av madrasserna är mjuka?\n(1) Tjugo av madrasserna är 90 cm breda, och hälften av dessa är mjuka.\n(2) Av de hårda madrasserna är tio stycken 90 cm breda och sex stycken 120 cm breda.",
+      "image_url": null,
+      "explanation": "(1) Ger att 10 av de 90 cm breda är mjuka, men ger ingen information om hur många av de 15 med 120 cm bredd som är mjuka. Ej tillräckligt.\n(2) Ger att totalt antal hårda madrasser är $10 + 6 = 16$. Eftersom det totalt finns 35 madrasser är antalet mjuka madrasser $35 - 16 = 19$. Detta ger ett entydigt svar.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 29,
+      "category": "DTK",
+      "question_text": "Hur mycket mer tid per vecka lade kvinnor på Diskning, avdukning 1990 jämfört med 2010?",
+      "image_url": "/images/questions/q29_diagram.png",
+      "explanation": "I diagrammet lade kvinnor ca 24 minuter per dag på diskning/avdukning år 1990 och ca 16 minuter per dag år 2010. Skillnaden per dag är ca 8–8,5 minuter. Multiplicerat med 7 dagar blir detta $8,5 \\cdot 7 \\approx 60\\text{ minuter}$ per vecka.",
+      "options": [
+        { "position": 1, "option_text": "45 minuter", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "60 minuter", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "90 minuter", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "105 minuter", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 30,
+      "category": "DTK",
+      "question_text": "Vilket av svarsförslagen motsvarar 3 timmar och 30 minuter i veckan?",
+      "image_url": "/images/questions/q29_diagram.png",
+      "explanation": "3 timmar och 30 minuter per vecka är 210 minuter per vecka, vilket motsvarar $\\frac{210}{7} = 30\\text{ minuter}$ per dag. I diagrammet motsvarar 30 minuter per dag precis den tid kvinnor lade på inköp av varor och tjänster år 2000.",
+      "options": [
+        { "position": 1, "option_text": "Den tid kvinnor lade på Underhållsarbete år 1990", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Den tid män lade på Omsorg om egna barn år 1990", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Den tid kvinnor lade på Inköp av varor och tjänster år 2000", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "Den tid män lade på Resor i samband med hemarbete år 2000", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 31,
+      "category": "DTK",
+      "question_text": "Jämför den tid kvinnor lade på respektive hemarbetsaktivitet de olika åren. För vilken aktivitet hade tiden minskat mest 2010 jämfört med 1990, procentuellt sett?",
+      "image_url": "/images/questions/q29_diagram.png",
+      "explanation": "För tvätt och strykning minskade tiden för kvinnor från ca 22 minuter per dag (1990) till ca 13 minuter per dag (2010). Det innebär en minskning med drygt $40\\%$, vilket är den största procentuella minskningen bland alternativen.",
+      "options": [
+        { "position": 1, "option_text": "Matlagning", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Städning av bostaden", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Tvätt, strykning", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "Omsorg om egna barn", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 32,
+      "category": "DTK",
+      "question_text": "Hur lång var medelvårdtiden vid S:t Eriks sjukhus jämfört med medelvårdtiden vid Skånes universitetssjukhus?",
+      "image_url": "/images/questions/q32.png",
+      "explanation": "S:t Eriks sjukhus hade en medelvårdtid på 2,17 dagar. Skånes universitetssjukhus hade en medelvårdtid på 6,71 dagar. Kvoten $\\frac{2,17}{6,71} \\approx 0,323$, vilket är ungefär en tredjedel.",
+      "options": [
+        { "position": 1, "option_text": "En tredjedel så lång", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Hälften så lång", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Dubbelt så lång", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Tre gånger så lång", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 33,
+      "category": "DTK",
+      "question_text": "Identifiera det sjukhus där patienterna hade den högsta medelåldern och det sjukhus där de hade den lägsta medelåldern. Hur stor var skillnaden i medelålder mellan dessa två sjukhus?",
+      "image_url": "/images/questions/q32.png",
+      "explanation": "Högst medelålder hade Sala lasarett (80 år). Lägst medelålder hade Sophiahemmet (37 år). Skillnaden mellan dem var $80 - 37 = 43\\text{ år}$.",
+      "options": [
+        { "position": 1, "option_text": "37 år", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "40 år", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "43 år", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "45 år", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 34,
+      "category": "DTK",
+      "question_text": "Hur många var vårddagarna sammanlagt vid Kiruna sjukhus?",
+      "image_url": "/images/questions/q32.png",
+      "explanation": "Totalt antal vårddagar erhålls genom att multiplicera antalet vårdtillfällen med medelvårdtiden: $1\\,725 \\cdot 5,72 = 9\\,867 \\approx 9\\,900$.",
+      "options": [
+        { "position": 1, "option_text": "7 200", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "8 500", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "9 900", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "10 500", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 35,
+      "category": "DTK",
+      "question_text": "Vilka väderstreck beskriver bäst riktningen mellan de två undersökta, ej utbyggda uttagsplatserna vid Kåseberga och Ö Vemmerlöv?",
+      "image_url": null,
+      "explanation": "Ö Vemmerlöv ligger i nordnordost i förhållande till Kåseberga, och Kåseberga ligger i sydsydväst i förhållande till Ö Vemmerlöv. Riktningen beskrivs därför som NNO-SSV.",
+      "options": [
+        { "position": 1, "option_text": "NNO-SSV", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "NNO-VSV", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "ONO-SSV", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "ONO-VSV", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 36,
+      "category": "DTK",
+      "question_text": "Hur lång är den tilltänkta huvudvattenledningen från Hörupsåsen som startar vid det befintliga vattenverket i Löderup, går vidare till det befintliga vattenverket i Borrby, och sedan fortsätter via Skillinge till Ingelstorp?",
+      "image_url": null,
+      "explanation": "Mät den tilltänkta vattenledningen (den streckade linjen) mot kartans skalstock (10 km). Sträckan Löderup–Borrby är ca 5 km, Borrby–Skillinge ca 8 km, och Skillinge–Ingelstorp ca 20 km, vilket ger en total sträcka på omkring 33 km.",
+      "options": [
+        { "position": 1, "option_text": "22 km", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "33 km", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "44 km", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "55 km", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 37,
+      "category": "DTK",
+      "question_text": "De befintliga vattenverken vid Nybro, Borrby och Bollerup utgör hörnen i ett triangelformat område. Hur stor area har detta område?",
+      "image_url": null,
+      "explanation": "Basen mellan Nybro och Borrby är enligt kartskalan ca 12 km. Höjden från baslinjen upp till Bollerup är ca 6,5–7 km. Triangelns area är $\\frac{12 \\cdot 6,7}{2} \\approx 40\\text{ km}^2$.",
+      "options": [
+        { "position": 1, "option_text": "$20~km^{2}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$40~km^{2}$", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "$60~km^{2}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$80~km^{2}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 38,
+      "category": "DTK",
+      "question_text": "Vilket svarsförslag redovisar den procentuella fördelningen av medlemmar och icke medlemmar i Svenska kyrkan bland 63-åringar?",
+      "image_url": "/images/questions/q38.png",
+      "explanation": "Vid 63 års ålder var det totala antalet individer i befolkningen ca 115 000 och antalet medlemmar i Svenska kyrkan ca 75 000. Andelen medlemmar utgör därmed ca $\\frac{75\\,000}{115\\,000} \\approx 65\\%$ och icke-medlemmar ca $35\\%$. Cirkeldiagram B visar denna fördelning.",
+      "options": [
+        { "position": 1, "option_text": "A", "option_image_url": "/images/questions/answer38_a.png", "is_correct": false },
+        { "position": 2, "option_text": "B", "option_image_url": "/images/questions/answer38_b.png", "is_correct": true },
+        { "position": 3, "option_text": "C", "option_image_url": "/images/questions/answer38_c.png", "is_correct": false },
+        { "position": 4, "option_text": "D", "option_image_url": "/images/questions/answer38_d.png", "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 39,
+      "category": "DTK",
+      "question_text": "I vilken av följande åldrar var antalet individer 110 000-120 000 och antalet medlemmar i Svenska kyrkan större än 80 000?",
+      "image_url": "/images/questions/q38.png",
+      "explanation": "Vid 69 års ålder låg befolkningen i intervallet 110 000–120 000 (ca 118 000) och antalet medlemmar var större än 80 000 (ca 85 000).",
+      "options": [
+        { "position": 1, "option_text": "9 år", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "24 år", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "42 år", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "69 år", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 40,
+      "category": "DTK",
+      "question_text": "Jämför 39-åringar med 18-åringar med avseende på antalet individer som inte var medlemmar i Svenska kyrkan. Hur stor var skillnaden?",
+      "image_url": "/images/questions/q38.png",
+      "explanation": "Antal icke-medlemmar vid 18 år var ca $106\\,000 - 67\\,000 = 39\\,000$.\nAntal icke-medlemmar vid 39 år var ca $128\\,000 - 64\\,000 = 64\\,000$.\nSkillnaden var $64\\,000 - 39\\,000 = 25\\,000$.",
+      "options": [
+        { "position": 1, "option_text": "5 000", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "15 000", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "25 000", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "35 000", "option_image_url": null, "is_correct": false }
+      ]
+    }
+  ]
+}
