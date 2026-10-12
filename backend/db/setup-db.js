@@ -1,7 +1,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const pool = require('./connectionMysql');
+const pool = require('../config/connectionMysql');
 
 async function runSchema() {
   try {

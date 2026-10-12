@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const pool = require('./connectionMysql'); 
+const pool = require('../config/connectionMysql'); 
 
 async function importExamFiles() {
   const jsonDir = path.join(__dirname, 'data', 'exams'); 
