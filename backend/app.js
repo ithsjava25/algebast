@@ -20,6 +20,6 @@ app.use(bookRoutes);
 app.use(categoryRoutes);
 
 app.use("/api/exams", require("./routes/exams"));
-app.use("/api/questions", require("./routes/questions"));
+app.use("/api/questions", require("./routes/questions.js"));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
