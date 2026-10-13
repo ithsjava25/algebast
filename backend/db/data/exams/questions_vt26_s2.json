@@ -48,7 +48,7 @@
       "question_order": 4,
       "category": "XYZ",
       "question_text": "Vilket svarsalternativ är en ekvation för den räta linjen i figuren?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q4.png",
       "explanation": "Linjen skär y-axeln i $-2$ och har en lutning (k-värde) på $\\frac{3}{2}$, vilket ger ekvationen $y = \\frac{3}{2}x - 2$[cite: 28].",
       "options": [
         { "position": 1, "option_text": "$y=\\frac{2}{3}x-2$", "option_image_url": null, "is_correct": false },
@@ -74,7 +74,7 @@
       "question_order": 6,
       "category": "XYZ",
       "question_text": "Linjerna $L_{1}$ och $L_{2}$ är parallella. Hur stor är vinkeln $v$?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q6.png",
       "explanation": "Genom att använda geometriska vinkelregler för parallella linjer bestäms vinkeln till $71^\\circ$[cite: 29].",
       "options": [
         { "position": 1, "option_text": "$53^{\\circ}$", "option_image_url": null, "is_correct": false },
@@ -126,7 +126,7 @@
       "question_order": 10,
       "category": "XYZ",
       "question_text": "Fyrhörningen ABDF är en kvadrat. Hur stor är arean av triangeln ACE?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q10.png",
       "explanation": "Kvadratens area minus de tre yttre rätvinkliga trianglarna ger triangelns area till $4,5\\text{ cm}^2$[cite: 31].",
       "options": [
         { "position": 1, "option_text": "$3,5~cm^{2}$", "option_image_url": null, "is_correct": false },
@@ -191,7 +191,7 @@
       "question_order": 15,
       "category": "KVA",
       "question_text": "Per kör vägen A-B-C-D... Mellan A och B är medelhastigheten $70\\text{ km/h}$, B-C $90\\text{ km/h}$ och C-D $70\\text{ km/h}$ (sträckor 30, 60, 40 km).\n\nKvantitet I: Tiden det tar för Per att köra från A till D\nKvantitet II: 2 timmar",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q15.png",
       "explanation": "Summera tiderna ($t = s/v$): $\\frac{30}{70} + \\frac{60}{90} + \\frac{40}{70} = \\frac{70}{70} + \\frac{2}{3} = 1 + \\frac{2}{3} = 1\\frac{2}{3}$ timmar, vilket är mindre än 2 timmar[cite: 34].",
       "options": [
         { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
@@ -230,7 +230,7 @@
       "question_order": 18,
       "category": "KVA",
       "question_text": "Triangel med vinklar x, y, z ($z \\ne 90^{\\circ}$).\n\nKvantitet I: x\nKvantitet II: $90^{\\circ}-y$",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q18.png",
       "explanation": "Vinkelsumman i triangeln är $x + y + z = 180^\\circ \\implies x + y = 180^\\circ - z \\implies x = 180^\\circ - y - z$. Jämförelsen beror på z[cite: 35].",
       "options": [
         { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
@@ -379,7 +379,7 @@
       "question_order": 29,
       "category": "DTK",
       "question_text": "Hur många av medlemmarna i SBR besvarade enkäten 2005?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q29.png",
       "explanation": "År 2005 var antalet medlemmar 10 330 och andelen som svarade var 45 %. $10330 \\cdot 0,45 = 4648,5 \\approx 4650$[cite: 41, 42].",
       "options": [
         { "position": 1, "option_text": "4460", "option_image_url": null, "is_correct": false },
@@ -392,7 +392,7 @@
       "question_order": 30,
       "category": "DTK",
       "question_text": "Hur stora var de vinterförluster av bisamhällen som redovisades 2010?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q29.png",
       "explanation": "År 2010 var totala invintrade 31 667 och vinterförlusterna 7 850, vilket motsvarar ungefär 25 procent[cite: 41, 42].",
       "options": [
         { "position": 1, "option_text": "10 procent", "option_image_url": null, "is_correct": false },
@@ -405,7 +405,7 @@
       "question_order": 31,
       "category": "DTK",
       "question_text": "Hur stor var den beräknade skörden av honung per medlem i SBR 2016?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q29.png",
       "explanation": "Beräknad total skörd 2016 var 2 294 000 kg och antalet medlemmar 12 026. $\\frac{2294000}{12026} \\approx 191\\text{ kg}$[cite: 41, 42].",
       "options": [
         { "position": 1, "option_text": "52 kg", "option_image_url": null, "is_correct": false },
@@ -418,7 +418,7 @@
       "question_order": 32,
       "category": "DTK",
       "question_text": "Vilket svarsförslag beskriver bäst hur det såg ut i Sverige vad avser sysselsättningsgraden i förhållande till examenstyp?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q32.png",
       "explanation": "Av diagrammet framgår att sysselsättningsgraden varierade stort beroende på examenstyp i Sverige[cite: 43, 44].",
       "options": [
         { "position": 1, "option_text": "Sysselsättningsgraden var låg oavsett examenstyp.", "option_image_url": null, "is_correct": false },
@@ -431,7 +431,7 @@
       "question_order": 33,
       "category": "DTK",
       "question_text": "Vilket var förhållandet mellan Tyskland och Italien vad gäller sysselsättningsgraden för de med examen från yrkesutbildningar?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q32.png",
       "explanation": "Avläsning av värdena för Tyskland och Italien visar förhållandet 5:2[cite: 43, 44].",
       "options": [
         { "position": 1, "option_text": "3:1", "option_image_url": null, "is_correct": false },
@@ -444,7 +444,7 @@
       "question_order": 34,
       "category": "DTK",
       "question_text": "För hur många av länderna redovisas att sysselsättningsgraden för de med examen från studieförberedande utbildningar var lägre än genomsnittet i EU-28?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q32.png",
       "explanation": "Räkning i diagrammet visar att detta gäller för 8 länder[cite: 43, 44].",
       "options": [
         { "position": 1, "option_text": "7", "option_image_url": null, "is_correct": false },
@@ -457,7 +457,7 @@
       "question_order": 35,
       "category": "DTK",
       "question_text": "Hur stor andel av Folkspels nettoomsättning 2016 kom från kvartal 4?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q32.png",
       "explanation": "Summering av Folkspels omsättning per kvartal 2016 visar att kvartal 4 stod för en betydande andel, ca 45 procent[cite: 45, 46].",
       "options": [
         { "position": 1, "option_text": "45 procent", "option_image_url": null, "is_correct": true },
@@ -470,7 +470,7 @@
       "question_order": 36,
       "category": "DTK",
       "question_text": "Hur mycket mer omsatte Svenska Postkodföreningen under kvartal 1 år 2017 än under kvartal 4 år 2016?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q32.png",
       "explanation": "Avläsning av staplarna visar en differens på 100 miljoner kronor[cite: 45, 46].",
       "options": [
         { "position": 1, "option_text": "100 miljoner kronor", "option_image_url": null, "is_correct": true },
@@ -483,7 +483,7 @@
       "question_order": 37,
       "category": "DTK",
       "question_text": "Den reglerade svenska spelmarknadens nettoomsättning 2017 var 17,2 miljarder kronor. Hur stor andel av detta stod de redovisade rikslotterierna för?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q32.png",
       "explanation": "Beräkning av total summa för rikslotterierna 2017 i förhållande till 17,2 miljarder ger ca 20 procent[cite: 45, 46].",
       "options": [
         { "position": 1, "option_text": "5 procent", "option_image_url": null, "is_correct": false },
@@ -496,7 +496,7 @@
       "question_order": 38,
       "category": "DTK",
       "question_text": "Med hur många procent hade antalet barn i hushåll med ekonomiskt bistånd minskat 2002 jämfört med 1997?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q38.png",
       "explanation": "Avläsning av kurvan för totalt antal barn visar en minskning med ca 50 procent från 1997 till 2002[cite: 47, 48].",
       "options": [
         { "position": 1, "option_text": "40 procent", "option_image_url": null, "is_correct": false },
@@ -509,7 +509,7 @@
       "question_order": 39,
       "category": "DTK",
       "question_text": "Identifiera det totala antalet hushåll med barn som fick ekonomiskt bistånd 2010. Hur många barn fanns i genomsnitt i dessa hushåll?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q38.png",
       "explanation": "Jämförelse mellan totalt antal barn och hushåll med barn ger ett genomsnitt på 2 barn per hushåll[cite: 47, 48].",
       "options": [
         { "position": 1, "option_text": "1 barn", "option_image_url": null, "is_correct": false },
@@ -522,7 +522,7 @@
       "question_order": 40,
       "category": "DTK",
       "question_text": "Hur stort var antalet hushåll med ekonomiskt bistånd det år detta antal var som störst?",
-      "image_url": null,
+      "image_url": "/images/questions/vt26-s2-q38.png",
       "explanation": "Toppnoteringen i diagrammet för hushåll med ekonomiskt bistånd inträffade under mitten av 90-talet på ca 145 000 hushåll[cite: 47, 48].",
       "options": [
         { "position": 1, "option_text": "145 000", "option_image_url": null, "is_correct": true },

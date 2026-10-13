@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS hp_questions;
-USE hp_questions;
+CREATE DATABASE IF NOT EXISTS algeBest-db;
+USE algeBest-db;
 
 CREATE TABLE exam (
   id        INT AUTO_INCREMENT PRIMARY KEY,

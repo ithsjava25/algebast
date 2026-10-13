@@ -116,10 +116,10 @@
       "image_url": null,
       "explanation": "Skriv om ekvationen på k-form: $2y = -x + 2 \\implies y = -0,5x + 1$. Linjen skär y-axeln i $y=1$ och x-axeln i $x=2$ (eftersom $0 = -0,5x + 1 \\implies x = 2$). Graf B visar en rät linje som skär y-axeln vid 1 och x-axeln vid 2.",
       "options": [
-        { "position": 1, "option_text": "A", "option_image_url": null, "is_correct": false },
-        { "position": 2, "option_text": "B", "option_image_url": null, "is_correct": true },
-        { "position": 3, "option_text": "C", "option_image_url": null, "is_correct": false },
-        { "position": 4, "option_text": "D", "option_image_url": null, "is_correct": false }
+        { "position": 1, "option_text": "A", "option_image_url": "/images/questions/ht26-q9A.png", "is_correct": false },
+        { "position": 2, "option_text": "B", "option_image_url": "/images/questions/ht26-q9B.png", "is_correct": true },
+        { "position": 3, "option_text": "C", "option_image_url": "/images/questions/ht26-q9C.png", "is_correct": false },
+        { "position": 4, "option_text": "D", "option_image_url": "/images/questions/ht26-q9D.png", "is_correct": false }
       ]
     },
     {
@@ -457,7 +457,7 @@
       "question_order": 35,
       "category": "DTK",
       "question_text": "Vilka väderstreck beskriver bäst riktningen mellan de två undersökta, ej utbyggda uttagsplatserna vid Kåseberga och Ö Vemmerlöv?",
-      "image_url": null,
+      "image_url": "/images/questions/q35.png",
       "explanation": "Ö Vemmerlöv ligger i nordnordost i förhållande till Kåseberga, och Kåseberga ligger i sydsydväst i förhållande till Ö Vemmerlöv. Riktningen beskrivs därför som NNO-SSV.",
       "options": [
         { "position": 1, "option_text": "NNO-SSV", "option_image_url": null, "is_correct": true },
@@ -470,7 +470,7 @@
       "question_order": 36,
       "category": "DTK",
       "question_text": "Hur lång är den tilltänkta huvudvattenledningen från Hörupsåsen som startar vid det befintliga vattenverket i Löderup, går vidare till det befintliga vattenverket i Borrby, och sedan fortsätter via Skillinge till Ingelstorp?",
-      "image_url": null,
+      "image_url": "/images/questions/q35.png",
       "explanation": "Mät den tilltänkta vattenledningen (den streckade linjen) mot kartans skalstock (10 km). Sträckan Löderup–Borrby är ca 5 km, Borrby–Skillinge ca 8 km, och Skillinge–Ingelstorp ca 20 km, vilket ger en total sträcka på omkring 33 km.",
       "options": [
         { "position": 1, "option_text": "22 km", "option_image_url": null, "is_correct": false },
@@ -483,7 +483,7 @@
       "question_order": 37,
       "category": "DTK",
       "question_text": "De befintliga vattenverken vid Nybro, Borrby och Bollerup utgör hörnen i ett triangelformat område. Hur stor area har detta område?",
-      "image_url": null,
+      "image_url": "/images/questions/q35.png",
       "explanation": "Basen mellan Nybro och Borrby är enligt kartskalan ca 12 km. Höjden från baslinjen upp till Bollerup är ca 6,5–7 km. Triangelns area är $\\frac{12 \\cdot 6,7}{2} \\approx 40\\text{ km}^2$.",
       "options": [
         { "position": 1, "option_text": "$20~km^{2}$", "option_image_url": null, "is_correct": false },

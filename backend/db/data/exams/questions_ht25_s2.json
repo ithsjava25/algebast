@@ -61,7 +61,7 @@
       "question_order": 5,
       "category": "XYZ",
       "question_text": "För rektangeln ABCD gäller att $AB=5$ cm och $BC=7$ cm. Hur lång är sträckan PQ?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q5.png",
       "explanation": "Genom att tillämpa Pythagoras sats på motsvarande rätvinkliga trianglar i figuren beräknas sträckan PQ till $\\sqrt{34}$ cm[cite: 6].",
       "options": [
         { "position": 1, "option_text": "$\\sqrt{26}$ cm", "option_image_url": null, "is_correct": false },
@@ -100,13 +100,13 @@
       "question_order": 8,
       "category": "XYZ",
       "question_text": "Vilket svarsalternativ visar grafen till funktionen h, där $h(x)=f(x)+g(x)?$",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q8.png",
       "explanation": "Genom att addera funktionsvärdena för $f(x)$ och $g(x)$ punktvis erhålls rätt graf[cite: 7].",
       "options": [
-        { "position": 1, "option_text": "A", "option_image_url": null, "is_correct": false },
-        { "position": 2, "option_text": "B", "option_image_url": null, "is_correct": true },
-        { "position": 3, "option_text": "C", "option_image_url": null, "is_correct": false },
-        { "position": 4, "option_text": "D", "option_image_url": null, "is_correct": false }
+        { "position": 1, "option_text": "A", "option_image_url": "/images/questions/ht25-s2-q8-A.png", "is_correct": false },
+        { "position": 2, "option_text": "B", "option_image_url": "/images/questions/ht25-s2-q8-B.png", "is_correct": true },
+        { "position": 3, "option_text": "C", "option_image_url": "/images/questions/ht25-s2-q8-C.png", "is_correct": false },
+        { "position": 4, "option_text": "D", "option_image_url": "/images/questions/ht25-s2-q8-D.png", "is_correct": false }
       ]
     },
     {
@@ -126,7 +126,7 @@
       "question_order": 10,
       "category": "XYZ",
       "question_text": "En figur är konstruerad av sträckor och cirkelbågar. Cirkelbågarna är kvartscirklar. Vilken omkrets har figuren?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q10.png",
       "explanation": "Summering av de raka sträckorna och de fyra kvartscirklarna (som tillsammans bildar en hel cirkel) ger formeln i alternativ B[cite: 8].",
       "options": [
         { "position": 1, "option_text": "$(3+\\pi)2x$", "option_image_url": null, "is_correct": false },
@@ -204,7 +204,7 @@
       "question_order": 16,
       "category": "KVA",
       "question_text": "$L_{1}:y=a_{1}x+2$\n$L_{2}:y=a_{2}x+2$\n\nKvantitet I: $a_{1}$\nKvantitet II: $a_{2}$",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q16.png",
       "explanation": "Utifrån linjernas lutning i det medföljande diagrammet har $L_1$ en flackare eller negativ lutning jämfört med $L_2$[cite: 11].",
       "options": [
         { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
@@ -230,7 +230,7 @@
       "question_order": 18,
       "category": "KVA",
       "question_text": "Fyrhörningen ABCE är en rektangel. Arean av triangeln ADE är $x\\text{ cm}^2$, arean av triangeln BCD är $y\\text{ cm}^2$ och arean av triangeln ABD är $z\\text{ cm}^2$.\n\nKvantitet I: $\\frac{x+y}{z}$\nKvantitet II: 1",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q18.png",
       "explanation": "Summan av trianglarnas areor i rektangeln visar att $x+y$ är lika med arean $z$. Kvoten blir därmed 1[cite: 12].",
       "options": [
         { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
@@ -323,7 +323,7 @@
       "question_order": 25,
       "category": "NOG",
       "question_text": "Är linjerna $L_{1}$ och $L_{2}$ parallella?\n(1) $u+v+w=180^{\\circ}$\n(2) $v=w$",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q25.png",
       "explanation": "Geometrisk analys med hjälp av vinkelrelationer visar om linjerna är parallella[cite: 16].",
       "options": [
         { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
@@ -379,7 +379,7 @@
       "question_order": 29,
       "category": "DTK",
       "question_text": "År 2013 var det totala värdet av Sveriges import 1040 miljarder kronor. Hur stor andel av detta värde avsåg den varugrupp som hade det största importvärdet?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q29.png",
       "explanation": "Största importvärdet var \"Övriga varor\" på 152 miljarder kr. Andelen av 1040 miljarder kr blir ca 15 procent[cite: 18, 19].",
       "options": [
         { "position": 1, "option_text": "5 procent", "option_image_url": null, "is_correct": false },
@@ -392,7 +392,7 @@
       "question_order": 30,
       "category": "DTK",
       "question_text": "Hur mycket större var importvärdet än exportvärdet för de tre varugrupperna Mineraliska bränslen, Järn och metall samt Malm, metallskrot?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q29.png",
       "explanation": "Summering av import minus export för de tre grupperna ger skillnaden 38 miljarder kr[cite: 18, 19].",
       "options": [
         { "position": 1, "option_text": "23 miljarder kr", "option_image_url": null, "is_correct": false },
@@ -405,7 +405,7 @@
       "question_order": 31,
       "category": "DTK",
       "question_text": "För vilken av följande varugrupper var exportvärdet 60 procent av importvärdet?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q29.png",
       "explanation": "Avläsning i diagrammet visar att detta stämmer för gruppen Livsmedel (export 62, import 105)[cite: 18, 19].",
       "options": [
         { "position": 1, "option_text": "Elektrovaror, datorer", "option_image_url": null, "is_correct": false },
@@ -418,7 +418,7 @@
       "question_order": 32,
       "category": "DTK",
       "question_text": "Hur stor var skillnaden i det totala antalet biografer i Norden om man jämför periodens första och sista år?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q32.png",
       "explanation": "Totala antalet biografer år 2010 minus antalet år 2016 ger skillnaden 71 (närmast 75)[cite: 20, 21].",
       "options": [
         { "position": 1, "option_text": "75", "option_image_url": null, "is_correct": true },
@@ -431,7 +431,7 @@
       "question_order": 33,
       "category": "DTK",
       "question_text": "Identifiera det år då antalet biografer i Sverige var som störst. Hur många platser fanns i genomsnitt per biograf i Sverige detta år?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q32.png",
       "explanation": "År 2010 var antalet biografer störst (489). Genomsnittligt antal platser per biograf beräknas till 266[cite: 20, 21].",
       "options": [
         { "position": 1, "option_text": "156", "option_image_url": null, "is_correct": false },
@@ -444,7 +444,7 @@
       "question_order": 34,
       "category": "DTK",
       "question_text": "Från vilken av följande orter går både normalspårig järnväg och smalspårig järnväg som i första hand bör breddas?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q34.png",
       "explanation": "Kartstudier visar att Lidköping uppfyller detta villkor[cite: 22, 23].",
       "options": [
         { "position": 1, "option_text": "Lidköping", "option_image_url": null, "is_correct": true },
@@ -457,7 +457,7 @@
       "question_order": 35,
       "category": "DTK",
       "question_text": "Du startar i Falköping och åker normalspårig järnväg i västsydvästlig riktning i 30 km. Därefter åker du vidare på normalspårig järnväg i nordlig och därefter västnordvästlig riktning i sammanlagt 40 km. I vilken ort slutar vägbeskrivningen?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q34.png",
       "explanation": "Följer man rutten på kartan hamnar man i Grästorp[cite: 22, 23].",
       "options": [
         { "position": 1, "option_text": "Vänersborg", "option_image_url": null, "is_correct": false },
@@ -470,7 +470,7 @@
       "question_order": 36,
       "category": "DTK",
       "question_text": "En smalspårig järnväg mellan Trollhättan och Nossebro är föreslagen att nedläggas. Hur mycket längre blir den kortaste resvägen mellan dessa två orter om de järnvägar som är föreslagna att nedläggas försvinner?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q34.png",
       "explanation": "Beräkning av omvägen via kvarvarande järnvägar ger 35 km[cite: 22, 23].",
       "options": [
         { "position": 1, "option_text": "35 km", "option_image_url": null, "is_correct": true },
@@ -483,7 +483,7 @@
       "question_order": 37,
       "category": "DTK",
       "question_text": "Hur stor area har det område som avgränsas av järnvägssträckorna Stenstorp-Svensbro-Tidaholm-Vartofta-Falköping-Stenstorp?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q34.png",
       "explanation": "Genom att mäta mot kartans skalstock uppskattas arean till $290\\text{ km}^2$[cite: 22, 23].",
       "options": [
         { "position": 1, "option_text": "$290~km^{2}$", "option_image_url": null, "is_correct": true },
@@ -496,7 +496,7 @@
       "question_order": 38,
       "category": "DTK",
       "question_text": "Studera hur produktionsvärdet för frilandsodlad matlök och isbergssallat förändrades från 2014 till 2015. Vilket svarsförslag beskriver förändringen korrekt?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q38.png",
       "explanation": "Av diagrammet för frilandsodlade grödor framgår att matlöken minskade och isbergssallaten ökade[cite: 24, 25].",
       "options": [
         { "position": 1, "option_text": "Minskning / Minskning", "option_image_url": null, "is_correct": false },
@@ -509,7 +509,7 @@
       "question_order": 39,
       "category": "DTK",
       "question_text": "Vilken kategori stod för den största andelen av produktionsvärdet för växthusodlade grödor 2014?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q38.png",
       "explanation": "Gurka stod för den största enskilda andelen inom växthusodling 2014[cite: 24, 25].",
       "options": [
         { "position": 1, "option_text": "Gurka", "option_image_url": null, "is_correct": true },
@@ -522,7 +522,7 @@
       "question_order": 40,
       "category": "DTK",
       "question_text": "Vilket svarsförslag anger förhållandet mellan frilandsodlade och växthusodlade grödor vad avser produktionsvärdet 2009?",
-      "image_url": null,
+      "image_url": "/images/questions/ht25-s2-q38.png",
       "explanation": "Avläsning av kurvorna för 2009 visar ett förhållande på ungefär 2:1 mellan frilandsodlade och växthusodlade grödor[cite: 24, 25].",
       "options": [
         { "position": 1, "option_text": "1:2", "option_image_url": null, "is_correct": false },
