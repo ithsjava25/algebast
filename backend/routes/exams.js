@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("../db"); // Import the database connection pool (placeholder)
+const pool = require("../connectionMysql");
 const router = express.Router();
 
 // GET /api/exams
