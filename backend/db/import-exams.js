@@ -6,12 +6,14 @@ async function importExamFiles() {
   const jsonDir = path.join(__dirname, 'data', 'exams'); 
   const files = fs.readdirSync(jsonDir).filter(file => file.endsWith('.json'));
 
-  for (const file of files) {
-    const filePath = path.join(jsonDir, file);
-    const examData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  let hasError = false;
 
+  for (const file of files) {
     const connection = await pool.getConnection();
     try {
+      const filePath = path.join(jsonDir, file);
+      const examData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
       await connection.beginTransaction();
 
       // Spara prov
@@ -31,7 +33,7 @@ async function importExamFiles() {
         examId = existing[0].id;
       }
 
-      // Spara frågor
+      // Spara frågor och alternativ
       for (const q of examData.questions) {
         const [questResult] = await connection.execute(
           `INSERT INTO question (exam_id, question_order, category, question_text, image_url, explanation) 
@@ -53,7 +55,6 @@ async function importExamFiles() {
           questionId = existingQ[0].id;
         }
 
-        // Spara svarsalternativ
         for (const opt of q.options) {
           await connection.execute(
             `INSERT INTO answer_option (question_id, position, option_text, option_image_url, is_correct) 
@@ -70,12 +71,28 @@ async function importExamFiles() {
       await connection.commit();
       console.log(`Importerat: ${file}`);
     } catch (err) {
-      await connection.rollback();
+      hasError = true;
       console.error(`Fel vid import av ${file}:`, err);
+      try {
+        await connection.rollback();
+      } catch (rollbackErr) {
+        console.error(`Kunde inte rulla tillbaka transaktionen för ${file}:`, rollbackErr);
+      }
     } finally {
       connection.release();
     }
   }
+
+  if (hasError) {
+    process.exitCode = 1;
+  }
 }
 
-importExamFiles();
+importExamFiles()
+  .catch(err => {
+    console.error('Oväntat fel vid körning av importskriptet:', err);
+    process.exitCode = 1;
+  })
+  .finally(async () => {
+    await pool.end();
+  });
