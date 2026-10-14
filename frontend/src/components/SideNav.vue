@@ -42,7 +42,7 @@ const menuItems = [
     padding: 18px 22px;
 }
 
-    .brand {
+.brand {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -81,8 +81,10 @@ const menuItems = [
   padding: 10px 12px;
   color: #222;
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
+  font-family: "Space Mono", monospace;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .nav-item:hover {
