@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS algeBest-db;
-USE algeBest-db;
+CREATE DATABASE IF NOT EXISTS algeBest_db;
+USE algeBest_db;
 
 CREATE TABLE exam (
   id        INT AUTO_INCREMENT PRIMARY KEY,
