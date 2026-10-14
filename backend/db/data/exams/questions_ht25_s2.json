@@ -1,0 +1,535 @@
+{
+  "exam": {
+    "year": 2025,
+    "semester": "HT",
+    "session": 2
+  },
+  "questions": [
+    {
+      "question_order": 1,
+      "category": "XYZ",
+      "question_text": "En vara kostar 250 kronor. Hur mycket kostar varan om priset höjs med 12 procent?",
+      "image_url": null,
+      "explanation": "Beräkna höjningen: $250 \\cdot 0,12 = 30$ kronor. Det nya priset blir $250 + 30 = 280$ kronor.",
+      "options": [
+        { "position": 1, "option_text": "262 kronor", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "268 kronor", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "274 kronor", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "280 kronor", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 2,
+      "category": "XYZ",
+      "question_text": "Vad är medelvärdet av de fem minsta heltalen som är större än 10?",
+      "image_url": null,
+      "explanation": "De fem minsta heltalen som är större än 10 är 11, 12, 13, 14 och 15. Medelvärdet är det mittersta talet (eller summan delad på 5), vilket är 13.",
+      "options": [
+        { "position": 1, "option_text": "12", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "12,5", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "13", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "13,5", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 3,
+      "category": "XYZ",
+      "question_text": "$\\frac{x}{8}=\\frac{1}{3}$\nVilket värde har x?",
+      "image_url": null,
+      "explanation": "Lös ut $x$ genom att multiplicera båda sidor med 8: $x = \\frac{8}{3}$.",
+      "options": [
+        { "position": 1, "option_text": "$\\frac{1}{24}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\frac{3}{8}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$\\frac{8}{3}$", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "24", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 4,
+      "category": "XYZ",
+      "question_text": "$f(x)=7x^{2}-7$\nFör vilket av följande värden på x gäller att $f(x)=7?$",
+      "image_url": null,
+      "explanation": "Sätt $7x^2 - 7 = 7 \\implies 7x^2 = 14 \\implies x^2 = 2 \\implies x = \\sqrt{2}$.",
+      "options": [
+        { "position": 1, "option_text": "1", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\sqrt{2}$", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "2", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$\\sqrt{7}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 5,
+      "category": "XYZ",
+      "question_text": "För rektangeln ABCD gäller att $AB=5$ cm och $BC=7$ cm. Hur lång är sträckan PQ?",
+      "image_url": "/images/questions/ht25-s2-q5.png",
+      "explanation": "Genom att tillämpa Pythagoras sats på motsvarande rätvinkliga trianglar i figuren beräknas sträckan PQ till $\\sqrt{34}$ cm.",
+      "options": [
+        { "position": 1, "option_text": "$\\sqrt{26}$ cm", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\sqrt{29}$ cm", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$\\sqrt{34}$ cm", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "$\\sqrt{45}$ cm", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 6,
+      "category": "XYZ",
+      "question_text": "$3x\\cdot\\sqrt{2}=\\sqrt{72}$\nVad är x?",
+      "image_url": null,
+      "explanation": "Förenkla $\\sqrt{72} = \\sqrt{36 \\cdot 2} = 6\\sqrt{2}$. Ekvationen blir $3x\\sqrt{2} = 6\\sqrt{2} \\implies 3x = 6 \\implies x = 2$.",
+      "options": [
+        { "position": 1, "option_text": "2", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "4", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "6", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "12", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 7,
+      "category": "XYZ",
+      "question_text": "I början av ett experiment består en population av n bakterier. Efter en vecka har populationen fördubblats. Populationen fortsätter sedan att fördubblas varje vecka. Hur många bakterier finns det i populationen efter tio veckor?",
+      "image_url": null,
+      "explanation": "Efter 10 veckor har populationen fördubblats 10 gånger, vilket uttrycks som $n \\cdot 2^{10}$.",
+      "options": [
+        { "position": 1, "option_text": "$2\\cdot n^{10}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$2\\cdot10^{n}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$n\\cdot2^{10}$", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "$n\\cdot10^{2}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 8,
+      "category": "XYZ",
+      "question_text": "Vilket svarsalternativ visar grafen till funktionen h, där $h(x)=f(x)+g(x)?$",
+      "image_url": "/images/questions/ht25-s2-q8.png",
+      "explanation": "Genom att addera funktionsvärdena för $f(x)$ och $g(x)$ punktvis erhålls rätt graf.",
+      "options": [
+        { "position": 1, "option_text": "A", "option_image_url": "/images/questions/ht25-s2-q8-A.png", "is_correct": false },
+        { "position": 2, "option_text": "B", "option_image_url": "/images/questions/ht25-s2-q8-B.png", "is_correct": true },
+        { "position": 3, "option_text": "C", "option_image_url": "/images/questions/ht25-s2-q8-C.png", "is_correct": false },
+        { "position": 4, "option_text": "D", "option_image_url": "/images/questions/ht25-s2-q8-D.png", "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 9,
+      "category": "XYZ",
+      "question_text": "Vad är $\\frac{\\frac{1}{7}}{\\frac{4}{3}-2}$ eller motsvarande uttryck?",
+      "image_url": null,
+      "explanation": "Beräkning av bråkuttrycket ger värdet enligt alternativ B.",
+      "options": [
+        { "position": 1, "option_text": "$\\frac{1}{7}$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$\\frac{4}{7}$", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "14", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "18", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 10,
+      "category": "XYZ",
+      "question_text": "En figur är konstruerad av sträckor och cirkelbågar. Cirkelbågarna är kvartscirklar. Vilken omkrets har figuren?",
+      "image_url": "/images/questions/ht25-s2-q10.png",
+      "explanation": "Summering av de raka sträckorna och de fyra kvartscirklarna (som tillsammans bildar en hel cirkel) ger formeln i alternativ B.",
+      "options": [
+        { "position": 1, "option_text": "$(3+\\pi)2x$", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "$(4+2\\pi)x$", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "$(12-\\frac{\\pi}{2})x$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$(9-\\pi)x^{2}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 11,
+      "category": "XYZ",
+      "question_text": "Vilket svarsalternativ är lika med $(2,5\\cdot10^{-11})\\cdot(4\\cdot10^{-18})?$",
+      "image_url": null,
+      "explanation": "Multiplicera koefficienterna och tiopotenserna: $(2,5 \\cdot 4) \\cdot (10^{-11} \\cdot 10^{-18}) = 10 \\cdot 10^{-29} = 10^{-28}$.",
+      "options": [
+        { "position": 1, "option_text": "$10^{-28}$", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "$10^{28}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$10^{-30}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$10^{30}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 12,
+      "category": "XYZ",
+      "question_text": "$xy\\ne-1$\nVilket svarsalternativ motsvarar uttrycket $\\frac{x^{2}y^{2}+xy}{xy+1}?$",
+      "image_url": null,
+      "explanation": "Bryt ut $xy$ i täljaren: $\\frac{xy(xy+1)}{xy+1} = xy$.",
+      "options": [
+        { "position": 1, "option_text": "xy", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "$xy+1$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$x^{2}y^{2}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$x^{2}y^{2}+1$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 13,
+      "category": "KVA",
+      "question_text": "Erik, Johanna och Mikael fyller år på samma dag. När Erik var 14 år var Johanna 7 år. När Johanna var 10 år var Mikael 15 år.\n\nKvantitet I: Eriks ålder när Mikael var 18 år\nKvantitet II: 20 år",
+      "image_url": null,
+      "explanation": "Johanna är 7 år yngre än Erik ($14-7=7$). Mikael är 5 år äldre än Johanna ($15-10=5$), vilket betyder att Mikael är $7-5=2$ år äldre än Erik. När Mikael är 18 är Erik 16 år. Kvantitet II (20 år) är därmed större.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 14,
+      "category": "KVA",
+      "question_text": "$0<a<1$\n\nKvantitet I: $\\frac{1}{a}$\nKvantitet II: a",
+      "image_url": null,
+      "explanation": "Eftersom $a$ är ett positivt tal mellan 0 och 1 (t.ex. $0,5$) blir $\\frac{1}{a}$ större än 1, medan $a$ är mindre än 1. Kvantitet I är alltid störst.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 15,
+      "category": "KVA",
+      "question_text": "Jämför följande kvantiteter.\n\nKvantitet I: $\\frac{5}{4}-\\frac{4}{5}$\nKvantitet II: $\\frac{4}{3}-\\frac{3}{4}$",
+      "image_url": null,
+      "explanation": "Beräkna värdena: $\\frac{5}{4}-\\frac{4}{5} = 1,25 - 0,8 = 0,45$. $\\frac{4}{3}-\\frac{3}{4} \\approx 1,333 - 0,75 = 0,583$. Kvantitet II är större.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 16,
+      "category": "KVA",
+      "question_text": "$L_{1}:y=a_{1}x+2$\n$L_{2}:y=a_{2}x+2$\n\nKvantitet I: $a_{1}$\nKvantitet II: $a_{2}$",
+      "image_url": "/images/questions/ht25-s2-q16.png",
+      "explanation": "Utifrån linjernas lutning i det medföljande diagrammet har $L_1$ en flackare eller negativ lutning jämfört med $L_2$.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 17,
+      "category": "KVA",
+      "question_text": "$0<x<y<1$\n\nKvantitet I: xy\nKvantitet II: y",
+      "image_url": null,
+      "explanation": "Eftersom $0 < x < 1$ resulterar multiplikationen $xy$ i ett tal som är mindre än $y$. Kvantitet II är större.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 18,
+      "category": "KVA",
+      "question_text": "Fyrhörningen ABCE är en rektangel. Arean av triangeln ADE är $x\\text{ cm}^2$, arean av triangeln BCD är $y\\text{ cm}^2$ och arean av triangeln ABD är $z\\text{ cm}^2$.\n\nKvantitet I: $\\frac{x+y}{z}$\nKvantitet II: 1",
+      "image_url": "/images/questions/ht25-s2-q18.png",
+      "explanation": "Summan av trianglarnas areor i rektangeln visar att $x+y$ är lika med arean $z$. Kvoten blir därmed 1.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 19,
+      "category": "KVA",
+      "question_text": "$x>0$\n$y=5x+3$\n$z=2y-10x$\n\nKvantitet I: x\nKvantitet II: 2",
+      "image_url": null,
+      "explanation": "Förenkla $z$: $z = 2(5x+3) - 10x = 10x + 6 - 10x = 6$. Värdet på $x$ påverkar inte direkt $z$ i detta uttryck, så informationen är otillräcklig för att jämföra med 2.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 20,
+      "category": "KVA",
+      "question_text": "Kvantitet I: Medianen av tio tal med medelvärdet 0\nKvantitet II: Medianen av tio tal med medelvärdet 100",
+      "image_url": null,
+      "explanation": "Medelvärdet bestämmer inte medianen. Tio tal med medelvärde 0 kan ha en median på t.ex. -50 eller +50, liksom för medelvärdet 100. Informationen är otillräcklig.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 21,
+      "category": "KVA",
+      "question_text": "Förhållandet mellan vinklarna i en triangel är 1:2:4.\n\nKvantitet I: Triangelns största vinkel\nKvantitet II: $90^{\\circ}$",
+      "image_url": null,
+      "explanation": "Vinkelsumman är $180^\\circ$. Delarna är $1+2+4 = 7$ delar. Största vinkeln är $\\frac{4}{7} \\cdot 180^\\circ \\approx 102,8^\\circ$, vilket är större än $90^\\circ$.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 22,
+      "category": "KVA",
+      "question_text": "Kvantitet I: $(1+\\frac{1}{2})(1-\\frac{1}{3})(1+\\frac{1}{4})(1-\\frac{1}{5})$\nKvantitet II: 1",
+      "image_url": null,
+      "explanation": "Beräkna Kvantitet I: $\\frac{3}{2} \\cdot \\frac{2}{3} \\cdot \\frac{5}{4} \\cdot \\frac{4}{5} = 1$. Kvantiteterna är lika stora.",
+      "options": [
+        { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 23,
+      "category": "NOG",
+      "question_text": "Astrid, Bella, Conny och Dylan har var sitt husdjur. En av dem har en hamster, en har en kanin, en har ett marsvin och en har en undulat. Vem har vilket husdjur?\n(1) Dylan har ett marsvin. Kaninen är Bellas eller Connys.\n(2) Conny har en undulat. Kaninen är Bellas eller Dylans.",
+      "image_url": null,
+      "explanation": "Analys av påståendena visar att de tillsammans ger tillräcklig information för att bestämma alla husdjur.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 24,
+      "category": "NOG",
+      "question_text": "Johan samlar på studsbollar. Hur många studsbollar har Johan i sin samling?\n(1) Fyra studsbollar motsvarar 20% av antalet studsbollar i Johans samling.\n(2) Det senaste tillskottet till Johans samling var fyra studsbollar, vilket gjorde att samlingen då växte med 25%.",
+      "image_url": null,
+      "explanation": "Båda påståendena ger var för sig tillräcklig information för att beräkna det totala antalet studsbollar.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": true },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 25,
+      "category": "NOG",
+      "question_text": "Är linjerna $L_{1}$ och $L_{2}$ parallella?\n(1) $u+v+w=180^{\\circ}$\n(2) $v=w$",
+      "image_url": "/images/questions/ht25-s2-q25.png",
+      "explanation": "Geometrisk analys med hjälp av vinkelrelationer visar om linjerna är parallella.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 26,
+      "category": "NOG",
+      "question_text": "Malin har en sparbössa som innehåller ett antal mynt (enkronor och femkronor) och ett antal sedlar (femtiolappar och hundralappar). Det finns lika många enkronor som femkronor i sparbössan. Hur många mynt har Malin i sparbössan?\n(1) Det sammanlagda värdet av mynten och sedlarna i sparbössan är 420 kronor. Värdet av sedlarna är 300 kronor.\n(2) Det sammanlagda värdet av femkronorna och femtiolapparna i sparbössan är 200 kronor.",
+      "image_url": null,
+      "explanation": "Kombinationen av ekvationerna i påståendena leder till en entydig lösning.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 27,
+      "category": "NOG",
+      "question_text": "I ett radhusområde bor 45 familjer varav 14 har katt. Hur många familjer i området har hund?\n(1) 10 familjer i området har katt, men inte hund.\n(2) Antalet familjer i området som har både katt och hund är en sjättedel av antalet familjer i området som varken har katt eller hund.",
+      "image_url": null,
+      "explanation": "Mängd- och andelsberäkningar ger tillräcklig information tillsammans.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 28,
+      "category": "NOG",
+      "question_text": "Vilket av talen x, y och z är störst?\n(1) $x=y+z$\n(2) $x=-2y$",
+      "image_url": null,
+      "explanation": "Påståendena räcker inte ensamma eller tillsammans för att entydigt avgöra vilket tal som är störst i alla fall.",
+      "options": [
+        { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 29,
+      "category": "DTK",
+      "question_text": "År 2013 var det totala värdet av Sveriges import 1040 miljarder kronor. Hur stor andel av detta värde avsåg den varugrupp som hade det största importvärdet?",
+      "image_url": "/images/questions/ht25-s2-q29.png",
+      "explanation": "Största importvärdet var \"Övriga varor\" på 152 miljarder kr. Andelen av 1040 miljarder kr blir ca 15 procent.",
+      "options": [
+        { "position": 1, "option_text": "5 procent", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "10 procent", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "15 procent", "option_image_url": null, "is_correct": true },
+        { "position": 4, "option_text": "20 procent", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 30,
+      "category": "DTK",
+      "question_text": "Hur mycket större var importvärdet än exportvärdet för de tre varugrupperna Mineraliska bränslen, Järn och metall samt Malm, metallskrot?",
+      "image_url": "/images/questions/ht25-s2-q29.png",
+      "explanation": "Summering av import minus export för de tre grupperna ger skillnaden 38 miljarder kr.",
+      "options": [
+        { "position": 1, "option_text": "23 miljarder kr", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "38 miljarder kr", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "69 miljarder kr", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "99 miljarder kr", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 31,
+      "category": "DTK",
+      "question_text": "För vilken av följande varugrupper var exportvärdet 60 procent av importvärdet?",
+      "image_url": "/images/questions/ht25-s2-q29.png",
+      "explanation": "Avläsning i diagrammet visar att detta stämmer för gruppen Livsmedel (export 62, import 105).",
+      "options": [
+        { "position": 1, "option_text": "Elektrovaror, datorer", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Övriga verkstadsprodukter", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Tekovaror och skor", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Livsmedel", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 32,
+      "category": "DTK",
+      "question_text": "Hur stor var skillnaden i det totala antalet biografer i Norden om man jämför periodens första och sista år?",
+      "image_url": "/images/questions/ht25-s2-q32.png",
+      "explanation": "Totala antalet biografer år 2010 minus antalet år 2016 ger skillnaden 71 (närmast 75).",
+      "options": [
+        { "position": 1, "option_text": "75", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "80", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "85", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "90", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 33,
+      "category": "DTK",
+      "question_text": "Identifiera det år då antalet biografer i Sverige var som störst. Hur många platser fanns i genomsnitt per biograf i Sverige detta år?",
+      "image_url": "/images/questions/ht25-s2-q32.png",
+      "explanation": "År 2010 var antalet biografer störst (489). Genomsnittligt antal platser per biograf beräknas till 266.",
+      "options": [
+        { "position": 1, "option_text": "156", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "170", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "240", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "266", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 34,
+      "category": "DTK",
+      "question_text": "Från vilken av följande orter går både normalspårig järnväg och smalspårig järnväg som i första hand bör breddas?",
+      "image_url": "/images/questions/ht25-s2-q34.png",
+      "explanation": "Kartstudier visar att Lidköping uppfyller detta villkor.",
+      "options": [
+        { "position": 1, "option_text": "Lidköping", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Mariestad", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Moholm", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Vara", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 35,
+      "category": "DTK",
+      "question_text": "Du startar i Falköping och åker normalspårig järnväg i västsydvästlig riktning i 30 km. Därefter åker du vidare på normalspårig järnväg i nordlig och därefter västnordvästlig riktning i sammanlagt 40 km. I vilken ort slutar vägbeskrivningen?",
+      "image_url": "/images/questions/ht25-s2-q34.png",
+      "explanation": "Följer man rutten på kartan hamnar man i Grästorp.",
+      "options": [
+        { "position": 1, "option_text": "Vänersborg", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Karlsborg", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Skara", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Grästorp", "option_image_url": null, "is_correct": true }
+      ]
+    },
+    {
+      "question_order": 36,
+      "category": "DTK",
+      "question_text": "En smalspårig järnväg mellan Trollhättan och Nossebro är föreslagen att nedläggas. Hur mycket längre blir den kortaste resvägen mellan dessa två orter om de järnvägar som är föreslagna att nedläggas försvinner?",
+      "image_url": "/images/questions/ht25-s2-q34.png",
+      "explanation": "Beräkning av omvägen via kvarvarande järnvägar ger 35 km.",
+      "options": [
+        { "position": 1, "option_text": "35 km", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "50 km", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "70 km", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "105 km", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 37,
+      "category": "DTK",
+      "question_text": "Hur stor area har det område som avgränsas av järnvägssträckorna Stenstorp-Svensbro-Tidaholm-Vartofta-Falköping-Stenstorp?",
+      "image_url": "/images/questions/ht25-s2-q34.png",
+      "explanation": "Genom att mäta mot kartans skalstock uppskattas arean till $290\\text{ km}^2$.",
+      "options": [
+        { "position": 1, "option_text": "$290~km^{2}$", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "$440~km^{2}$", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "$650~km^{2}$", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "$860~km^{2}$", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 38,
+      "category": "DTK",
+      "question_text": "Studera hur produktionsvärdet för frilandsodlad matlök och isbergssallat förändrades från 2014 till 2015. Vilket svarsförslag beskriver förändringen korrekt?",
+      "image_url": "/images/questions/ht25-s2-q38.png",
+      "explanation": "Av diagrammet för frilandsodlade grödor framgår att matlöken minskade och isbergssallaten ökade.",
+      "options": [
+        { "position": 1, "option_text": "Minskning / Minskning", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Minskning / Ökning", "option_image_url": null, "is_correct": true },
+        { "position": 3, "option_text": "Ökning / Minskning", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Ökning / Ökning", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 39,
+      "category": "DTK",
+      "question_text": "Vilken kategori stod för den största andelen av produktionsvärdet för växthusodlade grödor 2014?",
+      "image_url": "/images/questions/ht25-s2-q38.png",
+      "explanation": "Gurka stod för den största enskilda andelen inom växthusodling 2014.",
+      "options": [
+        { "position": 1, "option_text": "Gurka", "option_image_url": null, "is_correct": true },
+        { "position": 2, "option_text": "Kryddväxter", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "Tulpaner (snitt)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "Övriga kruk- och utplanteringsväxter", "option_image_url": null, "is_correct": false }
+      ]
+    },
+    {
+      "question_order": 40,
+      "category": "DTK",
+      "question_text": "Vilket svarsförslag anger förhållandet mellan frilandsodlade och växthusodlade grödor vad avser produktionsvärdet 2009?",
+      "image_url": "/images/questions/ht25-s2-q38.png",
+      "explanation": "Avläsning av kurvorna för 2009 visar ett förhållande på ungefär 2:1 mellan frilandsodlade och växthusodlade grödor.",
+      "options": [
+        { "position": 1, "option_text": "1:2", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "1:1", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "3:2", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "2:1", "option_image_url": null, "is_correct": true }
+      ]
+    }
+  ]
+}

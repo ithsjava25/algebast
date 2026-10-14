@@ -2,7 +2,7 @@
 const mysql = require('mysql2/promise');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const getSslOptions = () => {
   if (process.env.DB_SSL !== 'true') return undefined;
@@ -11,7 +11,7 @@ const getSslOptions = () => {
     throw new Error('DB_SSL är aktiverat men DB_SSL_CA är inte definierad i .env');
   }
 
-  const caPath = path.resolve(__dirname, process.env.DB_SSL_CA);
+  const caPath = path.resolve(__dirname, '../', process.env.DB_SSL_CA);
   if (!fs.existsSync(caPath)) {
     throw new Error(`Certifikatfilen för DB_SSL_CA hittades inte på sökvägen: ${caPath}`);
   }
