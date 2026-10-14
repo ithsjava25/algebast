@@ -73,32 +73,4 @@ router.get("/:id/questions", async (req, res) => {
   }
 });
 
-router.post("/:id/submit", async (req, res) => {
-  try {
-    const examId = Number(req.params.id);
-    const chosenById = parseAnswers(req.body?.answers);
-    if (!Number.isInteger(examId) || !chosenById) {
-      return res.status(400).json({ error: "Invalid exam id or answers" });
-    }
-
-    const [rows] = await pool.query(
-      `SELECT q.id AS question_id, q.question_order, q.explanation,
-              ao.position AS correct_position
-       FROM question q
-       JOIN answer_option ao ON ao.question_id = q.id AND ao.is_correct = TRUE
-       WHERE q.exam_id = ?
-       ORDER BY q.question_order`,
-      [examId],
-    );
-    if (rows.length === 0) {
-      return res.status(404).json({ error: "Exam not found" });
-    }
-
-    res.json(grade(rows, chosenById));
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Could not grade exam" });
-  }
-});
-
 module.exports = router;
