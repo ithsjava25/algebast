@@ -31,12 +31,16 @@ async function importExamFiles() {
         examId = existing[0].id;
       }
 
-      // Spara frågor och alternativ...
+      // Spara frågor
       for (const q of examData.questions) {
         const [questResult] = await connection.execute(
           `INSERT INTO question (exam_id, question_order, category, question_text, image_url, explanation) 
-           VALUES (?, ?, ?, ?, ?, ?)
-           ON DUPLICATE KEY UPDATE question_text = VALUES(question_text)`,
+             VALUES (?, ?, ?, ?, ?, ?)
+             ON DUPLICATE KEY UPDATE 
+               category = VALUES(category),
+               question_text = VALUES(question_text),
+               image_url = VALUES(image_url),
+               explanation = VALUES(explanation)`,
           [examId, q.question_order, q.category, q.question_text, q.image_url, q.explanation]
         );
 
@@ -49,11 +53,15 @@ async function importExamFiles() {
           questionId = existingQ[0].id;
         }
 
+        // Spara svarsalternativ
         for (const opt of q.options) {
           await connection.execute(
             `INSERT INTO answer_option (question_id, position, option_text, option_image_url, is_correct) 
-             VALUES (?, ?, ?, ?, ?)
-             ON DUPLICATE KEY UPDATE option_text = VALUES(option_text), is_correct = VALUES(is_correct)`,
+               VALUES (?, ?, ?, ?, ?)
+               ON DUPLICATE KEY UPDATE 
+                 option_text = VALUES(option_text),
+                 option_image_url = VALUES(option_image_url),
+                 is_correct = VALUES(is_correct)`,
             [questionId, opt.position, opt.option_text, opt.option_image_url, opt.is_correct]
           );
         }
