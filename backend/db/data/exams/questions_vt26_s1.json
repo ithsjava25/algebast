@@ -116,10 +116,10 @@
       "image_url": null,
       "explanation": "Skriv om ekvationen på k-form: $2y = -x + 2 \\implies y = -0,5x + 1$. Linjen skär y-axeln i $y=1$ och x-axeln i $x=2$ (eftersom $0 = -0,5x + 1 \\implies x = 2$). Graf B visar en rät linje som skär y-axeln vid 1 och x-axeln vid 2.",
       "options": [
-        { "position": 1, "option_text": "A", "option_image_url": "/images/questions/ht25-q9A.png", "is_correct": false },
-        { "position": 2, "option_text": "B", "option_image_url": "/images/questions/ht25-q9B.png", "is_correct": true },
-        { "position": 3, "option_text": "C", "option_image_url": "/images/questions/ht25-q9C.png", "is_correct": false },
-        { "position": 4, "option_text": "D", "option_image_url": "/images/questions/ht25-q9D.png", "is_correct": false }
+        { "position": 1, "option_text": "A", "option_image_url": "/images/questions/ht26-q9A.png", "is_correct": false },
+        { "position": 2, "option_text": "B", "option_image_url": "/images/questions/ht26-q9B.png", "is_correct": true },
+        { "position": 3, "option_text": "C", "option_image_url": "/images/questions/ht26-q9C.png", "is_correct": false },
+        { "position": 4, "option_text": "D", "option_image_url": "/images/questions/ht26-q9D.png", "is_correct": false }
       ]
     },
     {
@@ -187,17 +187,17 @@
         { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
       ]
     },
-    {
+   {
       "question_order": 15,
       "category": "KVA",
-      "question_text": "Jämför följande kvantiteter.\n\nKvantitet I: Ett femsiffrigt tal som skrivs med endast sexor och sjuor\nKvantitet II: Ett femsiffrigt tal som skrivs med endast sexor och åttor",
-      "image_url": null,
-      "explanation": "Talet i Kvantitet I kan t.ex. vara $77\\,777$ och talet i Kvantitet II kan vara $66\\,666$, vilket gör Kvantitet I större. Men talet i Kvantitet I kan också vara $66\\,666$ medan Kvantitet II är $88\\,888$, vilket gör Kvantitet II större. Eftersom det inte finns några ytterligare begränsningar är informationen otillräcklig.",
+      "question_text": "Per kör vägen från A till D via B och C. Mellan A och B är medelhastigheten $70\\text{ km/h}$, B-C $90\\text{ km/h}$ och C-D $70\\text{ km/h}$ (sträckor 30, 60, 40 km).\n\nKvantitet I: Tiden det tar för Per att köra från A till D\nKvantitet II: 2 timmar",
+      "image_url": "/images/questions/vt26-s2-q15.png",
+      "explanation": "Summera tiderna ($t = s/v$): $\\frac{30}{70} + \\frac{60}{90} + \\frac{40}{70} = \\frac{70}{70} + \\frac{2}{3} = 1 + \\frac{2}{3} = 1\\frac{2}{3}$ timmar, vilket är mindre än 2 timmar.",
       "options": [
         { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
-        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
         { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
-        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": true }
+        { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
       ]
     },
     {
@@ -294,15 +294,15 @@
     {
       "question_order": 23,
       "category": "NOG",
-      "question_text": "Hur många klasskamrater har Vilgot?\n(1) Om Vilgot hade haft ytterligare tre klasskamrater, så skulle antalet elever i klassen vara jämnt delbart med 5.\n(2) Vilgot har ett udda antal klasskamrater.",
+      "question_text": "Tre kaffekoppar står på rad på ett bord. I vilken ordning från vänster till höger står de tre kopparna?\n(1) Den tomma koppen står i mitten.\n(2) Koppen med varmt kaffe står någonstans till vänster om koppen med kallt kaffe. Koppen med kallt kaffe står längst till höger.",
       "image_url": null,
-      "explanation": "Låt $k$ vara antalet klasskamrater. Totalt antal elever i klassen är $k+1$.\n(1) Innebär att $(k+3)+1 = k+4$ är delbart med 5, vilket ger obegränsat många lösningar ($k \\in \\{1, 6, 11, 16, \\dots\\}$). Ej tillräckligt.\n(2) Innebär att $k$ är udda, vilket också ger oändligt många möjligheter. Ej tillräckligt.\nTillsammans: $k$ kan vara 1, 11, 21, 31... Det finns fortfarande fler än en möjlighet, så informationen är ej tillräcklig.",
+      "explanation": "Analys av påståendena ger entydig ordning när de kombineras eller används enskilt.",
       "options": [
         { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
         { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
-        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
         { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
-        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": true }
+        { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
       ]
     },
     {
@@ -322,13 +322,13 @@
     {
       "question_order": 25,
       "category": "NOG",
-      "question_text": "Lindas kylskåp har tre hyllor. I kylskåpet finns det endast ett mjölkpaket, en ketchupflaska och ett salladshuvud. På vilken hylla finns mjölkpaketet?\n(1) Mjölkpaketet och ketchupflaskan finns på samma hylla. Salladshuvudet finns på den nedersta hyllan.\n(2) Den översta hyllan är tom. Salladshuvudet finns på hyllan under mjölkpaketet.",
+      "question_text": "Alfred sålde godis i två olika slags askar: stora och små askar, var och en innehållande antingen choklad eller lakrits. Hur många stora askar med lakrits sålde Alfred?\n(1) Alfred sålde sammanlagt 400 askar varav 250 askar var stora. 300 av askarna innehöll choklad.\n(2) Av de små askarna innehöll 100 stycken choklad. En fjärdedel av askarna innehöll lakrits.",
       "image_url": null,
-      "explanation": "(1) Mjölkpaketet och ketchupflaskan kan vara på översta hyllan eller mellersta hyllan. Ej tillräckligt.\n(2) Översta hyllan är tom, så alla föremål är på mellersta eller nedersta hyllan. Eftersom salladshuvudet är på hyllan under mjölkpaketet MÅSTE mjölkpaketet stå på mellersta hyllan och salladshuvudet på nedersta. Detta svarar entydigt på frågan.",
+      "explanation": "Informationen i påståendena räcker till för att ställa upp ett ekvationssystem som ger ett entydigt svar.",
       "options": [
         { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
-        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": true },
-        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
         { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
         { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
       ]
@@ -336,14 +336,14 @@
     {
       "question_order": 26,
       "category": "NOG",
-      "question_text": "En grupp består av x personer, där $20<x<60$ Vilket värde har x?\n(1) Gruppen kan delas in i mindre grupper med sju personer i varje grupp.\n(2) Om gruppen delas in i mindre grupper med fem personer i varje grupp, så blir det fyra personer över.",
+      "question_text": "Priset på en vara sänktes med 150 kronor. Hur många procent av varans ordinarie pris motsvarade sänkningen?\n(1) Efter sänkningen var varans pris 350 kronor.\n(2) Om varans ordinarie pris hade varit 600 kronor, så hade prissänkningen motsvarat 25%.",
       "image_url": null,
-      "explanation": "(1) $x$ kan vara $21, 28, 35, 42, 49, 56$. Ej tillräckligt.\n(2) $x$ ger resten 4 vid division med 5 ($24, 29, 34, 39, 44, 49, 54, 59$). Ej tillräckligt.\nTillsammans: Det enda talet i lista (1) som ger resten 4 vid division med 5 är $49$. Värdet på $x$ är alltså unikt bestämt till 49.",
+      "explanation": "Båda påståendena ger var för sig tillräcklig information för att räkna ut ursprungspriset och därmed procentsatsen.",
       "options": [
         { "position": 1, "option_text": "i (1) men ej i (2)", "option_image_url": null, "is_correct": false },
         { "position": 2, "option_text": "i (2) men ej i (1)", "option_image_url": null, "is_correct": false },
-        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": true },
-        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": false },
+        { "position": 3, "option_text": "i (1) tillsammans med (2)", "option_image_url": null, "is_correct": false },
+        { "position": 4, "option_text": "i (1) och (2) var för sig", "option_image_url": null, "is_correct": true },
         { "position": 5, "option_text": "ej genom de båda påståendena", "option_image_url": null, "is_correct": false }
       ]
     },
