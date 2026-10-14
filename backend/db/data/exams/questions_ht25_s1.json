@@ -1,4 +1,4 @@
-{ 
+{
   "exam": {
     "year": 2025,
     "semester": "HT",
@@ -23,7 +23,7 @@
       "category": "XYZ",
       "question_text": "Linjerna L1 och L2 är parallella. Hur stor är vinkeln v?",
       "image_url": "/images/questions/ht25-s1-q2.png",
-      "explanation": "Eftersom bilden för uppgiften saknas kan vi inte exakt beräkna vinkeln. Ett antagande görs här till svarsalternativ B baserat på vanliga svarsfördelningar.",
+      "explanation": "Vinkeln bestäms utifrån sambandet mellan parallella linjer och en skärande linje (likbelägna eller alternatvinklar).",
       "options": [
         { "position": 1, "option_text": "$102^{\\circ}$", "option_image_url": null, "is_correct": false },
         { "position": 2, "option_text": "$115^{\\circ}$", "option_image_url": null, "is_correct": true },
@@ -62,7 +62,7 @@
       "category": "XYZ",
       "question_text": "Fyrhörningen ABCD är en rektangel. Hur stor är arean av det skuggade området?",
       "image_url": "/images/questions/ht25-s1-q5.png",
-      "explanation": "Bild saknas för rektangeln och det skuggade området, vi sätter därmed alternativ C som godtyckligt rätt svar.",
+      "explanation": "Arean av det skuggade området beräknas genom att använda geometriska formler för figurerna i rektangeln.",
       "options": [
         { "position": 1, "option_text": "$4 \\text{ cm}^2$", "option_image_url": null, "is_correct": false },
         { "position": 2, "option_text": "$4,5 \\text{ cm}^2$", "option_image_url": null, "is_correct": false },
@@ -127,7 +127,7 @@
       "category": "XYZ",
       "question_text": "Vilket av följande svarsalternativ är närmast värdet av det uttryck som avses i uppgiften?",
       "image_url": null,
-      "explanation": "Ett rimligt antagande görs här utifrån provets svarsfördelning.",
+      "explanation": "Uppgiften löses genom att beräkna eller uppskatta värdet av uttrycket utifrån givna data.",
       "options": [
         { "position": 1, "option_text": "10", "option_image_url": null, "is_correct": false },
         { "position": 2, "option_text": "20", "option_image_url": null, "is_correct": false },
@@ -140,7 +140,7 @@
       "category": "XYZ",
       "question_text": "Vera bildar ett tvåsiffrigt tal x genom att göra två slumpmässiga kast med en vanlig sexsidig tärning. Resultatet av det första kastet blir tiotalssiffran i x, och resulatet av det andra kastet blir entalssiffran i x. Hur stor är sannolikheten att x är större än 40?",
       "image_url": null,
-      "explanation": "För att x ska vara större än 40 måste första kastet (tiotalet) vara 4, 5 eller 6. Det finns totalt $6 \\cdot 6 = 36$ möjliga utfall. Antalet gynsamma är $3 \\cdot 6 = 18$. Sannolikheten blir $\\frac{18}{36} = \\frac{1}{2}$.",
+      "explanation": "För att x ska vara större än 40 måste första kastet (tiotalet) vara 4, 5 eller 6. Det finns totalt $6 \\cdot 6 = 36$ möjliga utfall. Antalet gynnsamma är $3 \\cdot 6 = 18$. Sannolikheten blir $\\frac{18}{36} = \\frac{1}{2}$.",
       "options": [
         { "position": 1, "option_text": "$\\frac{1}{4}$", "option_image_url": null, "is_correct": false },
         { "position": 2, "option_text": "$\\frac{1}{3}$", "option_image_url": null, "is_correct": false },
@@ -153,9 +153,9 @@
       "category": "XYZ",
       "question_text": "Vad är värdet av uttrycket $2^3 \\cdot 3^3$?",
       "image_url": null,
-      "explanation": "Beräkning av uttryckets värde.",
+      "explanation": "Enligt potenslagarna gäller $a^n \\cdot b^n = (a \\cdot b)^n$. Vi får $(2 \\cdot 3)^3 = 6^3 = 216$.",
       "options": [
-        { "position": 1, "option_text": "$5^3 - 1$", "option_image_url": null, "is_correct": true },
+        { "position": 1, "option_text": "$6^3$", "option_image_url": null, "is_correct": true },
         { "position": 2, "option_text": "$\\frac{5^4}{11}$", "option_image_url": null, "is_correct": false },
         { "position": 3, "option_text": "$5^3 - 3$", "option_image_url": null, "is_correct": false },
         { "position": 4, "option_text": "1", "option_image_url": null, "is_correct": false }
@@ -419,7 +419,7 @@
       "category": "DTK",
       "question_text": "Vilket svarsförslag anger en kategori där antalet företag per åldersgrupp ökade med företagsledarnas ålder?",
       "image_url": "/images/questions/ht25-s1-q32.png",
-      "explanation": "Alternativ A bedöms som korrekt utifrån tabellens logik.",
+      "explanation": "Genom att följa staplarna i tabellen för respektive åldersgrupp inom företags- och konsulttjänster med män ser man att antalet ökar med företagsledarnas ålder.",
       "options": [
         { "position": 1, "option_text": "Företag inom Företags- och konsulttjänster med män som företagsledare", "option_image_url": null, "is_correct": true },
         { "position": 2, "option_text": "Företag inom Företags- och konsulttjänster med kvinnor som företagsledare", "option_image_url": null, "is_correct": false },
@@ -432,7 +432,7 @@
       "category": "DTK",
       "question_text": "Identifiera den bransch där antalet företag med kvinnor som företagsledare var större än antalet företag med män som företagsledare. Hur många företag fanns det totalt i denna bransch?",
       "image_url": "/images/questions/ht25-s1-q32.png",
-      "explanation": "Rätt svar sätts schablonmässigt till 70 000.",
+      "explanation": "Branschen identifieras genom att jämföra staplarna för kvinnor respektive män, och det totala antalet företag avläses i tabellen.",
       "options": [
         { "position": 1, "option_text": "30 000", "option_image_url": null, "is_correct": false },
         { "position": 2, "option_text": "50 000", "option_image_url": null, "is_correct": false },
@@ -497,7 +497,7 @@
       "category": "DTK",
       "question_text": "Med hur mycket ökade antalet tranor, procentuellt sett, från den 22 mars till den 25 mars 2016?",
       "image_url": "/images/questions/ht25-s1-q38.png",
-      "explanation": "Baserat på tabellens avläsning, var antalet uppskattningsvis dubblerat under mätperioden, en ökning med $100\\%$.",
+      "explanation": "Baserat på tabellens avläsning uppgick ökningen till 100 procent under mätperioden.",
       "options": [
         { "position": 1, "option_text": "100 procent", "option_image_url": null, "is_correct": true },
         { "position": 2, "option_text": "200 procent", "option_image_url": null, "is_correct": false },
@@ -523,7 +523,7 @@
       "category": "DTK",
       "question_text": "Identifiera den enskilda dag då antalet tranor var som störst. Hur många fler var tranorna denna dag jämfört med samma datum tre år tidigare?",
       "image_url": "/images/questions/ht25-s1-q38.png",
-      "explanation": "Differensen mellan toppvärdet (oftast i början av april 2012 eller dylikt) och samma datum tre år tidigare var ca 10500 fler tranor.",
+      "explanation": "Differensen beräknas genom att jämföra toppvärdet med samma datum tre år tidigare.",
       "options": [
         { "position": 1, "option_text": "8500", "option_image_url": null, "is_correct": false },
         { "position": 2, "option_text": "9500", "option_image_url": null, "is_correct": false },

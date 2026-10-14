@@ -116,10 +116,10 @@
       "image_url": null,
       "explanation": "Skriv om ekvationen på k-form: $2y = -x + 2 \\implies y = -0,5x + 1$. Linjen skär y-axeln i $y=1$ och x-axeln i $x=2$ (eftersom $0 = -0,5x + 1 \\implies x = 2$). Graf B visar en rät linje som skär y-axeln vid 1 och x-axeln vid 2.",
       "options": [
-        { "position": 1, "option_text": "A", "option_image_url": "/images/questions/ht26-q9A.png", "is_correct": false },
-        { "position": 2, "option_text": "B", "option_image_url": "/images/questions/ht26-q9B.png", "is_correct": true },
-        { "position": 3, "option_text": "C", "option_image_url": "/images/questions/ht26-q9C.png", "is_correct": false },
-        { "position": 4, "option_text": "D", "option_image_url": "/images/questions/ht26-q9D.png", "is_correct": false }
+        { "position": 1, "option_text": "A", "option_image_url": "/images/questions/ht25-q9A.png", "is_correct": false },
+        { "position": 2, "option_text": "B", "option_image_url": "/images/questions/ht25-q9B.png", "is_correct": true },
+        { "position": 3, "option_text": "C", "option_image_url": "/images/questions/ht25-q9C.png", "is_correct": false },
+        { "position": 4, "option_text": "D", "option_image_url": "/images/questions/ht25-q9D.png", "is_correct": false }
       ]
     },
     {
@@ -169,7 +169,7 @@
       "explanation": "När nämnaren ökar minskar bråkets värde för positiva tal. Eftersom $x > 4$ gäller att $\\frac{1}{x} < \\frac{1}{4}$. Därmed är Kvantitet II större än Kvantitet I.",
       "options": [
         { "position": 1, "option_text": "Kvantitet I är större än II", "option_image_url": null, "is_correct": false },
-        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": true, "is_correct": true },
+        { "position": 2, "option_text": "Kvantitet II är större än I", "option_image_url": null, "is_correct": true },
         { "position": 3, "option_text": "Kvantitet I är lika med II", "option_image_url": null, "is_correct": false },
         { "position": 4, "option_text": "Informationen är otillräcklig", "option_image_url": null, "is_correct": false }
       ]
