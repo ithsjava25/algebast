@@ -40,3 +40,61 @@ const selectedAnswer = ref(null);
     </div>
   </article>
 </template>
+
+<style scoped>
+.question-card {
+  width: 100%;
+  padding: 24px;
+  border: 1px solid #aaa;
+  background: #fff;
+}
+
+.question-category {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #666;
+}
+
+.question-text {
+  margin: 0 0 24px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.answer-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answer-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+  border: 1px solid #ccc;
+
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.answer-option:hover {
+  background: #f3f3f1;
+  border-color: #888;
+}
+
+.answer-option input {
+  margin: 0;
+  cursor: pointer;
+}
+
+.answer-option span {
+  line-height: 1.4;
+}
+</style>
