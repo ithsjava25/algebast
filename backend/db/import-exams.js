@@ -1,10 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-const pool = require('../config/connectionMysql'); 
+const fs = require("fs");
+const path = require("path");
+const pool = require("../config/connectionMySQL");
 
 async function importExamFiles() {
-  const jsonDir = path.join(__dirname, 'data', 'exams'); 
-  const files = fs.readdirSync(jsonDir).filter(file => file.endsWith('.json'));
+  const jsonDir = path.join(__dirname, "data", "exams");
+  const files = fs
+    .readdirSync(jsonDir)
+    .filter((file) => file.endsWith(".json"));
 
   let hasError = false;
 
@@ -12,7 +14,7 @@ async function importExamFiles() {
     const connection = await pool.getConnection();
     try {
       const filePath = path.join(jsonDir, file);
-      const examData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      const examData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
       await connection.beginTransaction();
 
@@ -21,14 +23,14 @@ async function importExamFiles() {
       const [examResult] = await connection.execute(
         `INSERT INTO exam (year, semester, session) VALUES (?, ?, ?)
          ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id)`,
-        [year, semester, session]
+        [year, semester, session],
       );
-      
+
       let examId = examResult.insertId;
       if (!examId) {
         const [existing] = await connection.execute(
           `SELECT id FROM exam WHERE year = ? AND semester = ? AND session = ?`,
-          [year, semester, session]
+          [year, semester, session],
         );
         examId = existing[0].id;
       }
@@ -43,14 +45,21 @@ async function importExamFiles() {
                question_text = VALUES(question_text),
                image_url = VALUES(image_url),
                explanation = VALUES(explanation)`,
-          [examId, q.question_order, q.category, q.question_text, q.image_url, q.explanation]
+          [
+            examId,
+            q.question_order,
+            q.category,
+            q.question_text,
+            q.image_url,
+            q.explanation,
+          ],
         );
 
         let questionId = questResult.insertId;
         if (!questionId) {
           const [existingQ] = await connection.execute(
             `SELECT id FROM question WHERE exam_id = ? AND question_order = ?`,
-            [examId, q.question_order]
+            [examId, q.question_order],
           );
           questionId = existingQ[0].id;
         }
@@ -63,7 +72,13 @@ async function importExamFiles() {
                  option_text = VALUES(option_text),
                  option_image_url = VALUES(option_image_url),
                  is_correct = VALUES(is_correct)`,
-            [questionId, opt.position, opt.option_text, opt.option_image_url, opt.is_correct]
+            [
+              questionId,
+              opt.position,
+              opt.option_text,
+              opt.option_image_url,
+              opt.is_correct,
+            ],
           );
         }
       }
@@ -76,7 +91,10 @@ async function importExamFiles() {
       try {
         await connection.rollback();
       } catch (rollbackErr) {
-        console.error(`Kunde inte rulla tillbaka transaktionen för ${file}:`, rollbackErr);
+        console.error(
+          `Kunde inte rulla tillbaka transaktionen för ${file}:`,
+          rollbackErr,
+        );
       }
     } finally {
       connection.release();
@@ -89,8 +107,8 @@ async function importExamFiles() {
 }
 
 importExamFiles()
-  .catch(err => {
-    console.error('Oväntat fel vid körning av importskriptet:', err);
+  .catch((err) => {
+    console.error("Oväntat fel vid körning av importskriptet:", err);
     process.exitCode = 1;
   })
   .finally(async () => {
