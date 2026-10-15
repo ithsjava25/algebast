@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("../connectionMysql");
+const pool = require("../config/connectionMySQL");
 const router = express.Router();
 
 // GET /api/exams
