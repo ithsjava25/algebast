@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { getRandomQuestionsByCategories } from "@/services/questionService.js";
+import QuestionCard from "@/components/QuestionCard.vue";
 
 const categories = [
     { code: "XYZ", name: "Matematik" },
@@ -32,26 +33,36 @@ async function startExercise() {
 
 <template>
   <section class="exercise-view">
-    <h1>Öva</h1>
-    <p>Välj vilka områden du vill öva på.</p>
+    <div v-if="questions.length === 0">
+      <h1>Öva</h1>
+      <p>Välj vilka områden du vill öva på.</p>
 
-    <div class="categories">
-      <article
-        v-for="category in categories"
-        :key="category.code"
-        class="category-card"
-        :class="{ selected: selectedCategories.includes(category.code)}"
-        @click="selectCategory(category.code)"
-      >
-        <h2>{{ category.code }}</h2>
-        <p>{{ category.name }}</p>
-      </article>
-      <button
-        :disabled="selectedCategories.length === 0"
-        @click="startExercise"
+      <div class="categories">
+        <article
+          v-for="category in categories"
+          :key="category.code"
+          class="category-card"
+          :class="{ selected: selectedCategories.includes(category.code)}"
+          @click="selectCategory(category.code)"
         >
-        Starta övning
-      </button>
+          <h2>{{ category.code }}</h2>
+          <p>{{ category.name }}</p>
+        </article>
+
+        <button
+          :disabled="selectedCategories.length === 0"
+          @click="startExercise"
+          >
+          Starta övning
+        </button>
+      </div>
+    </div>
+    <div v-else class="questions">
+      <QuestionCard
+        v-for="question in questions"
+        :key="question.id"
+        :question="question"
+      />
     </div>
   </section>
 </template>
