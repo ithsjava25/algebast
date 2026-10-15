@@ -24,7 +24,7 @@
                     kategorier du vill öva på.
                 </p>
 
-                <RouterLink to="/test">
+                <RouterLink to="/exercises">
                     Börja öva
                 </RouterLink>
             </article>
