@@ -22,7 +22,9 @@ router.get("/", async (req, res) => {
 
     const count = Number(req.query.count ?? 10);
     if (!Number.isInteger(count) || count < 1 || count > MAX_COUNT) {
-      return res.status(400).json({ error: `count must be an integer from 1 to ${MAX_COUNT}` });
+      return res
+        .status(400)
+        .json({ error: `count must be an integer from 1 to ${MAX_COUNT}` });
     }
 
     const [questions] = await pool.query(
