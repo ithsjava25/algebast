@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { getRandomQuestionsByCategories } from "@/services/questionService.js";
 
 const categories = [
     { code: "XYZ", name: "Matematik" },
@@ -9,6 +10,7 @@ const categories = [
 ];
 
 const selectedCategories = ref([]);
+const questions = ref([]);
 
 function selectCategory(code) {
   if (selectedCategories.value.includes(code)) {
@@ -19,10 +21,17 @@ function selectCategory(code) {
     selectedCategories.value.push(code);
   }
 }
+
+async function startExercise() {
+  questions.value = await getRandomQuestionsByCategories(
+    selectedCategories.value, 10);
+
+    console.log(questions.value);
+}
 </script>
 
 <template>
-  <section>
+  <section class="exercise-view">
     <h1>Öva</h1>
     <p>Välj vilka områden du vill öva på.</p>
 
@@ -37,19 +46,37 @@ function selectCategory(code) {
         <h2>{{ category.code }}</h2>
         <p>{{ category.name }}</p>
       </article>
+      <button
+        :disabled="selectedCategories.length === 0"
+        @click="startExercise"
+        >
+        Starta övning
+      </button>
     </div>
   </section>
 </template>
 
 <style scoped>
+.exercise-view {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 30px;
+}
 .category-card {
+  width: 100%;
   border: 1px solid #aaa;
-  padding: 10px;
+  padding: 10px 24px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin: 10px;
 }
-
 .category-card.selected {
   background: #111;
   color: #fff;
