@@ -1,24 +1,27 @@
-
-const mysql = require('mysql2/promise');
-const fs = require('fs');
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../.env') });
+const mysql = require("mysql2/promise");
+const fs = require("fs");
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 const getSslOptions = () => {
-  if (process.env.DB_SSL !== 'true') return undefined;
+  if (process.env.DB_SSL !== "true") return undefined;
 
   if (!process.env.DB_SSL_CA) {
-    throw new Error('DB_SSL är aktiverat men DB_SSL_CA är inte definierad i .env');
+    throw new Error(
+      "DB_SSL är aktiverat men DB_SSL_CA är inte definierad i .env",
+    );
   }
 
-  const caPath = path.resolve(__dirname, '../', process.env.DB_SSL_CA);
+  const caPath = path.resolve(__dirname, "../", process.env.DB_SSL_CA);
   if (!fs.existsSync(caPath)) {
-    throw new Error(`Certifikatfilen för DB_SSL_CA hittades inte på sökvägen: ${caPath}`);
+    throw new Error(
+      `Certifikatfilen för DB_SSL_CA hittades inte på sökvägen: ${caPath}`,
+    );
   }
 
   return {
     rejectUnauthorized: true,
-    ca: fs.readFileSync(caPath)
+    ca: fs.readFileSync(caPath),
   };
 };
 
@@ -32,25 +35,25 @@ const pool = mysql.createPool({
   ssl: getSslOptions(),
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
 });
 
 // Kontroll av anslutningen vid serverstart
 (async () => {
   try {
     const connection = await pool.getConnection();
-    console.log('Ansluten till Aiven MySQL-databasen!');
+    console.log("Ansluten till Aiven MySQL-databasen!");
     connection.release();
   } catch (error) {
-    console.error('Kunde inte ansluta till Aiven-databasen:', error.message);
+    console.error("Kunde inte ansluta till Aiven-databasen:", error.message);
     if (require.main === module) {
       process.exitCode = 1;
     }
   } finally {
     if (require.main === module) {
-     await pool.end();
+      await pool.end();
     }
-}
+  }
 })();
 
 module.exports = pool;

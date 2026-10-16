@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("../connectionMysql");
+const pool = require("../config/connectionMySQL");
 const router = express.Router();
 
 const CATEGORIES = ["XYZ", "KVA", "NOG", "DTK"];
@@ -22,7 +22,9 @@ router.get("/", async (req, res) => {
 
     const count = Number(req.query.count ?? 10);
     if (!Number.isInteger(count) || count < 1 || count > MAX_COUNT) {
-      return res.status(400).json({ error: `count must be an integer from 1 to ${MAX_COUNT}` });
+      return res
+        .status(400)
+        .json({ error: `count must be an integer from 1 to ${MAX_COUNT}` });
     }
 
     const [questions] = await pool.query(
@@ -69,6 +71,55 @@ router.get("/", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Could not fetch questions" });
+  }
+});
+
+// POST /api/questions/check
+router.post('/check', async (req, res) => {
+  try {
+    const answers = req.body?.answers;
+    const valid =
+      Array.isArray(answers) &&
+      answers.length > 0 &&
+      answers.length <= 200 &&
+      answers.every(
+        (a) =>
+          Number.isInteger(a?.questionId) &&
+          (a.position === null ||
+            (Number.isInteger(a.position) && a.position >= 1 && a.position <= 5))
+      );
+    if (!valid) {
+      return res.status(400).json({
+        error: 'answers must be a non-empty array of { questionId, position }',
+      });
+    }
+
+    const chosenById = new Map(answers.map((a) => [a.questionId, a.position]));
+
+    const [rows] = await pool.query(
+      `SELECT q.id AS question_id, q.explanation, ao.position AS correct_position
+       FROM question q
+       JOIN answer_option ao ON ao.question_id = q.id AND ao.is_correct = TRUE
+       WHERE q.id IN (?)`,
+      [[...chosenById.keys()]]
+    );
+
+    const results = rows.map((q) => {
+      const isCorrect = chosenById.get(q.question_id) === q.correct_position;
+      return isCorrect
+        ? { questionId: q.question_id, isCorrect: true }
+        : {
+            questionId: q.question_id,
+            isCorrect: false,
+            correctPosition: q.correct_position,
+            explanation: q.explanation,
+          };
+    });
+
+    res.json(results);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Could not check answers' });
   }
 });
 
