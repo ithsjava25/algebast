@@ -22,6 +22,10 @@ const selectedAnswer = ref(null);
     <h2 class="question-text" v-html="renderMath(question.text)">
     </h2>
 
+    <div v-if="question.imageUrl" class="question-image-container">
+      <img :src="question.imageUrl" alt="Frågebild" class="question-image" />
+    </div>
+
     <div class="answer-options">
       <label
         v-for="option in question.options"
@@ -64,6 +68,17 @@ const selectedAnswer = ref(null);
   font-size: 20px;
   font-weight: 600;
   line-height: 1.5;
+}
+
+.question-image-container {
+  margin-bottom: 20px;
+}
+
+.question-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid #ddd;
 }
 
 .answer-options {
