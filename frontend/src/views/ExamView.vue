@@ -14,20 +14,25 @@ const questions = ref([]);
 const loading = ref(true);
 const error = ref(null);
 
-async function loadQuestions(examId) {
+let latestRequestId = 0;
+
+async function loadQuestions() {
+  const requestId = ++latestRequestId;
+
   loading.value = true;
   error.value = null;
+  questions.value = [];
 
   try {
-    const result = await getQuestionsByExam(examId);
-    if (examId !== props.examId) return;
+    const result = await getQuestionsByExam(props.examId);
+    if (requestId !== latestRequestId) return; // a newer request exists
     questions.value = result;
   } catch (err) {
-    if (examId !== props.examId) return;
+    if (requestId !== latestRequestId) return;
     console.error(err);
     error.value = "Kunde inte hämta frågorna just nu. Försök igen om en stund.";
   } finally {
-    if (examId === props.examId) loading.value = false;
+    if (requestId === latestRequestId) loading.value = false;
   }
 }
 
@@ -42,7 +47,7 @@ watch(() => props.examId, loadQuestions, { immediate: true });
 
     <div v-else-if="error" class="error" role="alert">
       <p>{{ error }}</p>
-      <button @click="loadQuestions(props.examId)">Försök igen</button>
+      <button @click="loadQuestions()">Försök igen</button>
     </div>
 
     <p v-else-if="questions.length === 0">Det här provet har inga frågor.</p>
