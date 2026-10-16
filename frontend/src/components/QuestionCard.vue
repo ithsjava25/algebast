@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { renderMath } from "../utils/rendermath";
 
 defineProps({
     question: {
@@ -18,9 +19,12 @@ const selectedAnswer = ref(null);
       {{ question.category }}
     </span>
 
-    <h2 class="question-text">
-      {{ question.text }}
+    <h2 class="question-text" v-html="renderMath(question.text)">
     </h2>
+
+    <div v-if="question.imageUrl" class="question-image-container">
+      <img :src="question.imageUrl" alt="Frågebild" class="question-image" />
+    </div>
 
     <div class="answer-options">
       <label
@@ -35,7 +39,7 @@ const selectedAnswer = ref(null);
           :value="option.position"
         />
 
-        <span>{{ option.text }}</span>
+        <span v-html="renderMath(option.text)"></span>
       </label>
     </div>
   </article>
@@ -64,6 +68,17 @@ const selectedAnswer = ref(null);
   font-size: 20px;
   font-weight: 600;
   line-height: 1.5;
+}
+
+.question-image-container {
+  margin-bottom: 20px;
+}
+
+.question-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid #ddd;
 }
 
 .answer-options {
