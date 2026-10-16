@@ -1,18 +1,30 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import ExamCard from "@/components/ExamCard.vue";
-import { getExams } from "@/services/examService.js";
+import QuestionCard from "@/components/QuestionCard.vue";
+import { getQuestionsByExam } from "@/services/questionService.js";
 
-const exams = ref([]);
+const props = defineProps({
+  examId: {
+    type: String,
+    required: true,
+  },
+});
+
+const questions = ref([]);
 
 onMounted(async () => {
-  exams.value = await getExams();
+  questions.value = await getQuestionsByExam(props.examId);
 });
 </script>
 
 <template>
   <main>
-    <h1>Välj prov</h1>
-    <ExamCard v-for="exam in exams" :key="exam.id" :exam="exam" />
+    <h1>Prov</h1>
+
+    <QuestionCard
+      v-for="question in questions"
+      :key="question.id"
+      :question="question"
+    />
   </main>
 </template>

@@ -1,18 +1,19 @@
 <script setup>
 defineProps({
-    exam: {
-        type: Object,
-        required: true
-    }
-})
+  exam: {
+    type: Object,
+    required: true,
+  },
+});
+
+const emit = defineEmits(["start-exam"]);
 </script>
 
 <template>
   <article class="exam-card">
     <h2>Högskoleprovet {{ exam.semester }} {{ exam.year }}</h2>
-
     <p>Provpass {{ exam.session }}</p>
 
-    <button>Starta prov</button>
+    <button @click="emit('start-exam', exam.id)">Starta prov</button>
   </article>
 </template>
