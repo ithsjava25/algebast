@@ -4,10 +4,10 @@ import { getRandomQuestionsByCategories } from "@/services/questionService.js";
 import QuestionCard from "@/components/QuestionCard.vue";
 
 const categories = [
-    { code: "XYZ", name: "Matematik" },
-    { code: "KVA", name: "Kvantitativa jämförelser" },
-    { code: "NOG", name: "Kvantitativa resonemang" },
-    { code: "DTK", name: "Diagram, tabeller och kartor" },
+  { code: "XYZ", name: "Matematik" },
+  { code: "KVA", name: "Kvantitativa jämförelser" },
+  { code: "NOG", name: "Kvantitativa resonemang" },
+  { code: "DTK", name: "Diagram, tabeller och kartor" },
 ];
 
 const selectedCategories = ref([]);
@@ -16,7 +16,7 @@ const questions = ref([]);
 function selectCategory(code) {
   if (selectedCategories.value.includes(code)) {
     selectedCategories.value = selectedCategories.value.filter(
-      category => category !== code
+      (category) => category !== code,
     );
   } else {
     selectedCategories.value.push(code);
@@ -25,9 +25,11 @@ function selectCategory(code) {
 
 async function startExercise() {
   questions.value = await getRandomQuestionsByCategories(
-    selectedCategories.value, 10);
+    selectedCategories.value,
+    10,
+  );
 
-    console.log(questions.value);
+  console.log(questions.value);
 }
 </script>
 
@@ -42,7 +44,7 @@ async function startExercise() {
           v-for="category in categories"
           :key="category.code"
           class="category-card"
-          :class="{ selected: selectedCategories.includes(category.code)}"
+          :class="{ selected: selectedCategories.includes(category.code) }"
           @click="selectCategory(category.code)"
         >
           <h2>{{ category.code }}</h2>
@@ -52,7 +54,7 @@ async function startExercise() {
         <button
           :disabled="selectedCategories.length === 0"
           @click="startExercise"
-          >
+        >
           Starta övning
         </button>
       </div>
