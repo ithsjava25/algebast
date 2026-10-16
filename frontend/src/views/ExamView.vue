@@ -1,44 +1,34 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import ExamCard from "@/components/ExamCard.vue";
-import { getExams } from "@/services/examService.js";
+import { ref, watch } from "vue";
+import QuestionCard from "@/components/QuestionCard.vue";
+import { getQuestionsByExam } from "@/services/questionService.js";
 
-const exams = ref([]);
-const loading = ref(true);
-const error = ref(null);
+const props = defineProps({
+  examId: {
+    type: String,
+    required: true,
+  },
+});
 
-async function loadExams() {
-  loading.value = true;
-  error.value = null;
+const questions = ref([]);
 
-  try {
-    exams.value = await getExams();
-  } catch (err) {
-    console.error(err);
-    error.value = "Kunde inte hämta proven just nu. Försök igen om en stund.";
-  } finally {
-    loading.value = false;
-  }
-}
-
-onMounted(loadExams);
+watch(
+  () => props.examId,
+  async (newExamId) => {
+    questions.value = await getQuestionsByExam(newExamId);
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <main>
-    <h1>Välj prov</h1>
+    <h1>Prov</h1>
 
-    <p v-if="loading">Laddar prov...</p>
-
-    <div v-else-if="error" class="error" role="alert">
-      <p>{{ error }}</p>
-      <button @click="loadExams">Försök igen</button>
-    </div>
-
-    <p v-else-if="exams.length === 0">Inga prov hittades.</p>
-
-    <template v-else>
-      <ExamCard v-for="exam in exams" :key="exam.id" :exam="exam" />
-    </template>
+    <QuestionCard
+      v-for="question in questions"
+      :key="question.id"
+      :question="question"
+    />
   </main>
 </template>
