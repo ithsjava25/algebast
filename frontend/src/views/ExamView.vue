@@ -11,24 +11,48 @@ const props = defineProps({
 });
 
 const questions = ref([]);
+const loading = ref(true);
+const error = ref(null);
 
-watch(
-  () => props.examId,
-  async (newExamId) => {
-    questions.value = await getQuestionsByExam(newExamId);
-  },
-  { immediate: true },
-);
+async function loadQuestions(examId) {
+  loading.value = true;
+  error.value = null;
+
+  try {
+    const result = await getQuestionsByExam(examId);
+    if (examId !== props.examId) return;
+    questions.value = result;
+  } catch (err) {
+    if (examId !== props.examId) return;
+    console.error(err);
+    error.value = "Kunde inte hämta frågorna just nu. Försök igen om en stund.";
+  } finally {
+    if (examId === props.examId) loading.value = false;
+  }
+}
+
+watch(() => props.examId, loadQuestions, { immediate: true });
 </script>
 
 <template>
   <main>
     <h1>Prov</h1>
 
-    <QuestionCard
-      v-for="question in questions"
-      :key="question.id"
-      :question="question"
-    />
+    <p v-if="loading">Laddar frågor...</p>
+
+    <div v-else-if="error" class="error" role="alert">
+      <p>{{ error }}</p>
+      <button @click="loadQuestions(props.examId)">Försök igen</button>
+    </div>
+
+    <p v-else-if="questions.length === 0">Det här provet har inga frågor.</p>
+
+    <template v-else>
+      <QuestionCard
+        v-for="question in questions"
+        :key="question.id"
+        :question="question"
+      />
+    </template>
   </main>
 </template>
