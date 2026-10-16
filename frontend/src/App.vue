@@ -5,7 +5,7 @@ import SideNav from './components/SideNav.vue';
 <template>
   <div class="app-layout">
     <SideNav />
-    <main class="page-conntent">
+    <main class="page-content">
       <RouterView />
     </main>
   </div>
@@ -15,10 +15,12 @@ import SideNav from './components/SideNav.vue';
 .app-layout {
   display: flex;
   min-height: 100vh;
+  width: 100%;
 }
 
 .page-content {
-  flex: 2;
+  flex: 1 1 0;
+  min-width: 0;
 }
 </style>
 

@@ -2,7 +2,7 @@
 const menuItems = [
     { label: "Hem", route: "/" },
     { label: "Prov", route: "/exams" },
-    { label: "Öva", route: "/test" },
+    { label: "Öva", route: "/exercises" },
     { label: "Resultat", route: "/results" },
     { label: "Profil", route: "/profile" }
 ];
