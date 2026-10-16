@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, watch } from "vue";
 import QuestionCard from "@/components/QuestionCard.vue";
 import { getQuestionsByExam } from "@/services/questionService.js";
 
@@ -12,9 +12,13 @@ const props = defineProps({
 
 const questions = ref([]);
 
-onMounted(async () => {
-  questions.value = await getQuestionsByExam(props.examId);
-});
+watch(
+  () => props.examId,
+  async (newExamId) => {
+    questions.value = await getQuestionsByExam(newExamId);
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
