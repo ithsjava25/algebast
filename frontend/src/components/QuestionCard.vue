@@ -1,16 +1,13 @@
 <script setup>
-import { ref } from "vue";
 import { renderMath } from "../utils/rendermath";
 
 defineProps({
-    question: {
-        type: Object,
-        required: true,
-    },
+  question: { type: Object, required: true },
+  disabled: { type: Boolean, default: false },
+  result: { type: Object, default: null },
 });
 
-const selectedAnswer = ref(null);
-
+const selected = defineModel();
 </script>
 
 <template>
@@ -19,8 +16,7 @@ const selectedAnswer = ref(null);
       {{ question.category }}
     </span>
 
-    <h2 class="question-text" v-html="renderMath(question.text)">
-    </h2>
+    <h2 class="question-text" v-html="renderMath(question.text)"></h2>
 
     <div v-if="question.imageUrl" class="question-image-container">
       <img :src="question.imageUrl" alt="Frågebild" class="question-image" />
@@ -33,11 +29,27 @@ const selectedAnswer = ref(null);
         class="answer-option"
       >
         <input
-          v-model="selectedAnswer"
+          v-model="selected"
           type="radio"
+          :disabled="disabled"
           :name="`question-${question.id}`"
           :value="option.position"
         />
+
+        <div
+          v-if="result"
+          class="result"
+          :class="result.isCorrect ? 'correct' : 'wrong'"
+        >
+          <p v-if="result.isCorrect">Rätt!</p>
+          <template v-else>
+            <p>Fel. Rätt svar: alternativ {{ result.correctPosition }}</p>
+            <p
+              v-if="result.explanation"
+              v-html="renderMath(result.explanation)"
+            ></p>
+          </template>
+        </div>
 
         <span v-html="renderMath(option.text)"></span>
       </label>
@@ -96,7 +108,9 @@ const selectedAnswer = ref(null);
   border: 1px solid #ccc;
 
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .answer-option:hover {
