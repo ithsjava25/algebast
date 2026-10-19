@@ -1,16 +1,24 @@
 <script setup>
-import { ref } from "vue";
+import { computed } from "vue";
 import { renderMath } from "../utils/rendermath";
 
-defineProps({
-    question: {
-        type: Object,
-        required: true,
-    },
+const props = defineProps({
+  question: {
+    type: Object,
+    required: true,
+  },
+  modelValue: {
+    type: [Number, String],
+    default: null,
+  },
 });
 
-const selectedAnswer = ref(null);
+const emit = defineEmits(["update:modelValue"]);
 
+const selectedAnswer = computed({
+  get: () => props.modelValue,
+  set: (val) => emit("update:modelValue", val),
+});
 </script>
 
 <template>
@@ -19,8 +27,7 @@ const selectedAnswer = ref(null);
       {{ question.category }}
     </span>
 
-    <h2 class="question-text" v-html="renderMath(question.text)">
-    </h2>
+    <h2 class="question-text" v-html="renderMath(question.text)"></h2>
 
     <div v-if="question.imageUrl" class="question-image-container">
       <img :src="question.imageUrl" alt="Frågebild" class="question-image" />
@@ -91,10 +98,8 @@ const selectedAnswer = ref(null);
   display: flex;
   align-items: center;
   gap: 12px;
-
   padding: 14px 16px;
   border: 1px solid #ccc;
-
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
 }
