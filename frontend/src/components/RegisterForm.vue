@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { registerUser } from "@/services/userService.js";
 
 const username = ref("");
 const firstname = ref("");
@@ -8,9 +9,12 @@ const email = ref("");
 const password = ref("");
 
 const errorMessage = ref("");
+const successMessage = ref("");
+const emit = defineEmits(["registered"]);
 
-function handleSubmit() {
+async function handleSubmit() {
     errorMessage.value = "";
+    successMessage.value = "";
 
     //  Validerar inputs
     if (
@@ -40,7 +44,22 @@ function handleSubmit() {
         errorMessage.value = "Lösenordet måste vara minst 8 tecken långt.";
         return;
     }
-   
+
+    // Skickar registreringsdata till backend
+   try {
+        const user = await registerUser ({
+            username: username.value.trim(),
+            firstname: firstname.value.trim(),
+            lastname: lastname.value.trim(),
+            email: email.value.trim(),
+            password: password.value,
+        });
+
+        successMessage.value = "Ditt konto har skapats! Du kan nu logga in.";
+        emit("registered");
+   } catch (error) {
+    errorMessage.value = error.message;
+   }
 };
 
 </script>
@@ -95,6 +114,9 @@ function handleSubmit() {
         <p v-if="errorMessage" class="error-message">
             {{ errorMessage }}
         </p>
+        <p v-if="successMessage" class="success-message">
+            {{ successMessage }}
+        </p>
 
         <button type="submit">
         Skapa konto
@@ -132,5 +154,10 @@ function handleSubmit() {
   margin: 0;
   font-size: 14px;
   color: #b00020;
+}
+.success-message {
+  margin: 0;
+  font-size: 14px;
+  color: #16803c;
 }
 </style>

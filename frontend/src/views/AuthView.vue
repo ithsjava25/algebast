@@ -1,5 +1,12 @@
 <script setup>
+import { ref } from "vue";
 import RegisterForm from "@/components/RegisterForm.vue";
+
+const authMode = ref("register");
+
+function showLogin() {
+    authMode.value = "login";
+}
 </script>
 
 <template>
@@ -7,11 +14,15 @@ import RegisterForm from "@/components/RegisterForm.vue";
         <h1>Välkommen till AlgeBäst</h1>
         <p>Logga in eller skapa ett konto för att spara dina resultat.</p>
 
-        <div class="auth-actions">
-            <button>Logga in</button>
-            <button>Skapa konto</button>
+        <RegisterForm
+            v-if="authMode === 'register'"
+            @registered="showLogin"
+        />
+
+        <div v-else>
+            <h2>Logga in</h2>
+            <p>Ditt konto är skapat. Du kan nu logga in.</p>
         </div>
-        <RegisterForm />
     </section>
 </template>
 
