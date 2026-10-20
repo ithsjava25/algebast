@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import RegisterForm from "@/components/RegisterForm.vue";
+import LoginForm from "@/components/LoginForm.vue";
 
 const authMode = ref("register");
 
@@ -19,9 +20,19 @@ function showLogin() {
             @registered="showLogin"
         />
 
+        <button
+            v-if="authMode === 'register'"
+            type="button"
+            @click="authMode = 'login'"
+            >
+            Har du redan ett konto? Logga in
+        </button>
+
         <div v-else>
             <h2>Logga in</h2>
             <p>Ditt konto är skapat. Du kan nu logga in.</p>
+
+            <LoginForm />
         </div>
     </section>
 </template>
@@ -38,5 +49,12 @@ function showLogin() {
   display: flex;
   gap: 12px;
   margin-top: 24px;
+}
+
+.auth-view button {
+width: 100%;
+  padding: 12px 16px;
+  margin-top: 8px;
+  cursor: pointer;
 }
 </style>

@@ -8,9 +8,40 @@ router.post("/register", async (req, res) => {
     try {
         const { username, firstname, lastname, email, password } = req.body;
 
-        if (!username || !firstname || !lastname || !email || !password) {
+        const trimmedUsername = username?.trim();
+        const trimmedFirstname = firstname?.trim();
+        const trimmedLastname = lastname?.trim();
+        const trimmedEmail = email?.trim();
+
+        if (
+            !trimmedUsername ||
+            !trimmedFirstname ||
+            !trimmedLastname ||
+            !trimmedEmail ||
+            !password
+        ) {
             return res.status(400).json({
-                error: "Alla fält måste fyllas i",
+                error: "Alla fält måste fyllas i"
+            });
+        }
+
+        if (trimmedUsername.length < 3) {
+            return res.status(400).json({
+                error: "Användarnamnet måste innehålla minst 3 tecken"
+            });
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(trimmedEmail)) {
+            return res.status(400).json({
+                error: "Ange en giltig e-postadress"
+            });
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json({
+                error: "Lösenordet måste innehålla minst 8 tecken"
             });
         }
 
@@ -18,7 +49,7 @@ router.post("/register", async (req, res) => {
             SELECT id
             FROM users
             WHERE username = ? OR email = ?`,
-        [username, email]
+        [trimmedUsername, trimmedEmail]
         );
 
         if (existingUsers.length > 0) {
@@ -33,15 +64,15 @@ router.post("/register", async (req, res) => {
             INSERT INTO users
             (username, firstname, lastname, email, password_hash)
             VALUES (?, ?, ?, ?, ?)`,
-        [username, firstname, lastname, email, passwordHash]
+        [trimmedUsername, trimmedFirstname, trimmedLastname, trimmedEmail, passwordHash]
         );
 
         res.status(201).json({
             id: result.insertId,
-            username,
-            firstname,
-            lastname,
-            email,
+            username: trimmedUsername,
+            firstname: trimmedFirstname,
+            lastname: trimmedLastname,
+            email: trimmedEmail
         });
     } catch (err) {
         console.error(err);
