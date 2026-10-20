@@ -6,14 +6,28 @@ import { getExams } from "@/services/examService.js";
 
 const router = useRouter();
 const exams = ref([]);
+const loading = ref(true);
+const error = ref(null);
 
-onMounted(async () => {
-  exams.value = await getExams();
-});
+async function loadExams() {
+  loading.value = true;
+  error.value = null;
+
+  try {
+    exams.value = await getExams();
+  } catch (err) {
+    console.error(err);
+    error.value = "Kunde inte hämta proven just nu. Försök igen om en stund.";
+  } finally {
+    loading.value = false;
+  }
+}
 
 function startExam(examId) {
   router.push(`/exams/${examId}`);
 }
+
+onMounted(loadExams);
 </script>
 
 <template>
@@ -21,7 +35,20 @@ function startExam(examId) {
     <h1>Välj prov</h1>
     <p class="subtitle">Välj vilket prov du vill köra igång med.</p>
 
-    <div class="exams-container">
+    <!-- Laddar-tillstånd -->
+    <p v-if="loading" class="state-msg">Laddar prov...</p>
+
+    <!-- Fel-tillstånd -->
+    <div v-else-if="error" class="error-box" role="alert">
+      <p>{{ error }}</p>
+      <button class="nav-btn primary" @click="loadExams">Försök igen</button>
+    </div>
+
+    <!-- Om inga prov hittades -->
+    <p v-else-if="exams.length === 0" class="state-msg">Inga prov hittades.</p>
+
+    <!-- Provlista med din snygga grid-layout -->
+    <div v-else class="exams-container">
       <ExamCard
         v-for="exam in exams"
         :key="exam.id"
@@ -44,6 +71,7 @@ function startExam(examId) {
 
 .exam-selection-view h1 {
   font-size: 24px;
+  font-weight: 700;
   margin-bottom: 8px;
 }
 
@@ -53,6 +81,18 @@ function startExam(examId) {
   margin-bottom: 20px;
 }
 
+.state-msg {
+  color: #7f8c8d;
+  font-size: 15px;
+}
+
+.error-box {
+  background: #f8d7da;
+  border: 1px solid #dc3545;
+  color: #721c24;
+  padding: 16px;
+  border-radius: 8px;
+}
 
 .exams-container {
   display: flex;

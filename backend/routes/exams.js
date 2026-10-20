@@ -21,8 +21,15 @@ router.get("/", async (req, res) => {
 router.get("/:id/questions", async (req, res) => {
   try {
     const examId = Number(req.params.id);
-    if (!Number.isInteger(examId)) {
+    if (!Number.isInteger(examId) || examId <= 0) {
       return res.status(400).json({ error: "Invalid exam id" });
+    }
+
+    const [exams] = await pool.execute("SELECT id FROM exam WHERE id = ?", [
+      examId,
+    ]);
+    if (exams.length === 0) {
+      return res.status(404).json({ error: "Exam not found" });
     }
 
     const [questions] = await pool.execute(
@@ -32,10 +39,9 @@ router.get("/:id/questions", async (req, res) => {
        ORDER BY question_order`,
       [examId],
     );
+
     if (questions.length === 0) {
-      return res
-        .status(404)
-        .json({ error: "Exam not found or has no questions" });
+      return res.json([]);
     }
 
     const [options] = await pool.execute(
