@@ -35,24 +35,24 @@ const selected = defineModel();
           :name="`question-${question.id}`"
           :value="option.position"
         />
-
-        <div
-          v-if="result"
-          class="result"
-          :class="result.isCorrect ? 'correct' : 'wrong'"
-        >
-          <p v-if="result.isCorrect">Rätt!</p>
-          <template v-else>
-            <p>Fel. Rätt svar: alternativ {{ result.correctPosition }}</p>
-            <p
-              v-if="result.explanation"
-              v-html="renderMath(result.explanation)"
-            ></p>
-          </template>
-        </div>
-
         <span v-html="renderMath(option.text)"></span>
       </label>
+    </div>
+
+    <div
+      v-if="result"
+      class="result"
+      :class="result.isCorrect ? 'correct' : 'wrong'"
+      role="status"
+    >
+      <p v-if="result.isCorrect">Rätt!</p>
+      <template v-else>
+        <p>Fel. Rätt svar: alternativ {{ result.correctPosition }}</p>
+        <p
+          v-if="result.explanation"
+          v-html="renderMath(result.explanation)"
+        ></p>
+      </template>
     </div>
   </article>
 </template>
@@ -126,4 +126,15 @@ const selected = defineModel();
 .answer-option span {
   line-height: 1.4;
 }
+
+.result {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-left: 4px solid;
+}
+
+.result.correct { border-color: #2e7d32; }
+.result.wrong { border-color: #c62828; }
+.result p { margin: 0; }
+.result p + p { margin-top: 8px; }
 </style>
