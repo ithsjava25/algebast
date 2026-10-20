@@ -28,3 +28,19 @@ export async function getRandomQuestionsByCategories(categories, count = 10) {
 
   return await response.json();
 }
+
+export async function turnInAnswers(answers) {
+  const response = await fetch(`${API_URL}/questions/check`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ answers }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Kunde inte skicka in svar: ${response.status}`);
+  }
+
+  return await response.json();
+}
