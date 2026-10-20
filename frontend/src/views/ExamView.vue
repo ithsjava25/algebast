@@ -39,8 +39,9 @@ async function loadQuestions() {
   loading.value = true;
   error.value = null;
   questions.value = [];
-  selectedAnswers.value = {}; // reset when the exam changes
+  selectedAnswers.value = {};
   results.value = null;
+  submitting.value = false; // new: a discarded submit won't reset this itself
   submitError.value = null;
 
   try {
@@ -64,20 +65,23 @@ async function submit() {
     if (!ok) return;
   }
 
+  const requestId = latestRequestId;
   submitting.value = true;
   submitError.value = null;
   try {
     const answers = questions.value.map((q) => ({
       questionId: q.id,
-      position: selectedAnswers.value[q.id] ?? null, // unanswered -> null
+      position: selectedAnswers.value[q.id] ?? null,
     }));
     const data = await turnInAnswers(answers);
+    if (requestId !== latestRequestId) return;
     results.value = Object.fromEntries(data.map((r) => [r.questionId, r]));
   } catch (err) {
+    if (requestId !== latestRequestId) return;
     console.error(err);
     submitError.value = "Kunde inte skicka in svaren. Försök igen.";
   } finally {
-    submitting.value = false;
+    if (requestId === latestRequestId) submitting.value = false;
   }
 }
 
@@ -119,10 +123,11 @@ watch(() => props.examId, loadQuestions, { immediate: true });
         }}
       </p>
 
+      <p v-if="submitError" class="error" role="alert">{{ submitError }}</p>
+
       <button v-if="!results" :disabled="submitting" @click="submit">
         {{ submitting ? "Skickar in..." : "Lämna in" }}
       </button>
-
     </template>
   </main>
 </template>
