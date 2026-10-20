@@ -4,7 +4,7 @@ const menuItems = [
     { label: "Prov", route: "/exams" },
     { label: "Öva", route: "/exercises" },
     { label: "Resultat", route: "/results" },
-    { label: "Profil", route: "/profile" }
+    { label: "Profil", route: "/auth" }
 ];
 </script>
 

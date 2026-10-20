@@ -4,6 +4,7 @@ import HomeView from "@/views/HomeView.vue";
 import ExamSelectionView from "@/views/ExamSelectionView.vue";
 import ExamView from "@/views/ExamView.vue";
 import ExerciseView from "@/views/ExerciseView.vue";
+import AuthView from "@/views/AuthView.vue";
 
 const routes = [
   {
@@ -27,6 +28,11 @@ const routes = [
     name: "exercises",
     component: ExerciseView,
   },
+  {
+    path: "/auth",
+    name: "auth",
+    component: AuthView,
+  }
 ];
 
 const router = createRouter({
