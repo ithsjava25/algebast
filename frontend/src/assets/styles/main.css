@@ -8,3 +8,57 @@ body {
   margin: 0;
   min-height: 100vh;
 }
+
+/* 2. Globala CSS-variabler eller återanvändbara komponenter */
+.badge {
+  background: #3498db;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.5px;
+}
+
+.sub-badge {
+  background: #ebf3f9;
+  color: #2c3e50;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Generella knappar som används på flera ställen */
+.nav-btn {
+  padding: 12px 24px;
+  background: #ffffff;
+  color: #2c3e50;
+  border: 1px solid #dcdde1;
+  border-radius: 8px;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #f5f6fa;
+  border-color: #3498db;
+}
+
+.nav-btn.primary {
+  background: #2c3e50;
+  color: #ffffff;
+  border-color: #2c3e50;
+}
+
+.nav-btn.primary:hover:not(:disabled) {
+  background: #1a252f;
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

@@ -16,7 +16,7 @@ const questions = ref([]);
 const currentIndex = ref(0);
 const userAnswers = ref({});
 
-// Håll koll på om sidopanelen är kollapsad eller ej (sätt till true om den ska vara stängd från start)
+// Håll koll på om sidopanelen är kollapsad eller ej
 const isSidebarCollapsed = ref(false);
 
 // Timer: 55 minuter (3300 sekunder)
@@ -66,28 +66,30 @@ watch(
 );
 
 const currentQuestion = computed(() => questions.value[currentIndex.value]);
+
 </script>
 
 <template>
   <div class="exam-view-wrapper">
-    <!-- Lägg till klassen 'collapsed' om sidopanelen är stängd -->
     <div class="exam-container" :class="{ 'collapsed': isSidebarCollapsed }">
       
       <!-- Vänster sida: Rubrik, Frågekort och Navigering -->
       <main class="exam-main" v-if="currentQuestion">
-        <header class="exam-header">
-          <div>
-            <h1 v-if="examDetails">
-              Högskoleprovet {{ examDetails.semester }} {{ examDetails.year }}
-            </h1>
-            <h1 v-else>Högskoleprovet</h1>
-            <p v-if="examDetails?.session" class="sub-title">
-              Provpass {{ examDetails.session }}
-            </p>
+        
+        <!-- Övre info-bar liknande Quiz.vue -->
+        <header class="quiz-header">
+          <div class="header-left">
+            <span class="badge" v-if="examDetails">
+              HP {{ examDetails.semester }} {{ examDetails.year }}
+            </span>
+            <span class="badge" v-else>Högskoleprovet</span>
+            
+            <span class="sub-badge" v-if="examDetails?.session">
+              PASS {{ examDetails.session }}
+            </span>
           </div>
 
           <div class="header-right">
-            <!-- Knapp för att fälla ihop/upp sidopanelen -->
             <button class="toggle-sidebar-btn" @click="isSidebarCollapsed = !isSidebarCollapsed">
               {{ isSidebarCollapsed ? "📊 Visa översikt" : "✕ Dölj översikt" }}
             </button>
@@ -98,15 +100,18 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
           </div>
         </header>
 
+        <!-- Progress-text -->
         <div class="question-meta">
-          <span>Fråga {{ currentIndex + 1 }} av {{ questions.length }}</span>
+          <span class="progress-text">Fråga {{ currentIndex + 1 }} av {{ questions.length }}</span>
         </div>
 
+        <!-- Frågekortet -->
         <QuestionCard
           :question="currentQuestion"
           v-model="userAnswers[currentQuestion.id]"
         />
 
+        <!-- Navigeringsknappar -->
         <div class="exam-nav-buttons">
           <button
             @click="currentIndex--"
@@ -126,10 +131,10 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
         </div>
       </main>
 
-      <!-- Höger sida: Översiktsmeny (Sidopanel) -->
+      <!-- Höger sida: Översiktsmeny -->
       <aside class="exam-sidebar" v-show="!isSidebarCollapsed">
-        <h3>Frågeöversikt</h3>
-        <p class="sidebar-sub">Klicka på ett nummer för att navigera.</p>
+        <h3 class="sidebar-title">Frågeöversikt</h3>
+        <p class="sidebar-sub">Klicka för att hoppa till fråga.</p>
 
         <div class="question-grid">
           <button
@@ -158,191 +163,183 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 .exam-view-wrapper {
   background-color: #f8f9fa;
   min-height: 100vh;
-  padding: 2rem 0;
+  padding: 20px 0; /* Optimerat för mindre skärmar */
+  font-family: 'Space Mono', monospace, sans-serif;
+  color: #2c3e50;
 }
 
-/* Standard: Grid med två kolumner (Huvudinnehåll + 280px sidebar) */
+/* Mobile-first: Standard är 1 kolumn */
 .exam-container {
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 2rem;
-  max-width: 1100px;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 15px;
   transition: grid-template-columns 0.3s ease;
 }
 
-/* När sidopanelen är kollapsad expanderar huvudinnehållet till 100% */
-.exam-container.collapsed {
-  grid-template-columns: 1fr;
-  max-width: 850px; /* Gör läsvyn lite mer centrerad och behaglig */
+/* På större skärmar (desktop) aktiveras sidopanelen i ett grid med 2 kolumner */
+@media (min-width: 768px) {
+  .exam-view-wrapper {
+    padding: 40px 0;
+  }
+  
+  .exam-container {
+    grid-template-columns: 1fr 280px;
+    max-width: 1100px;
+    padding: 0 20px;
+  }
+
+  .exam-container.collapsed {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+  }
 }
 
+/* Huvudkort */
 .exam-main {
   background: #ffffff;
-  padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 20px; /* Lite tightare på mobil */
+  border: 1px solid #eef2f3;
 }
 
-.exam-header {
+@media (min-width: 768px) {
+  .exam-main {
+    padding: 30px;
+  }
+}
+
+/* Header & Element */
+.quiz-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #f1f5f9;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f8f9fa;
+  padding-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.exam-header h1 {
-  margin: 0;
-  font-size: 1.6rem;
-  color: #0f172a;
-}
-
-.sub-title {
-  margin: 0.25rem 0 0 0;
-  color: #475569;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.header-right {
+.header-left, .header-right {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 8px;
 }
 
 .toggle-sidebar-btn {
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  color: #334155;
-  padding: 0.6rem 0.9rem;
+  background: #f1f2f6;
+  border: 1px solid #dcdde1;
+  color: #2c3e50;
+  padding: 8px 14px;
   border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
   cursor: pointer;
-  transition: background 0.2s;
-  white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
 .toggle-sidebar-btn:hover {
-  background: #e2e8f0;
+  background: #e4e6eb;
+  border-color: #3498db;
 }
 
 .timer-box {
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  color: #0f172a;
-  padding: 0.6rem 1rem;
+  background: #f8f9fa;
+  border: 1px solid #dcdde1;
+  color: #2c3e50;
+  padding: 8px 14px;
   border-radius: 8px;
-  font-size: 1rem;
-  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .timer-box.warning {
-  background: #fff5f5;
-  border-color: #feb2b2;
-  color: #c53030;
+  background: #fff9f9;
+  border-color: #dc3545;
+  color: #dc3545;
 }
 
 .question-meta {
-  font-weight: 600;
-  color: #334155;
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
+}
+
+.progress-text {
+  font-size: 14px;
+  color: #95a5a6;
+  font-weight: 700;
 }
 
 .exam-nav-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.5rem;
-}
-
-.nav-btn {
-  padding: 0.6rem 1.4rem;
-  background: #f1f5f9;
-  color: #334155;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.nav-btn:hover:not(:disabled) {
-  background: #e2e8f0;
-}
-
-.nav-btn.primary {
-  background: #1e3a8a;
-  color: white;
-  border-color: #1e3a8a;
-}
-
-.nav-btn.primary:hover:not(:disabled) {
-  background: #1e40af;
-}
-
-.nav-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+  margin-top: 30px;
+  gap: 15px;
 }
 
 /* Sidopanel */
 .exam-sidebar {
   background: #ffffff;
-  padding: 1.5rem;
+  padding: 20px;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  border: 1px solid #eef2f3;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   height: fit-content;
 }
 
-.exam-sidebar h3 {
+.sidebar-title {
   margin-top: 0;
-  color: #0f172a;
+  font-size: 18px;
+  color: #2c3e50;
+  font-weight: 700;
 }
 
 .sidebar-sub {
-  font-size: 0.85rem;
-  color: #64748b;
-  margin-bottom: 1rem;
+  font-size: 12px;
+  color: #95a5a6;
+  margin-bottom: 20px;
 }
 
 .question-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
 .grid-btn {
   aspect-ratio: 1;
-  border: 1px solid #cbd5e1;
-  background-color: #f8fafc;
-  color: #334155;
+  border: 1px solid #dcdde1;
+  background-color: #f1f2f6;
+  color: #2c3e50;
   border-radius: 8px;
-  font-weight: bold;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
   cursor: pointer;
-  transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease;
 }
 
 .grid-btn:hover {
-  background-color: #f1f5f9;
+  background-color: #e4e6eb;
+  border-color: #3498db;
 }
 
 .grid-btn.active {
-  border-color: #0284c7;
-  background-color: #e0f2fe;
-  color: #0369a1;
-  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
+  border-color: #3498db;
+  background-color: #ebf3f9;
+  color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
 .grid-btn.answered {
-  background-color: #d1e7dd;
-  border-color: #a3cfbb;
-  color: #0a3622;
+  background-color: #d4edda;
+  border-color: #28a745;
+  color: #155724;
 }
 
 .finish-btn {
@@ -350,14 +347,16 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 0.75rem;
+  padding: 12px;
   border-radius: 8px;
-  font-weight: bold;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .finish-btn:hover {
-  background-color: #bb2d3b;
+  background-color: #c82333;
 }
 </style>
