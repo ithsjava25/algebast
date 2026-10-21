@@ -11,7 +11,7 @@ const selected = defineModel();
 </script>
 
 <template>
-  <article class="question-card">
+  <article class="question-card card">
     <span class="question-category">
       {{ question.category }}
     </span>
@@ -58,12 +58,6 @@ const selected = defineModel();
 </template>
 
 <style scoped>
-.question-card {
-  width: 100%;
-  background: #fff;
-  border-radius: 12px;
-}
-
 .question-category {
   display: inline-block;
   margin-bottom: 12px;

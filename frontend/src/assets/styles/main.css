@@ -7,9 +7,54 @@
 body {
   margin: 0;
   min-height: 100vh;
+  font-family: 'Space Mono', monospace, sans-serif;
+  color: #2c3e50;
+  background-color: #f8f9fa;
 }
 
-/* 2. Globala CSS-variabler eller återanvändbara komponenter */
+/* Gemensam kortdesign för Dashboard, Prov och Övningar */
+.card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #dcdde1;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: #3498db;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Standard rubriker och brödtext i vyer */
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.subtitle, .state-msg, .sidebar-sub {
+  color: #7f8c8d;
+  font-size: 15px;
+  margin: 0 0 20px 0;
+}
+
+/* Fel- och varningsboxar */
+.error-box {
+  background: #f8d7da;
+  border: 1px solid #dc3545;
+  color: #721c24;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Badges */
 .badge {
   background: #3498db;
   color: #ffffff;
@@ -29,7 +74,7 @@ body {
   font-size: 13px;
 }
 
-/* Generella knappar som används på flera ställen */
+/* Generella knappar */
 .nav-btn {
   padding: 12px 24px;
   background: #ffffff;

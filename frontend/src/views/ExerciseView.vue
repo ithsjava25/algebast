@@ -47,7 +47,7 @@ function resetExercise() {
         <article
           v-for="category in categories"
           :key="category.code"
-          class="category-card"
+          class="category-card card"
           :class="{ selected: selectedCategories.includes(category.code) }"
           @click="selectCategory(category.code)"
         >
@@ -89,22 +89,8 @@ function resetExercise() {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Space Mono', monospace, sans-serif;
-  color: #2c3e50;
 }
 
-.exercise-view h1 {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
-
-.exercise-view p {
-  color: #7f8c8d;
-  font-size: 15px;
-  margin-bottom: 20px;
-}
-
-/* Container för kategorikorten (Mobile-first: 1 kolumn) */
 .categories {
   display: flex;
   flex-direction: column;
@@ -127,22 +113,9 @@ function resetExercise() {
   }
 }
 
-/* Individuellt kategorikort */
+/* Kategorikort */
 .category-card {
-  width: 100%;
-  border: 1px solid #dcdde1;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 20px 24px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease;
-}
-
-.category-card:hover {
-  border-color: #3498db;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .category-card.selected {

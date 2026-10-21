@@ -17,16 +17,15 @@ const currentIndex = ref(0);
 const loading = ref(true);
 const error = ref(null);
 
-// Kollegans funktions-state för svar och inlämning
 const selectedAnswers = ref({}); // { [questionId]: position }
 const results = ref(null); // { [questionId]: result }
 const submitting = ref(false);
 const submitError = ref(null);
 
-// Håll koll på om sidopanelen är kollapsad eller ej
+
 const isSidebarCollapsed = ref(false);
 
-// Timer: 55 minuter (3300 sekunder)
+// Timer: 55 minuter
 const timeLeft = ref(55 * 60);
 let timerInterval = null;
 
@@ -130,18 +129,18 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 <template>
   <div class="exam-view-wrapper">
     <!-- Laddar-tillstånd -->
-    <div v-if="loading" class="state-container">
+    <div v-if="loading" class="state-container card">
       <p>Laddar frågor...</p>
     </div>
 
     <!-- Fel-tillstånd -->
-    <div v-else-if="error" class="state-container error" role="alert">
+    <div v-else-if="error" class="state-container card error" role="alert">
       <p>{{ error }}</p>
       <button class="nav-btn primary" @click="loadExamData()">Försök igen</button>
     </div>
 
     <!-- Om inga frågor finns -->
-    <div v-else-if="questions.length === 0" class="state-container">
+    <div v-else-if="questions.length === 0" class="state-container card">
       <p>Det här provet har inga frågor.</p>
     </div>
 
@@ -149,7 +148,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
     <div v-else class="exam-container" :class="{ 'collapsed': isSidebarCollapsed }">
       
       <!-- Vänster sida: Rubrik, Frågekort och Navigering -->
-      <main class="exam-main">
+      <main class="exam-main card">
         
         <header class="quiz-header">
           <div class="header-left">
@@ -165,7 +164,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
           <div class="header-right">
             <button class="toggle-sidebar-btn" @click="isSidebarCollapsed = !isSidebarCollapsed">
-              {{ isSidebarCollapsed ? "📊 Visa översikt" : "✕ Dölj översikt" }}
+              {{ isSidebarCollapsed ? "Visa översikt" : "✕ Dölj översikt" }}
             </button>
 
             <div class="timer-box" :class="{ warning: timeLeft < 300 }">
@@ -174,7 +173,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
           </div>
         </header>
 
-        <!-- Progress-text -->
+        <!-- Progression-text -->
         <div class="question-meta" v-if="currentQuestion">
           <span class="progress-text">Fråga {{ currentIndex + 1 }} av {{ questions.length }}</span>
         </div>
@@ -188,7 +187,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
           :result="results?.[currentQuestion.id] ?? null"
         />
 
-        <!-- Resultatmeddelande efter inlämning -->
+        <!-- Resultat efter inlämning -->
         <div v-if="results" class="score-summary" role="status">
           <h3>Provresultat</h3>
           <p>Du fick <strong>{{ score }}</strong> av <strong>{{ questions.length }}</strong> rätt.</p>
@@ -196,7 +195,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
         <p v-if="submitError" class="error-msg" role="alert">{{ submitError }}</p>
 
-        <!-- Navigeringsknappar mellan frågor -->
+        <!-- Navigeringsknapparna mellan frågor -->
         <div class="exam-nav-buttons">
           <button
             @click="currentIndex--"
@@ -226,7 +225,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
       </main>
 
       <!-- Höger sida: Översiktsmeny -->
-      <aside class="exam-sidebar" v-show="!isSidebarCollapsed">
+      <aside class="exam-sidebar card" v-show="!isSidebarCollapsed">
         <h3 class="sidebar-title">Frågeöversikt</h3>
         <p class="sidebar-sub">Klicka för att hoppa till fråga.</p>
 
@@ -268,21 +267,14 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
 <style scoped>
 .exam-view-wrapper {
-  background-color: #f8f9fa;
-  min-height: 100vh;
   padding: 20px 0;
-  font-family: 'Space Mono', monospace, sans-serif;
-  color: #2c3e50;
 }
 
 .state-container {
   max-width: 600px;
   margin: 40px auto;
   text-align: center;
-  background: #fff;
   padding: 40px;
-  border-radius: 12px;
-  border: 1px solid #dcdde1;
 }
 
 .exam-container {
@@ -310,14 +302,6 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
     grid-template-columns: 1fr;
     max-width: 800px;
   }
-}
-
-.exam-main {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 20px;
-  border: 1px solid #eef2f3;
 }
 
 @media (min-width: 768px) {
@@ -416,11 +400,6 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
 /* Sidopanel */
 .exam-sidebar {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #eef2f3;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   height: fit-content;
 }
 

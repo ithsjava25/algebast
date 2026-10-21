@@ -17,7 +17,7 @@ function closeMobileMenu() {
 </script>
 
 <template>
-    <!-- Mobil-header som synsst på små skärmar -->
+    <!-- Mobil-header -->
     <header class="mobile-header">
         <div class="brand">
             <span class="brand-mark">AB</span>
@@ -28,7 +28,7 @@ function closeMobileMenu() {
         </button>
     </header>
 
-    <!-- Sidomeny (fungerar som flytande/utfällbar på mobil, fast på desktop) -->
+    <!-- Sidomeny -->
     <aside class="side-nav" :class="{ 'mobile-open': isMobileMenuOpen }">
         <div class="brand desktop-brand">
             <span class="brand-mark">AB</span>
@@ -51,7 +51,7 @@ function closeMobileMenu() {
 </template>
 
 <style scoped>
-/* Standard (Desktop): Fast sidomeny */
+/* Fast sidomeny */
 .side-nav {
     width: 220px;
     min-height: 100vh;
@@ -82,6 +82,7 @@ function closeMobileMenu() {
     padding: 6px 10px;
     font-size: 14px;
     border-radius: 4px;
+    font-family: 'Space Mono', monospace;
 }
 
 .brand-name {
@@ -89,6 +90,7 @@ function closeMobileMenu() {
     font-weight: 700;
     letter-spacing: 0.08em;
     color: #2c3e50;
+    font-family: 'Space Mono', monospace;
 }
 
 .menu-label {

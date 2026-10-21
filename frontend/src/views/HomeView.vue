@@ -9,7 +9,7 @@
     </section>
 
     <section class="dashboard-actions">
-      <article class="dashboard-card">
+      <article class="dashboard-card card">
         <h2>Prov</h2>
         <p>
           Gör hela högskoleprov eller specifika provpass under tidspress för att simulera den riktiga provsituationen.
@@ -20,7 +20,7 @@
         </RouterLink>
       </article>
 
-      <article class="dashboard-card">
+      <article class="dashboard-card card">
         <h2>Öva</h2>
         <p>
           Träna på XYZ, KVA, NOG och DTK genom att själv välja vilka kategorier du vill fokusera på.
@@ -40,8 +40,6 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Space Mono', monospace, sans-serif;
-  color: #2c3e50;
 }
 
 .hero {
@@ -80,25 +78,11 @@
   }
 }
 
-/* Kortdesign som matchar ExerciseView & ExamSelectionView */
 .dashboard-card {
-  width: 100%;
-  border: 1px solid #dcdde1;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
-}
-
-.dashboard-card:hover {
-  border-color: #3498db;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .dashboard-card h2 {

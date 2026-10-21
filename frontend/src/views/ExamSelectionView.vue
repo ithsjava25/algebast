@@ -65,33 +65,6 @@ onMounted(loadExams);
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Space Mono', monospace, sans-serif;
-  color: #2c3e50;
-}
-
-.exam-selection-view h1 {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.subtitle {
-  color: #7f8c8d;
-  font-size: 15px;
-  margin-bottom: 20px;
-}
-
-.state-msg {
-  color: #7f8c8d;
-  font-size: 15px;
-}
-
-.error-box {
-  background: #f8d7da;
-  border: 1px solid #dc3545;
-  color: #721c24;
-  padding: 16px;
-  border-radius: 8px;
 }
 
 .exams-container {
