@@ -2,11 +2,11 @@
 import { ref } from "vue";
 
 const menuItems = [
-  { label: "Hem", route: "/" },
-  { label: "Prov", route: "/exams" },
-  { label: "Öva", route: "/exercises" },
-  { label: "Resultat", route: "/results" },
-  { label: "Profil", route: "/profile" },
+    { label: "Hem", route: "/" },
+    { label: "Prov", route: "/exams" },
+    { label: "Öva", route: "/exercises" },
+    { label: "Resultat", route: "/results" },
+    { label: "Profil", route: "/auth" }
 ];
 
 const isMobileMenuOpen = ref(false);
