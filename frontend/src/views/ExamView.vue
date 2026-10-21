@@ -31,6 +31,7 @@ const isSidebarCollapsed = ref(false);
 const EXAM_DURATION = 55 * 60;
 const timeLeft = ref(EXAM_DURATION);
 let timerInterval = null;
+let examDeadline = null;
 
 const formatTime = computed(() => {
   const minutes = Math.floor(timeLeft.value / 60);
@@ -55,6 +56,7 @@ async function loadExamData() {
   const requestId = ++latestRequestId;
 
   stopTimer();
+  examDeadline = null;
   timeLeft.value = EXAM_DURATION;
   loading.value = true;
   error.value = null;
@@ -78,6 +80,7 @@ async function loadExamData() {
     currentIndex.value = 0;
 
     if (questions.value.length > 0) {
+      examDeadline = Date.now() + EXAM_DURATION * 1000;
       startTimer();
     }
   } catch (err) {
@@ -124,6 +127,7 @@ async function finishExam({ automatic = false } = {}) {
 
     console.error(err);
     submitError.value = "Kunde inte skicka in svaren. Försök igen.";
+    if (timeLeft.value > 0) startTimer();
   } finally {
     if (requestId === latestRequestId) {
       submitting.value = false;
@@ -141,15 +145,19 @@ function stopTimer() {
 function startTimer() {
   stopTimer();
 
-  timerInterval = setInterval(() => {
-    timeLeft.value--;
+  const updateTime = () => {
+    timeLeft.value = Math.max(0, Math.ceil((examDeadline - Date.now()) / 1000));
 
-    if (timeLeft.value <= 0) {
-      timeLeft.value = 0;
+    if (timeLeft.value === 0) {
       stopTimer();
       finishExam({ automatic: true });
     }
-  }, 1000);
+  };
+
+  updateTime();
+  if (timeLeft.value > 0) {
+    timerInterval = setInterval(updateTime, 1000);
+  }
 }
 
 onUnmounted(() => {
