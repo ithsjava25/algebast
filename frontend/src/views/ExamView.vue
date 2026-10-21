@@ -1,7 +1,10 @@
 <script setup>
-import { ref, watch, computed, onMounted, onUnmounted } from "vue";
+import { ref, watch, computed, onUnmounted } from "vue";
 import QuestionCard from "@/components/QuestionCard.vue";
-import { getQuestionsByExam, turnInAnswers } from "@/services/questionService.js";
+import {
+  getQuestionsByExam,
+  turnInAnswers,
+} from "@/services/questionService.js";
 import { getExams } from "@/services/examService.js";
 
 const props = defineProps({
@@ -22,11 +25,11 @@ const results = ref(null); // { [questionId]: result }
 const submitting = ref(false);
 const submitError = ref(null);
 
-
 const isSidebarCollapsed = ref(false);
 
 // Timer: 55 minuter
-const timeLeft = ref(55 * 60);
+const EXAM_DURATION = 55 * 60;
+const timeLeft = ref(EXAM_DURATION);
 let timerInterval = null;
 
 const formatTime = computed(() => {
@@ -38,17 +41,21 @@ const formatTime = computed(() => {
 const score = computed(() =>
   results.value
     ? Object.values(results.value).filter((r) => r.isCorrect).length
-    : 0
+    : 0,
 );
 
 const unanswered = computed(
-  () => questions.value.filter((q) => selectedAnswers.value[q.id] == null).length
+  () =>
+    questions.value.filter((q) => selectedAnswers.value[q.id] == null).length,
 );
 
 let latestRequestId = 0;
 
 async function loadExamData() {
   const requestId = ++latestRequestId;
+
+  stopTimer();
+  timeLeft.value = EXAM_DURATION;
   loading.value = true;
   error.value = null;
   questions.value = [];
@@ -60,14 +67,19 @@ async function loadExamData() {
   try {
     const [allExams, qResult] = await Promise.all([
       getExams().catch(() => []),
-      getQuestionsByExam(props.examId)
+      getQuestionsByExam(props.examId),
     ]);
 
     if (requestId !== latestRequestId) return;
 
-    examDetails.value = allExams.find((e) => String(e.id) === String(props.examId)) || null;
+    examDetails.value =
+      allExams.find((e) => String(e.id) === String(props.examId)) || null;
     questions.value = qResult;
     currentIndex.value = 0;
+
+    if (questions.value.length > 0) {
+      startTimer();
+    }
   } catch (err) {
     if (requestId !== latestRequestId) return;
     console.error(err);
@@ -77,48 +89,71 @@ async function loadExamData() {
   }
 }
 
-async function finishExam() {
-  if (!results.value && unanswered.value > 0) {
+async function finishExam({ automatic = false } = {}) {
+  if (submitting.value || results.value !== null) {
+    return;
+  }
+
+  if (!automatic && unanswered.value > 0) {
     const ok = window.confirm(
-      `Du har ${unanswered.value} obesvarade frågor. Vill du lämna in ändå?`
+      `Du har ${unanswered.value} obesvarade frågor. Vill du lämna in ändå?`,
     );
+
     if (!ok) return;
   }
 
-  const requestId = latestRequestId;
+  stopTimer();
   submitting.value = true;
   submitError.value = null;
+
+  const requestId = latestRequestId;
 
   try {
     const answers = questions.value.map((q) => ({
       questionId: q.id,
       position: selectedAnswers.value[q.id] ?? null,
     }));
+
     const data = await turnInAnswers(answers);
+
     if (requestId !== latestRequestId) return;
+
     results.value = Object.fromEntries(data.map((r) => [r.questionId, r]));
-    if (timerInterval) clearInterval(timerInterval);
   } catch (err) {
     if (requestId !== latestRequestId) return;
+
     console.error(err);
     submitError.value = "Kunde inte skicka in svaren. Försök igen.";
   } finally {
-    if (requestId === latestRequestId) submitting.value = false;
+    if (requestId === latestRequestId) {
+      submitting.value = false;
+    }
   }
 }
 
-onMounted(() => {
+function stopTimer() {
+  if (timerInterval !== null) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function startTimer() {
+  stopTimer();
+
   timerInterval = setInterval(() => {
-    if (timeLeft.value > 0) {
-      timeLeft.value--;
-    } else {
-      finishExam();
+    timeLeft.value--;
+
+    if (timeLeft.value <= 0) {
+      timeLeft.value = 0;
+      stopTimer();
+      finishExam({ automatic: true });
     }
   }, 1000);
-});
+}
 
 onUnmounted(() => {
-  if (timerInterval) clearInterval(timerInterval);
+  stopTimer();
 });
 
 watch(() => props.examId, loadExamData, { immediate: true });
@@ -136,7 +171,9 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
     <!-- Fel-tillstånd -->
     <div v-else-if="error" class="state-container card error" role="alert">
       <p>{{ error }}</p>
-      <button class="nav-btn primary" @click="loadExamData()">Försök igen</button>
+      <button class="nav-btn primary" @click="loadExamData()">
+        Försök igen
+      </button>
     </div>
 
     <!-- Om inga frågor finns -->
@@ -145,25 +182,30 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
     </div>
 
     <!-- Huvudlayout när provet är igång -->
-    <div v-else class="exam-container" :class="{ 'collapsed': isSidebarCollapsed }">
-      
+    <div
+      v-else
+      class="exam-container"
+      :class="{ collapsed: isSidebarCollapsed }"
+    >
       <!-- Vänster sida: Rubrik, Frågekort och Navigering -->
       <main class="exam-main card">
-        
         <header class="quiz-header">
           <div class="header-left">
             <span class="badge" v-if="examDetails">
               HP {{ examDetails.semester }} {{ examDetails.year }}
             </span>
             <span class="badge" v-else>Högskoleprovet</span>
-            
+
             <span class="sub-badge" v-if="examDetails?.session">
               PASS {{ examDetails.session }}
             </span>
           </div>
 
           <div class="header-right">
-            <button class="toggle-sidebar-btn" @click="isSidebarCollapsed = !isSidebarCollapsed">
+            <button
+              class="toggle-sidebar-btn"
+              @click="isSidebarCollapsed = !isSidebarCollapsed"
+            >
               {{ isSidebarCollapsed ? "Visa översikt" : "✕ Dölj översikt" }}
             </button>
 
@@ -175,7 +217,9 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
         <!-- Progression-text -->
         <div class="question-meta" v-if="currentQuestion">
-          <span class="progress-text">Fråga {{ currentIndex + 1 }} av {{ questions.length }}</span>
+          <span class="progress-text"
+            >Fråga {{ currentIndex + 1 }} av {{ questions.length }}</span
+          >
         </div>
 
         <!-- Aktuellt Frågekort -->
@@ -190,10 +234,15 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
         <!-- Resultat efter inlämning -->
         <div v-if="results" class="score-summary" role="status">
           <h3>Provresultat</h3>
-          <p>Du fick <strong>{{ score }}</strong> av <strong>{{ questions.length }}</strong> rätt.</p>
+          <p>
+            Du fick <strong>{{ score }}</strong> av
+            <strong>{{ questions.length }}</strong> rätt.
+          </p>
         </div>
 
-        <p v-if="submitError" class="error-msg" role="alert">{{ submitError }}</p>
+        <p v-if="submitError" class="error-msg" role="alert">
+          {{ submitError }}
+        </p>
 
         <!-- Navigeringsknapparna mellan frågor -->
         <div class="exam-nav-buttons">
@@ -215,7 +264,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
           <button
             v-else-if="!results"
-            @click="finishExam"
+            @click="finishExam()"
             :disabled="submitting"
             class="nav-btn primary finish-submit-btn"
           >
@@ -236,9 +285,11 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
             class="grid-btn"
             :class="{
               active: index === currentIndex,
-              answered: selectedAnswers[q.id] !== undefined && selectedAnswers[q.id] !== null,
+              answered:
+                selectedAnswers[q.id] !== undefined &&
+                selectedAnswers[q.id] !== null,
               correct: results?.[q.id]?.isCorrect === true,
-              wrong: results?.[q.id]?.isCorrect === false
+              wrong: results?.[q.id]?.isCorrect === false,
             }"
             @click="currentIndex = index"
           >
@@ -248,13 +299,17 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
         <div class="sidebar-footer">
           <p v-if="!results && unanswered > 0" class="unanswered-text">
-            {{ unanswered === 1 ? "1 obesvarad fråga" : `${unanswered} obesvarade frågor` }}
+            {{
+              unanswered === 1
+                ? "1 obesvarad fråga"
+                : `${unanswered} obesvarade frågor`
+            }}
           </p>
 
-          <button 
-            v-if="!results" 
-            class="finish-btn" 
-            @click="finishExam"
+          <button
+            v-if="!results"
+            class="finish-btn"
+            @click="finishExam()"
             :disabled="submitting"
           >
             {{ submitting ? "Skickar in..." : "Lämna in prov" }}
@@ -291,7 +346,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
   .exam-view-wrapper {
     padding: 40px 0;
   }
-  
+
   .exam-container {
     grid-template-columns: 1fr 280px;
     max-width: 1100px;
@@ -321,7 +376,8 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
   gap: 12px;
 }
 
-.header-left, .header-right {
+.header-left,
+.header-right {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -333,7 +389,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
   color: #2c3e50;
   padding: 8px 14px;
   border-radius: 8px;
-  font-family: 'Space Mono', monospace;
+  font-family: "Space Mono", monospace;
   font-weight: 700;
   font-size: 13px;
   cursor: pointer;
@@ -429,7 +485,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
   background-color: #f1f2f6;
   color: #2c3e50;
   border-radius: 8px;
-  font-family: 'Space Mono', monospace;
+  font-family: "Space Mono", monospace;
   font-weight: 700;
   font-size: 13px;
   cursor: pointer;
@@ -486,7 +542,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
   border: none;
   padding: 12px;
   border-radius: 8px;
-  font-family: 'Space Mono', monospace;
+  font-family: "Space Mono", monospace;
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
