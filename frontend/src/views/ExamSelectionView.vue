@@ -31,7 +31,7 @@ onMounted(loadExams);
 </script>
 
 <template>
-  <main class="exam-selection-view">
+  <div class="exam-selection-view">
     <h1>Välj prov</h1>
     <p class="subtitle">Välj vilket prov du vill köra igång med.</p>
 
@@ -56,7 +56,7 @@ onMounted(loadExams);
         @start-exam="startExam"
       />
     </div>
-  </main>
+  </div>
 </template>
 
 <style scoped>

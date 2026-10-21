@@ -188,7 +188,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
       :class="{ collapsed: isSidebarCollapsed }"
     >
       <!-- Vänster sida: Rubrik, Frågekort och Navigering -->
-      <main class="exam-main card">
+      <div class="exam-main card">
         <header class="quiz-header">
           <div class="header-left">
             <span class="badge" v-if="examDetails">
@@ -271,7 +271,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
             {{ submitting ? "Skickar in..." : "Lämna in prov" }}
           </button>
         </div>
-      </main>
+      </div>
 
       <!-- Höger sida: Översiktsmeny -->
       <aside class="exam-sidebar card" v-show="!isSidebarCollapsed">

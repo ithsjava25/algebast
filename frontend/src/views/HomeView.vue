@@ -1,8 +1,7 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
-  <main class="home-view">
+  <div class="home-view">
     <section class="hero">
       <h1>ALGEBÄST</h1>
       <p>Träna och förbered dig inför högskoleprovet</p>
@@ -12,7 +11,8 @@
       <article class="dashboard-card card">
         <h2>Prov</h2>
         <p>
-          Gör hela högskoleprov eller specifika provpass under tidspress för att simulera den riktiga provsituationen.
+          Gör hela högskoleprov eller specifika provpass under tidspress för att
+          simulera den riktiga provsituationen.
         </p>
 
         <RouterLink to="/exams" class="nav-btn primary action-btn">
@@ -23,7 +23,8 @@
       <article class="dashboard-card card">
         <h2>Öva</h2>
         <p>
-          Träna på XYZ, KVA, NOG och DTK genom att själv välja vilka kategorier du vill fokusera på.
+          Träna på XYZ, KVA, NOG och DTK genom att själv välja vilka kategorier
+          du vill fokusera på.
         </p>
 
         <RouterLink to="/exercises" class="nav-btn primary action-btn">
@@ -31,7 +32,7 @@
         </RouterLink>
       </article>
     </section>
-  </main>
+  </div>
 </template>
 
 <style scoped>
