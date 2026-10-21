@@ -1,8 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
+const pool = require("./config/connectionMySQL");
 
 const app = express();
 const port = 3000;
+
+const sessionStore = new MySQLStore({}, pool);
 
 // Parse JSON bodies
 app.use(express.json());
@@ -12,6 +17,22 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 app.use(express.static("public"));
+
+app.use(
+  session({
+    name: "algebast.sid",
+    secret: process.env.SESSION_SECRET,
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+  })
+);
 
 app.use("/api/exams", require("./routes/exams"));
 app.use("/api/questions", require("./routes/questions"));
