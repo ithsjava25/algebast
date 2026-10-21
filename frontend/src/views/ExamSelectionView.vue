@@ -31,25 +31,55 @@ onMounted(loadExams);
 </script>
 
 <template>
-  <main>
+  <div class="exam-selection-view">
     <h1>Välj prov</h1>
+    <p class="subtitle">Välj vilket prov du vill köra igång med.</p>
 
-    <p v-if="loading">Laddar prov...</p>
+    <!-- Laddar-tillstånd -->
+    <p v-if="loading" class="state-msg">Laddar prov...</p>
 
-    <div v-else-if="error" class="error" role="alert">
+    <!-- Fel-tillstånd -->
+    <div v-else-if="error" class="error-box" role="alert">
       <p>{{ error }}</p>
-      <button @click="loadExams">Försök igen</button>
+      <button class="nav-btn primary" @click="loadExams">Försök igen</button>
     </div>
 
-    <p v-else-if="exams.length === 0">Inga prov hittades.</p>
+    <!-- Om inga prov hittades -->
+    <p v-else-if="exams.length === 0" class="state-msg">Inga prov hittades.</p>
 
-    <template v-else>
+    <!-- Provlista med din snygga grid-layout -->
+    <div v-else class="exams-container">
       <ExamCard
         v-for="exam in exams"
         :key="exam.id"
         :exam="exam"
         @start-exam="startExam"
       />
-    </template>
-  </main>
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.exam-selection-view {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.exams-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+@media (min-width: 640px) {
+  .exams-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+</style>

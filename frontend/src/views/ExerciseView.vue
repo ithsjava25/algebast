@@ -28,13 +28,17 @@ async function startExercise() {
     selectedCategories.value,
     10,
   );
+}
 
-  console.log(questions.value);
+function resetExercise() {
+  questions.value = [];
+  selectedCategories.value = [];
 }
 </script>
 
 <template>
   <section class="exercise-view">
+    <!-- Välj kategorier-vyn -->
     <div v-if="questions.length === 0">
       <h1>Öva</h1>
       <p>Välj vilka områden du vill öva på.</p>
@@ -43,7 +47,7 @@ async function startExercise() {
         <article
           v-for="category in categories"
           :key="category.code"
-          class="category-card"
+          class="category-card card"
           :class="{ selected: selectedCategories.includes(category.code) }"
           @click="selectCategory(category.code)"
         >
@@ -52,6 +56,7 @@ async function startExercise() {
         </article>
 
         <button
+          class="nav-btn primary start-btn"
           :disabled="selectedCategories.length === 0"
           @click="startExercise"
         >
@@ -59,12 +64,21 @@ async function startExercise() {
         </button>
       </div>
     </div>
-    <div v-else class="questions">
-      <QuestionCard
-        v-for="question in questions"
-        :key="question.id"
-        :question="question"
-      />
+
+    <!-- Frågevyn när övningen har startat -->
+    <div v-else class="questions-container">
+      <div class="exercise-header">
+        <h2>Övning pågår</h2>
+        <button class="nav-btn" @click="resetExercise">Avbryt / Välj nya</button>
+      </div>
+
+      <div class="questions-list">
+        <QuestionCard
+          v-for="question in questions"
+          :key="question.id"
+          :question="question"
+        />
+      </div>
     </div>
   </section>
 </template>
@@ -72,26 +86,71 @@ async function startExercise() {
 <style scoped>
 .exercise-view {
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
+
 .categories {
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 20px;
 }
+
+/* På större skärmar (tablets/desktop) blir det 2 kolumner */
+@media (min-width: 640px) {
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .start-btn {
+    grid-column: span 2;
+    margin-top: 10px;
+  }
+}
+
+/* Kategorikort */
 .category-card {
-  width: 100%;
-  border: 1px solid #aaa;
-  padding: 10px 24px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
+
 .category-card.selected {
-  background: #111;
-  color: #fff;
+  background: #2c3e50;
+  color: #ffffff;
+  border-color: #2c3e50;
+  box-shadow: 0 4px 16px rgba(44, 62, 80, 0.2);
+}
+
+.category-card h2 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.category-card p {
+  margin: 0;
+  font-size: 14px;
+  color: inherit;
+  opacity: 0.85;
+}
+
+/* Header för frågevyn */
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 </style>

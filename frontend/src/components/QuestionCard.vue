@@ -11,7 +11,7 @@ const selected = defineModel();
 </script>
 
 <template>
-  <article class="question-card">
+  <article class="question-card card">
     <span class="question-category">
       {{ question.category }}
     </span>
@@ -45,9 +45,9 @@ const selected = defineModel();
       :class="result.isCorrect ? 'correct' : 'wrong'"
       role="status"
     >
-      <p v-if="result.isCorrect">Rätt!</p>
+      <p v-if="result.isCorrect"><strong>Rätt!</strong></p>
       <template v-else>
-        <p>Fel. Rätt svar: alternativ {{ result.correctPosition }}</p>
+        <p><strong>Fel.</strong> Rätt svar: alternativ {{ result.correctPosition }}</p>
         <p
           v-if="result.explanation"
           v-html="renderMath(result.explanation)"
@@ -58,13 +58,6 @@ const selected = defineModel();
 </template>
 
 <style scoped>
-.question-card {
-  width: 100%;
-  padding: 24px;
-  border: 1px solid #aaa;
-  background: #fff;
-}
-
 .question-category {
   display: inline-block;
   margin-bottom: 12px;
@@ -72,14 +65,15 @@ const selected = defineModel();
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #666;
+  color: #7f8c8d;
 }
 
 .question-text {
   margin: 0 0 24px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 1.5;
+  color: #2c3e50;
 }
 
 .question-image-container {
@@ -89,33 +83,31 @@ const selected = defineModel();
 .question-image {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  border-radius: 8px;
+  border: 1px solid #dcdde1;
 }
 
 .answer-options {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .answer-option {
   display: flex;
   align-items: center;
   gap: 12px;
-
   padding: 14px 16px;
-  border: 1px solid #ccc;
-
+  border: 1px solid #dcdde1;
+  border-radius: 8px;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
+  background-color: #fafafa;
+  transition: all 0.2s ease;
 }
 
 .answer-option:hover {
-  background: #f3f3f1;
-  border-color: #888;
+  background: #f1f2f6;
+  border-color: #3498db;
 }
 
 .answer-option input {
@@ -125,16 +117,35 @@ const selected = defineModel();
 
 .answer-option span {
   line-height: 1.4;
+  font-size: 15px;
 }
 
 .result {
-  margin-top: 16px;
-  padding: 12px 16px;
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 8px;
   border-left: 4px solid;
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
 }
 
-.result.correct { border-color: #2e7d32; }
-.result.wrong { border-color: #c62828; }
-.result p { margin: 0; }
-.result p + p { margin-top: 8px; }
+.result.correct { 
+  background-color: #d4edda;
+  border-color: #28a745; 
+  color: #155724;
+}
+
+.result.wrong { 
+  background-color: #f8d7da;
+  border-color: #dc3545; 
+  color: #721c24;
+}
+
+.result p { 
+  margin: 0; 
+}
+
+.result p + p { 
+  margin-top: 8px; 
+}
 </style>
