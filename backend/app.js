@@ -4,6 +4,10 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const pool = require("./config/connectionMySQL");
 
+if (!process.env.SESSION_SECRET) {
+  throw new Error("SESSION_SECRET saknas i .env");
+}
+
 const app = express();
 const port = 3000;
 
@@ -38,4 +42,12 @@ app.use("/api/exams", require("./routes/exams"));
 app.use("/api/questions", require("./routes/questions"));
 app.use("/api/users", require("./routes/users"));
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+sessionStore
+  .onReady()
+  .then(() => {
+    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+  })
+  .catch((err) => {
+    console.error("Kunde inte initiera sessionslagringen:", err);
+    process.exit(1);
+  });
