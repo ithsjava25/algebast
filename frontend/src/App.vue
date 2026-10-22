@@ -7,6 +7,11 @@ import { getCurrentUser, logoutUser } from "@/services/userService.js";
 const router = useRouter();
 const currentUser = ref(null);
 
+function handleLogin(user) {
+  currentUser.value = user;
+  router.push("/");
+}
+
 async function loadCurrentUser() {
   try {
     currentUser.value = await getCurrentUser();
@@ -39,7 +44,12 @@ onMounted(() => {
       @logout="handleLogout"
     />
     <main class="page-content">
-      <RouterView />
+      <RouterView v-slot="{ Component }">
+        <component 
+          :is="Component"
+          @login="handleLogin"
+        />
+      </RouterView>
     </main>
   </div>
 </template>
