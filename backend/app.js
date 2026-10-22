@@ -35,7 +35,7 @@ app.use(
       secure: process.env.NODE_ENV === "production",
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
-  })
+  }),
 );
 
 app.use("/api/exams", require("./routes/exams"));
@@ -45,7 +45,9 @@ app.use("/api/users", require("./routes/users"));
 sessionStore
   .onReady()
   .then(() => {
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+    app.listen(port, () =>
+      console.log(`Example app listening on port ${port}!`),
+    );
   })
   .catch((err) => {
     console.error("Kunde inte initiera sessionslagringen:", err);
