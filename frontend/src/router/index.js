@@ -5,6 +5,7 @@ import ExamSelectionView from "@/views/ExamSelectionView.vue";
 import ExamView from "@/views/ExamView.vue";
 import ExerciseView from "@/views/ExerciseView.vue";
 import AuthView from "@/views/AuthView.vue";
+import ProfileView from "@/views/ProfileView.vue";
 
 const routes = [
   {
@@ -32,6 +33,11 @@ const routes = [
     path: "/auth",
     name: "auth",
     component: AuthView,
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: ProfileView,
   }
 ];
 

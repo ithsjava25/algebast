@@ -47,6 +47,7 @@ onMounted(() => {
       <RouterView v-slot="{ Component }">
         <component 
           :is="Component"
+          :user="currentUser"
           @login="handleLogin"
         />
       </RouterView>

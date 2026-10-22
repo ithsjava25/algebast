@@ -1,20 +1,23 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-defineProps({
+const props = defineProps({
   user: {
     type: Object,
     default: null,
   },
 });
 
-const menuItems = [
+const menuItems = computed(() =>  [
     { label: "Hem", route: "/" },
     { label: "Prov", route: "/exams" },
     { label: "Öva", route: "/exercises" },
     { label: "Resultat", route: "/results" },
-    { label: "Profil", route: "/auth" }
-];
+    { 
+        label: "Profil",
+        route: props.user ? "/profile" : "/auth" 
+    },
+]);
 
 const emit = defineEmits(["logout"]);
 const isMobileMenuOpen = ref(false);
