@@ -1,10 +1,27 @@
 <script setup>
-import SideNav from './components/SideNav.vue';
+import { ref } from "vue";
+import SideNav from "./components/SideNav.vue";
+
+const currentUser = ref({
+  id: 1,
+  username: "testuser",
+  firstname: "Test",
+  lastname: "Testsson",
+  email: "test@example.com",
+});
+
+function handleLogout() {
+  // Kopplas till backendens session/logout senare
+  currentUser.value = null;
+}
 </script>
 
 <template>
   <div class="app-layout">
-    <SideNav />
+    <SideNav
+      :user="currentUser"
+      @logout="handleLogout"
+    />
     <main class="page-content">
       <RouterView />
     </main>
