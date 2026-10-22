@@ -5,6 +5,7 @@ import { loginUser } from "@/services/userService.js";
 const email = ref("");
 const password = ref("");
 const errorMessage = ref("");
+const emit = defineEmits(["login"]);
 
 async function handleSubmit() {
   errorMessage.value = "";
@@ -26,7 +27,7 @@ async function handleSubmit() {
       email.value.trim(),
       password.value,
     );
-    console.log("Inloggningen lyckades", user.username);
+    emit("login", user);
   } catch (error) {
     errorMessage.value = error.message;
   }

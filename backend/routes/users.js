@@ -156,4 +156,56 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// GET /api/users/me
+router.get("/me", async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        error: "Du är inte inloggad"
+      });
+    }
+
+    const [users] = await pool.execute(
+      `
+        SELECT id, username, firstname, lastname, email
+        FROM users
+        WHERE id = ?
+      `,
+      [userId]
+    );
+
+    if (users.length === 0) {
+      return res.status(404).json({
+        error: "Användaren kunde inte hittas"
+      });
+    }
+
+    res.status(200).json(users[0]);
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: "Ett fel uppstod när användarinformationen skulle hämtas"
+    });
+  }
+});
+
+// POST /api/users/logout
+router.post("/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({
+                error: "Ett fel uppstod, försök igen"
+            });
+        }
+
+        res.status(200).json({
+            message: "Användaren har loggat ut"
+        });
+    });
+});
+
 module.exports = router;

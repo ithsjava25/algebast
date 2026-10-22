@@ -4,6 +4,7 @@ import RegisterForm from "@/components/RegisterForm.vue";
 import LoginForm from "@/components/LoginForm.vue";
 
 const authMode = ref("register");
+const emit = defineEmits(["login"]);
 
 function showLogin() {
     authMode.value = "login";
@@ -32,7 +33,8 @@ function showLogin() {
             <h2>Logga in</h2>
             <p>Ditt konto är skapat. Du kan nu logga in.</p>
 
-            <LoginForm />
+            <LoginForm
+            @login="emit('login', $event)" />
         </div>
     </section>
 </template>

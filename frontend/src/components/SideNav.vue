@@ -1,14 +1,25 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-const menuItems = [
+const props = defineProps({
+  user: {
+    type: Object,
+    default: null,
+  },
+});
+
+const menuItems = computed(() =>  [
     { label: "Hem", route: "/" },
     { label: "Prov", route: "/exams" },
     { label: "Öva", route: "/exercises" },
     { label: "Resultat", route: "/results" },
-    { label: "Profil", route: "/auth" }
-];
+    { 
+        label: "Profil",
+        route: props.user ? "/profile" : "/auth" 
+    },
+]);
 
+const emit = defineEmits(["logout"]);
 const isMobileMenuOpen = ref(false);
 
 function closeMobileMenu() {
@@ -50,6 +61,20 @@ function closeMobileMenu() {
         {{ item.label }}
       </RouterLink>
     </nav>
+    <div v-if="user" class="user-section">
+        <div class="user-info">
+            <span class="user-label">Inloggad som</span>
+            <strong>{{ user.username }}</strong>
+        </div>
+
+        <button
+            type="button"
+            class="logout-button"
+            @click="emit('logout')"
+        >
+            Logga ut
+        </button>
+    </div>
   </aside>
 </template>
 
@@ -174,6 +199,7 @@ function closeMobileMenu() {
       transform 0.25s ease-in-out,
       visibility 0s linear 0.25s;
     border-right: none;
+    padding-bottom: 80px;
   }
 
   .side-nav.mobile-open {
@@ -199,5 +225,46 @@ function closeMobileMenu() {
     display: flex;
     margin-bottom: 20px;
   }
+}
+
+.user-section {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #dcdde1;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.user-label {
+  font-size: 10px;
+  color: #7f8c8d;
+  letter-spacing: 0.05em;
+}
+
+.user-info strong {
+  font-size: 13px;
+}
+
+.logout-button {
+  width: 150px;
+  padding: 9px 12px;
+  border: 1px solid #dcdde1;
+  border-radius: 8px;
+  background: transparent;
+  color: #2c3e50;
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #e5e5e2;
 }
 </style>

@@ -1,12 +1,56 @@
 <script setup>
-import SideNav from './components/SideNav.vue';
+import { ref, onMounted } from "vue";
+import SideNav from "./components/SideNav.vue";
+import { useRouter } from "vue-router";
+import { getCurrentUser, logoutUser } from "@/services/userService.js";
+
+const router = useRouter();
+const currentUser = ref(null);
+
+function handleLogin(user) {
+  currentUser.value = user;
+  router.push("/");
+}
+
+async function loadCurrentUser() {
+  try {
+    currentUser.value = await getCurrentUser();
+  } catch (error) {
+    console.error("Kunde inte hämta inloggad användare");
+  }
+}
+
+async function handleLogout() {
+  try {
+    await logoutUser();
+
+    currentUser.value = null;
+    router.push("/auth");
+  } catch (error) {
+    console.error("Utloggningen misslyckades");
+  }
+}
+
+onMounted(() => {
+  loadCurrentUser();
+});
+
 </script>
 
 <template>
   <div class="app-layout">
-    <SideNav />
+    <SideNav
+      :user="currentUser"
+      @logout="handleLogout"
+    />
     <main class="page-content">
-      <RouterView />
+      <RouterView v-slot="{ Component }">
+        <component 
+          :is="Component"
+          :user="currentUser"
+          @login="handleLogin"
+        />
+      </RouterView>
     </main>
   </div>
 </template>

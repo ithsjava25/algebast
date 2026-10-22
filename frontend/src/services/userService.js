@@ -34,3 +34,37 @@ export async function loginUser(email, password) {
 
     return data;
 }
+
+export async function getCurrentUser() {
+  const response = await fetch("/api/users/me");
+
+  if (response.status === 401) {
+    return null;
+  }
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.error || "Kunde inte hämta användaren"
+    );
+  }
+
+  return data;
+}
+
+export async function logoutUser() {
+  const response = await fetch("/api/users/logout", {
+    method: "POST",
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.error || "Kunde inte logga ut"
+    );
+  }
+
+  return data;
+}
