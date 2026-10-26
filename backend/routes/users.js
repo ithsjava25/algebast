@@ -163,7 +163,7 @@ router.get("/me", async (req, res) => {
 
     if (!userId) {
       return res.status(401).json({
-        error: "Du är inte inloggad"
+        error: "Du är inte inloggad",
       });
     }
 
@@ -173,12 +173,12 @@ router.get("/me", async (req, res) => {
         FROM users
         WHERE id = ?
       `,
-      [userId]
+      [userId],
     );
 
     if (users.length === 0) {
       return res.status(404).json({
-        error: "Användaren kunde inte hittas"
+        error: "Användaren kunde inte hittas",
       });
     }
 
@@ -187,25 +187,87 @@ router.get("/me", async (req, res) => {
     console.error(err);
 
     res.status(500).json({
-      error: "Ett fel uppstod när användarinformationen skulle hämtas"
+      error: "Ett fel uppstod när användarinformationen skulle hämtas",
+    });
+  }
+});
+
+// GET /api/users/me/results
+router.get("/me/results", async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        error: "Du är inte inloggad",
+      });
+    }
+
+    const [results] = await pool.execute(
+      `
+        SELECT
+          uea.id AS attemptId,
+          uea.exam_id AS examId,
+          e.year,
+          e.semester,
+          e.session,
+          uea.time_spent_seconds AS timeSpentSeconds,
+          uea.completed_at AS completedAt,
+          COUNT(DISTINCT q.id) AS totalQuestions,
+          COUNT(DISTINCT CASE
+            WHEN ua.selected_position = ao.position
+            THEN q.id
+          END) AS correctAnswers
+        FROM user_exam_attempts uea
+        JOIN exam e
+          ON e.id = uea.exam_id
+        LEFT JOIN question q
+          ON q.exam_id = e.id
+        LEFT JOIN user_answers ua
+          ON ua.attempt_id = uea.id
+          AND ua.question_id = q.id
+          AND ua.user_id = uea.user_id
+        LEFT JOIN answer_option ao
+          ON ao.question_id = q.id
+          AND ao.is_correct = TRUE
+        WHERE uea.user_id = ?
+        GROUP BY
+          uea.id,
+          uea.exam_id,
+          e.year,
+          e.semester,
+          e.session,
+          uea.time_spent_seconds,
+          uea.completed_at
+        ORDER BY uea.completed_at DESC, uea.id DESC
+      `,
+      [userId],
+    );
+
+    res.status(200).json(results);
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: "Kunde inte hämta provhistoriken",
     });
   }
 });
 
 // POST /api/users/logout
 router.post("/logout", (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({
-                error: "Ett fel uppstod, försök igen"
-            });
-        }
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        error: "Ett fel uppstod, försök igen",
+      });
+    }
 
-        res.status(200).json({
-            message: "Användaren har loggat ut"
-        });
+    res.status(200).json({
+      message: "Användaren har loggat ut",
     });
+  });
 });
 
 module.exports = router;
