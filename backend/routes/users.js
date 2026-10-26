@@ -202,6 +202,10 @@ router.post("/logout", (req, res) => {
             });
         }
 
+        res.clearCookie("algebast.sid", {
+          path: "/",
+        });
+
         res.status(200).json({
             message: "Användaren har loggat ut"
         });
