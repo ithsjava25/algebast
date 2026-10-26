@@ -75,51 +75,104 @@ router.get("/", async (req, res) => {
 });
 
 // POST /api/questions/check
-router.post('/check', async (req, res) => {
+// routes/questions.js
+const pool = require("../config/connectionMySQL");
+
+// POST /api/questions/check
+// practice:  { "answers": [ { "questionId": 101, "position": 3 } ] }
+// full exam: { "examId": 4, "answers": [ ... ], "timeSpentSeconds": 4210 }
+router.post("/check", async (req, res) => {
+  const conn = await pool.getConnection();
   try {
-    const answers = req.body?.answers;
+    const userId = req.session?.userId ?? null; // null = guest
+    const { examId, answers, timeSpentSeconds = null } = req.body ?? {};
+    const isExam = examId !== undefined;
+
     const valid =
+      (!isExam || Number.isInteger(examId)) &&
       Array.isArray(answers) &&
-      answers.length > 0 &&
       answers.length <= 200 &&
+      (isExam || answers.length > 0) &&
       answers.every(
         (a) =>
           Number.isInteger(a?.questionId) &&
           (a.position === null ||
-            (Number.isInteger(a.position) && a.position >= 1 && a.position <= 5))
-      );
+            (Number.isInteger(a.position) &&
+              a.position >= 1 &&
+              a.position <= 5)),
+      ) &&
+      (timeSpentSeconds === null ||
+        (Number.isInteger(timeSpentSeconds) &&
+          timeSpentSeconds >= 0 &&
+          timeSpentSeconds <= 86400));
     if (!valid) {
-      return res.status(400).json({
-        error: 'answers must be a non-empty array of { questionId, position }',
-      });
+      return res.status(400).json({ error: "Invalid examId, answers or time" });
     }
 
     const chosenById = new Map(answers.map((a) => [a.questionId, a.position]));
 
-    const [rows] = await pool.query(
-      `SELECT q.id AS question_id, q.explanation, ao.position AS correct_position
+    const [rows] = await conn.query(
+      `SELECT q.id AS question_id, q.question_order, q.explanation,
+              ao.position AS correct_position
        FROM question q
        JOIN answer_option ao ON ao.question_id = q.id AND ao.is_correct = TRUE
-       WHERE q.id IN (?)`,
-      [[...chosenById.keys()]]
+       WHERE ${isExam ? "q.exam_id = ?" : "q.id IN (?)"}
+       ORDER BY q.exam_id, q.question_order`,
+      [isExam ? examId : [...chosenById.keys()]],
     );
+    if (rows.length === 0) {
+      return res
+        .status(404)
+        .json({ error: isExam ? "Exam not found" : "No questions found" });
+    }
 
+    let score = 0;
     const results = rows.map((q) => {
-      const isCorrect = chosenById.get(q.question_id) === q.correct_position;
-      return isCorrect
-        ? { questionId: q.question_id, isCorrect: true }
-        : {
-            questionId: q.question_id,
-            isCorrect: false,
-            correctPosition: q.correct_position,
-            explanation: q.explanation,
-          };
+      const chosen = chosenById.get(q.question_id) ?? null; // skipped -> null
+      const isCorrect = chosen === q.correct_position;
+      if (isCorrect) score++;
+      return {
+        questionId: q.question_id,
+        chosen,
+        isCorrect,
+        ...(isExam || !isCorrect
+          ? { correctPosition: q.correct_position, explanation: q.explanation }
+          : {}),
+      };
     });
 
-    res.json(results);
+    // Save only for logged-in users
+    let attemptId = null;
+    if (userId) {
+      await conn.beginTransaction();
+      if (isExam) {
+        const [attempt] = await conn.query(
+          `INSERT INTO user_exam_attempts (user_id, exam_id, time_spent_seconds, completed_at)
+           VALUES (?, ?, ?, NOW())`,
+          [userId, examId, timeSpentSeconds],
+        );
+        attemptId = attempt.insertId;
+      }
+      await conn.query(
+        "INSERT INTO user_answers (user_id, attempt_id, question_id, selected_position) VALUES ?",
+        [results.map((r) => [userId, attemptId, r.questionId, r.chosen])],
+      );
+      await conn.commit();
+    }
+
+    res.status(isExam && userId ? 201 : 200).json({
+      attemptId,
+      saved: Boolean(userId),
+      score,
+      total: results.length,
+      results,
+    });
   } catch (err) {
+    await conn.rollback();
     console.error(err);
-    res.status(500).json({ error: 'Could not check answers' });
+    res.status(500).json({ error: "Could not check answers" });
+  } finally {
+    conn.release();
   }
 });
 
