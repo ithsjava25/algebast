@@ -3,7 +3,6 @@ import { ref, watch } from "vue";
 import ResultCard from "@/components/ResultCard.vue";
 import { getUserResults } from "@/services/userService.js";
 
-
 const props = defineProps({
   user: {
     type: Object,
@@ -37,7 +36,7 @@ watch(
       results.value = [];
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 
@@ -55,7 +54,8 @@ watch(
       <ResultCard
         v-for="result in results"
         :key="result.attemptId"
-        :result="result"/>
+        :result="result"
+      />
     </div>
     <p v-else-if="user">Du har inga sparade provresultat ännu.</p>
   </section>
