@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const pool = require("../config/connectionMySQL");
 const router = express.Router();
+const requireAuth = require("../middleware/requireAuth");
 
 // POST /api/users/register
 router.post("/register", async (req, res) => {
@@ -157,15 +158,9 @@ router.post("/login", async (req, res) => {
 });
 
 // GET /api/users/me
-router.get("/me", async (req, res) => {
+router.get("/me", requireAuth, async (req, res) => {
   try {
     const userId = req.session.userId;
-
-    if (!userId) {
-      return res.status(401).json({
-        error: "Du är inte inloggad",
-      });
-    }
 
     const [users] = await pool.execute(
       `
@@ -193,15 +188,9 @@ router.get("/me", async (req, res) => {
 });
 
 // GET /api/users/me/results
-router.get("/me/results", async (req, res) => {
+router.get("/me/results", requireAuth, async (req, res) => {
   try {
     const userId = req.session.userId;
-
-    if (!userId) {
-      return res.status(401).json({
-        error: "Du är inte inloggad",
-      });
-    }
 
     const [results] = await pool.execute(
       `
