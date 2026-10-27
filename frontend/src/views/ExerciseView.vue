@@ -73,12 +73,12 @@ async function handleSelectAnswer(position) {
   selectedPosition.value = position;
 
   try {
-    const result = await turnInAnswers([
+    const data = await turnInAnswers([
       { questionId: currentQuestion.value.id, position: position }
     ]);
     
-    if (result && result.length > 0) {
-      feedback.value = result[0];
+    if (data && data.results && data.results.length > 0) {
+      feedback.value = data.results[0];
       
       answeredCount.value++;
       if (feedback.value.isCorrect) {
