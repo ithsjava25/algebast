@@ -75,8 +75,8 @@ router.get("/", async (req, res) => {
 });
 
 // POST /api/questions/check
-// practice:  { "answers": [ { "questionId": 101, "position": 3 } ] }
-// full exam: { "examId": 4, "answers": [ ... ], "timeSpentSeconds": 4210 }
+// exercise:  { "answers": [ { "questionId": 101, "position": 3 } ] }
+// exam: { "examId": 4, "answers": [ ... ], "timeSpentSeconds": 4210 }
 router.post("/check", async (req, res) => {
   const conn = await pool.getConnection();
   try {
