@@ -163,7 +163,7 @@ router.get("/me", async (req, res) => {
 
     if (!userId) {
       return res.status(401).json({
-        error: "Du är inte inloggad"
+        error: "Du är inte inloggad",
       });
     }
 
@@ -173,12 +173,12 @@ router.get("/me", async (req, res) => {
         FROM users
         WHERE id = ?
       `,
-      [userId]
+      [userId],
     );
 
     if (users.length === 0) {
       return res.status(404).json({
-        error: "Användaren kunde inte hittas"
+        error: "Användaren kunde inte hittas",
       });
     }
 
@@ -187,25 +187,29 @@ router.get("/me", async (req, res) => {
     console.error(err);
 
     res.status(500).json({
-      error: "Ett fel uppstod när användarinformationen skulle hämtas"
+      error: "Ett fel uppstod när användarinformationen skulle hämtas",
     });
   }
 });
 
 // POST /api/users/logout
 router.post("/logout", (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({
-                error: "Ett fel uppstod, försök igen"
-            });
-        }
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        error: "Ett fel uppstod, försök igen",
+      });
+    }
 
-        res.status(200).json({
-            message: "Användaren har loggat ut"
-        });
+    res.clearCookie("algebast.sid", {
+      path: "/",
     });
+
+    res.status(200).json({
+      message: "Användaren har loggat ut",
+    });
+  });
 });
 
 module.exports = router;
