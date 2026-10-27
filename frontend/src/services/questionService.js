@@ -29,18 +29,22 @@ export async function getRandomQuestionsByCategories(categories, count = 10) {
   return await response.json();
 }
 
-export async function turnInAnswers(answers) {
-  const response = await fetch(`${API_URL}/questions/check`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ answers }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Kunde inte skicka in svar: ${response.status}`);
+export async function turnInAnswers(answers, { examId, timeSpentSeconds } = {}) {
+  const body = { answers };
+  if (examId !== undefined) {
+    body.examId = examId;
+    body.timeSpentSeconds = timeSpentSeconds ?? null;
   }
 
-  return await response.json();
+  const response = await fetch("/api/questions/check", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || "Kunde inte skicka in svaren");
+  }
+  return data;
 }
