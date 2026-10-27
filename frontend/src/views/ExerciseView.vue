@@ -4,7 +4,7 @@ import { getRandomQuestionsByCategories, turnInAnswers } from "@/services/questi
 import QuestionCard from "@/components/QuestionCard.vue";
 import { renderMath } from "@/utils/rendermath";
 
-// Tillgängliga kategorier på Högskoleprovet med tillhörande namn
+
 const categories = [
   { code: "XYZ", name: "Matematik" },
   { code: "KVA", name: "Kvantitativa jämförelser" },
@@ -12,30 +12,27 @@ const categories = [
   { code: "DTK", name: "Diagram, tabeller och kartor" },
 ];
 
-// Reaktiv state för komponentens flöde
 const selectedCategories = ref([]); 
 const questions = ref([]);          
 const currentIndex = ref(0);        
 
-// State för den aktiva frågans svar och feedback
+
 const selectedPosition = ref(null); 
 const feedback = ref(null);         
 const isLoadingMore = ref(false);   
 
-// State för statistik och modal vid avbryt
 const correctCount = ref(0);        // Håller koll på antal rätta svar
 const answeredCount = ref(0);      // Håller koll på hur många frågor vi svarat på
 const showSummaryModal = ref(false); // Styr om modalen för sammanfattning är öppen
 
-// Computed property som hämtar fram den aktuella frågan baserat på currentIndex
+// Hämtar fram den aktuella frågan baserat på currentIndex
 const currentQuestion = computed(() => questions.value[currentIndex.value] || null);
 
-// Räknar ut totalt antal besvarade frågor (inklusive den man står på om man har svarat)
 const totalAnswered = computed(() => {
   return currentIndex.value + (feedback.value !== null ? 1 : 0);
 });
 
-// Funktion för att lägga till eller ta bort kategorier i urvalet
+
 function selectCategory(code) {
   if (selectedCategories.value.includes(code)) {
     selectedCategories.value = selectedCategories.value.filter((c) => c !== code);
@@ -44,7 +41,7 @@ function selectCategory(code) {
   }
 }
 
-// Startar övningen: nollställer state och hämtar en första batch på 20 frågor
+// hämtar en första batch på 20 frågor
 async function startExercise() {
   try {
     currentIndex.value = 0;
@@ -59,7 +56,7 @@ async function startExercise() {
   }
 }
 
-// Hämtar fler frågor i bakgrunden när användaren närmar sig slutet (oändligt flöde)
+// Hämtar fler frågor i bakgrunden
 async function fetchMoreQuestions() {
   if (isLoadingMore.value) return;
   try {
@@ -73,7 +70,7 @@ async function fetchMoreQuestions() {
   }
 }
 
-// Körs direkt när användaren klickar på ett svarsalternativ
+// För direkt feedback
 async function handleSelectAnswer(position) {
   if (feedback.value !== null || !currentQuestion.value) return;
 
@@ -116,7 +113,7 @@ const selectedCategoryNames = computed(() => {
     .join(", ");
 });
 
-// Öppnar sammanfattningsmodalen istället för att nollställa direkt
+// Öppnar sammanfattningsmodalen
 function openSummaryModal() {
   showSummaryModal.value = true;
 }
@@ -136,7 +133,7 @@ function closeSummaryAndReset() {
 
 <template>
   <section class="exercise-view">
-    <!-- STEG 1: Välj kategorier-vyn -->
+    <!-- Välj kategorier-vyn -->
     <div v-if="questions.length === 0">
       <h1>Öva</h1>
       <p>Välj vilka områden du vill öva på. Övningen fortsätter tills du väljer att avbryta.</p>
@@ -163,13 +160,13 @@ function closeSummaryAndReset() {
       </div>
     </div>
 
-    <!-- STEG 2: Frågevyn -->
+    <!-- Frågevyn -->
     <div v-else-if="currentQuestion" class="exercise-container">
       <div class="exercise-header">
-        <h2>Övning pågår</h2>
+        <h2>Övningsläge</h2>
         <span class="question-counter">Fråga {{ currentIndex + 1 }}</span>
-        <!-- Knappen triggar nu modalen i stället för direkt nollställning -->
-        <button class="nav-btn danger" @click="openSummaryModal">Avbryt övning</button>
+        <!-- Öppnar modal med sammanfattning -->
+        <button class="nav-btn danger" @click="openSummaryModal">Avsluta övning</button>
       </div>
 
       <QuestionCard
@@ -200,14 +197,14 @@ function closeSummaryAndReset() {
       </div>
     </div>
 
-    <!-- MODAL: Sammanfattning vid avbryt -->
+    <!-- MODAL: Sammanfattning vid avslutad övning -->
     <div v-if="showSummaryModal" class="modal-backdrop">
       <div class="modal-card card">
         <h2>Övning avslutad</h2>
         <p>Bra jobbat! Här är en sammanfattning av din omgång:</p>
         
         <div class="stats-box">
-          <!-- NYTT: Visar vilka kategorier som övats på -->
+          <!-- Visar vilka kategorier som övats på -->
           <div class="stat-row categories-row">
             <span>Kategorier:</span>
             <strong>{{ selectedCategoryNames || "Alla" }}</strong>
