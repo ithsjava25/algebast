@@ -28,10 +28,6 @@ const showSummaryModal = ref(false); // Styr om modalen för sammanfattning är 
 // Hämtar fram den aktuella frågan baserat på currentIndex
 const currentQuestion = computed(() => questions.value[currentIndex.value] || null);
 
-const totalAnswered = computed(() => {
-  return currentIndex.value + (feedback.value !== null ? 1 : 0);
-});
-
 
 function selectCategory(code) {
   if (selectedCategories.value.includes(code)) {
@@ -217,7 +213,7 @@ function closeSummaryAndReset() {
             <span>Antal rätt:</span>
             <strong class="success-text">{{ correctCount }}</strong>
           </div>
-          <div v-if="totalAnswered > 0" class="stat-row">
+          <div v-if="answeredCount > 0" class="stat-row">
             <span>Träffsäkerhet:</span>
             <strong>{{ Math.round((correctCount / answeredCount) * 100) }} %</strong>
           </div>
