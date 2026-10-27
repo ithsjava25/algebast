@@ -243,6 +243,47 @@ router.get("/me/results", requireAuth, async (req, res) => {
   }
 });
 
+// GET /api/users/me/exercise-stats
+router.get("/me/exercise-stats", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const [results] = await pool.execute(
+      `
+        SELECT
+          q.category,
+          COUNT(*) AS answered,
+          SUM(
+            CASE
+              WHEN EXISTS (
+                SELECT 1
+                FROM answer_option ao
+                WHERE ao.question_id = ua.question_id
+                  AND ao.position = ua.selected_position
+                  AND ao.is_correct = TRUE
+                )
+                  THEN 1
+                  ELSE 0
+                END
+              ) AS correct
+            FROM user_answers ua
+            JOIN question q
+              ON q.id = ua.question_id
+            WHERE ua.user_id = ?
+              AND ua.attempt_id IS NULL
+            GROUP BY q.category
+            `,
+      [userId],
+    );
+    res.status(200).json(results);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Kunde inte hämta statistik för övningsfrågor",
+    });
+  }
+})
+
 // POST /api/users/logout
 router.post("/logout", (req, res) => {
   req.session.destroy((err) => {
