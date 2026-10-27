@@ -112,16 +112,26 @@ async function finishExam({ automatic = false } = {}) {
   const requestId = latestRequestId;
 
   try {
-    const answers = questions.value.map((q) => ({
-      questionId: q.id,
-      position: selectedAnswers.value[q.id] ?? null,
-    }));
+  const answers = questions.value.map((q) => ({
+    questionId: q.id,
+    position: selectedAnswers.value[q.id] ?? null,
+  }));
 
-    const data = await turnInAnswers(answers);
+  const timeSpentSeconds = Math.min(
+    EXAM_DURATION,
+    Math.round((Date.now() - (examDeadline - EXAM_DURATION * 1000)) / 1000),
+  );
 
-    if (requestId !== latestRequestId) return;
+  const data = await turnInAnswers(answers, {
+    examId: Number(props.examId), // prop is a String, backend needs an integer
+    timeSpentSeconds,
+  });
 
-    results.value = Object.fromEntries(data.map((r) => [r.questionId, r]));
+  if (requestId !== latestRequestId) return;
+
+  results.value = Object.fromEntries(
+    data.results.map((r) => [r.questionId, r]),
+  );
   } catch (err) {
     if (requestId !== latestRequestId) return;
 
