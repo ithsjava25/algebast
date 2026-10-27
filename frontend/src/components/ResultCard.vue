@@ -17,11 +17,10 @@ const percentage = computed(() => {
 });
 
 const formattedTime = computed(() => {
-    const secounds = props.result.timeSpendtSeconds;
-    const minutes = Math.floor(secounds / 60);
-    const remaningSeconds = secounds % 60;
+    const seconds = props.result.timeSpentSeconds;
+    if (seconds == null) return "Okänd";
 
-    return `${minutes} min ${remaningSeconds} sek`;
+    return `${Math.floor(seconds / 60)} min ${seconds % 60} sek`;
 });
 
 const formattedDate = computed(() => {
