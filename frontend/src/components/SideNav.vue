@@ -10,6 +10,7 @@ const props = defineProps({
 
 const menuItems = computed(() => [
   { label: "Hem", route: "/" },
+  { label: "Om", route: "/about" },
   { label: "Prov", route: "/exams" },
   { label: "Övning", route: "/exercises" },
   {
