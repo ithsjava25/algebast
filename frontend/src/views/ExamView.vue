@@ -263,8 +263,8 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
         <p v-if="results && !saved" class="error-msg">
           Resultatet är inte sparat.
-          <router-link to="/login">Logga in</router-link> eller
-          <router-link to="/register">registrera dig</router-link> för att spara
+          <router-link :to="{ path: '/auth', query: { mode: 'login' } }">Logga in</router-link> eller
+          <router-link :to="{ path: '/auth', query: { mode: 'register' } }">registrera dig</router-link> för att spara
           det.
         </p>
 
