@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { loginUser } from "@/services/userService.js";
+import { claimPendingExam } from "@/services/questionService.js";
 
 const email = ref("");
 const password = ref("");
@@ -23,13 +24,16 @@ async function handleSubmit() {
   }
 
   try {
-    const user = await loginUser(
-      email.value.trim(),
-      password.value,
-    );
+    const user = await loginUser(email.value.trim(), password.value);
     emit("login", user);
   } catch (error) {
     errorMessage.value = error.message;
+  }
+
+  try {
+    await claimPendingExam();
+  } catch (err) {
+    console.error(err);
   }
 }
 </script>
@@ -38,29 +42,19 @@ async function handleSubmit() {
   <form class="login-form" @submit.prevent="handleSubmit">
     <div class="form-group">
       <label for="login-email">E-postadress</label>
-      <input
-        id="login-email"
-        v-model="email"
-        type="email"
-      />
+      <input id="login-email" v-model="email" type="email" />
     </div>
 
     <div class="form-group">
       <label for="login-password">Lösenord</label>
-      <input
-        id="login-password"
-        v-model="password"
-        type="password"
-      />
+      <input id="login-password" v-model="password" type="password" />
     </div>
 
     <p v-if="errorMessage" class="error-message">
       {{ errorMessage }}
     </p>
 
-    <button type="submit">
-      Logga in
-    </button>
+    <button type="submit">Logga in</button>
   </form>
 </template>
 
