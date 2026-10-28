@@ -12,7 +12,6 @@ const menuItems = computed(() =>  [
     { label: "Hem", route: "/" },
     { label: "Prov", route: "/exams" },
     { label: "Öva", route: "/exercises" },
-    { label: "Resultat", route: "/results" },
     { 
         label: "Profil",
         route: props.user ? "/profile" : "/auth" 
