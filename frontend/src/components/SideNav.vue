@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
+import { useDark, useToggle } from "@vueuse/core";
+import { Sun, Moon } from "lucide-vue-next";
 
 const props = defineProps({
   user: {
@@ -21,6 +23,8 @@ const menuItems = computed(() => [
 
 const emit = defineEmits(["logout"]);
 const isMobileMenuOpen = ref(false);
+const isDark = useDark(); // Används för att hantera mörkt/ljust tema
+const toggleDark = useToggle(isDark); // Funktion för att växla mellan mörkt och ljust tema
 
 function closeMobileMenu() {
   isMobileMenuOpen.value = false;
@@ -61,6 +65,11 @@ function closeMobileMenu() {
         {{ item.label }}
       </RouterLink>
     </nav>
+    <button class="theme-toggle" @click="toggleDark()">
+      <Sun v-if="isDark" :size="18" />
+      <Moon v-else :size="18" />
+      {{ isDark ? "Ljust läge" : "Mörkt läge" }}
+    </button>
     <div v-if="user" class="user-section">
       <div class="user-info">
         <span class="user-label">Inloggad som</span>
@@ -87,8 +96,8 @@ function closeMobileMenu() {
   flex-direction: column;
   flex-shrink: 0;
   overflow-y: auto;
-  border-right: 1px solid #dcdde1;
-  background: #f5f5f3;
+  border-right: 1px solid var(--border-color);
+  background: var(--bg-sidebar);
   padding: 24px 18px;
   font-family: "Space Mono", monospace, sans-serif;
   box-sizing: border-box;
@@ -120,7 +129,7 @@ function closeMobileMenu() {
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #2c3e50;
+  color: var(--text-primary);
   font-family: "Space Mono", monospace;
 }
 
@@ -130,7 +139,7 @@ function closeMobileMenu() {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  color: #7f8c8d;
+  color: var(--text-secondary);
 }
 
 .side-nav nav {
@@ -141,7 +150,7 @@ function closeMobileMenu() {
 
 .nav-item {
   padding: 12px 14px;
-  color: #2c3e50;
+  color: var(--text-primary);
   text-decoration: none;
   font-family: "Space Mono", monospace;
   font-size: 15px;
@@ -151,7 +160,7 @@ function closeMobileMenu() {
 }
 
 .nav-item:hover {
-  background: #e5e5e2;
+  background: var(--hover-color);
 }
 
 .nav-item.router-link-exact-active {
@@ -164,8 +173,8 @@ function closeMobileMenu() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f5f5f3;
-  border-bottom: 1px solid #dcdde1;
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border-color);
   padding: 12px 20px;
   width: 100%;
   box-sizing: border-box;
@@ -195,7 +204,7 @@ function closeMobileMenu() {
     width: 100%;
     height: calc(100vh - 57px);
     overflow-y: auto;
-    background: #f5f5f3;
+    background: var(--bg-sidebar);
     z-index: 99;
     transform: translateX(-100%);
     visibility: hidden;
@@ -232,9 +241,12 @@ function closeMobileMenu() {
 }
 
 .user-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: auto;
   padding-top: 16px;
-  border-top: 1px solid #dcdde1;
+  border-top: 1px solid var(--border-color);
 }
 
 .user-info {
@@ -242,12 +254,12 @@ function closeMobileMenu() {
   flex-direction: column;
   gap: 3px;
   margin-bottom: 10px;
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .user-label {
   font-size: 10px;
-  color: #7f8c8d;
+  color: var(--text-secondary);
   letter-spacing: 0.05em;
 }
 
@@ -258,10 +270,10 @@ function closeMobileMenu() {
 .logout-button {
   width: 150px;
   padding: 9px 12px;
-  border: 1px solid #dcdde1;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   background: transparent;
-  color: #2c3e50;
+  color: var(--text-primary);
   font-family: "Space Mono", monospace;
   font-size: 12px;
   font-weight: 600;
@@ -269,6 +281,31 @@ function closeMobileMenu() {
 }
 
 .logout-button:hover {
-  background: #e5e5e2;
+  background: var(--hover-color);
+}
+
+.theme-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: var(--hover-color);
+}
+
+.theme-toggle + .user-section {
+  margin-top: 16px;
 }
 </style>

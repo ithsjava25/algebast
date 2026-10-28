@@ -1,5 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
 
+:root {
+  /* Färgvariabler för ljus och mörk bakgrund */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --bg-sidebar: #f5f5f3;
+
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+
+  --border-color: #dcdde1;
+  --hover-color: #e5e5e2;
+}
+
+html.dark {
+  /* Färgvariabler för mörkt läge */
+  --bg-primary: #161b22;
+  --bg-secondary: #21262d;
+  --bg-sidebar: #1c2128;
+
+  --text-primary: #e6edf3;
+  --text-secondary: #9198a1;
+
+  --border-color: #30363d;
+  --hover-color: #30363d;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -8,15 +34,15 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Space Mono', monospace, sans-serif;
-  color: #2c3e50;
-  background-color: #f8f9fa;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
 }
 
 /* Gemensam kortdesign för Dashboard, Prov och Övningar */
 .card {
   width: 100%;
-  background: #ffffff;
-  border: 1px solid #dcdde1;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -35,11 +61,11 @@ h1 {
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 8px;
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .subtitle, .state-msg, .sidebar-sub {
-  color: #7f8c8d;
+  color: var(--text-secondary);
   font-size: 15px;
   margin: 0 0 20px 0;
 }
@@ -77,9 +103,9 @@ h1 {
 /* Generella knappar */
 .nav-btn {
   padding: 12px 24px;
-  background: #ffffff;
-  color: #2c3e50;
-  border: 1px solid #dcdde1;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-family: 'Space Mono', monospace;
   font-weight: 700;
@@ -89,7 +115,7 @@ h1 {
 }
 
 .nav-btn:hover:not(:disabled) {
-  background: #f5f6fa;
+  background: var(--hover-color);
   border-color: #3498db;
 }
 
