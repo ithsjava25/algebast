@@ -63,7 +63,7 @@ const totalPercentage = computed(() =>
       >
         <div class="category-header">
           <h3>{{ category.code }}</h3>
-          <span>{{ category.percentage }}%</span>
+          <h3>{{ category.percentage }}%</h3>
         </div>
 
         <p>{{ category.name }}</p>
