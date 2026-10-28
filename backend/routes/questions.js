@@ -137,23 +137,32 @@ router.post("/check", async (req, res) => {
       };
     });
 
-    // Save only for logged-in users
     let attemptId = null;
     if (userId) {
-      await conn.beginTransaction();
       if (isExam) {
-        const [attempt] = await conn.query(
-          `INSERT INTO user_exam_attempts (user_id, exam_id, time_spent_seconds, completed_at)
-           VALUES (?, ?, ?, NOW())`,
-          [userId, examId, timeSpentSeconds],
+        attemptId = await saveExamAttempt(
+          conn,
+          userId,
+          examId,
+          timeSpentSeconds,
+          results,
         );
-        attemptId = attempt.insertId;
+      } else {
+        await conn.query(
+          "INSERT INTO user_answers (user_id, attempt_id, question_id, selected_position) VALUES ?",
+          [results.map((r) => [userId, null, r.questionId, r.chosen])],
+        );
       }
-      await conn.query(
-        "INSERT INTO user_answers (user_id, attempt_id, question_id, selected_position) VALUES ?",
-        [results.map((r) => [userId, attemptId, r.questionId, r.chosen])],
-      );
-      await conn.commit();
+    } else if (isExam) {
+      // Guest: remember the graded exam so it can be claimed after login
+      req.session.pendingExam = {
+        examId,
+        timeSpentSeconds,
+        answers: results.map((r) => ({
+          questionId: r.questionId,
+          chosen: r.chosen,
+        })),
+      };
     }
 
     res.status(isExam && userId ? 201 : 200).json({
@@ -171,5 +180,26 @@ router.post("/check", async (req, res) => {
     conn.release();
   }
 });
+
+async function saveExamAttempt(
+  conn,
+  userId,
+  examId,
+  timeSpentSeconds,
+  answers,
+) {
+  await conn.beginTransaction();
+  const [attempt] = await conn.query(
+    `INSERT INTO user_exam_attempts (user_id, exam_id, time_spent_seconds, completed_at)
+     VALUES (?, ?, ?, NOW())`,
+    [userId, examId, timeSpentSeconds],
+  );
+  await conn.query(
+    "INSERT INTO user_answers (user_id, attempt_id, question_id, selected_position) VALUES ?",
+    [answers.map((a) => [userId, attempt.insertId, a.questionId, a.chosen])],
+  );
+  await conn.commit();
+  return attempt.insertId;
+}
 
 module.exports = router;
