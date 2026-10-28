@@ -202,4 +202,32 @@ async function saveExamAttempt(
   return attempt.insertId;
 }
 
+// POST /api/questions/claim-pending
+router.post("/claim-pending", async (req, res) => {
+  const userId = req.session?.userId;
+  if (!userId) return res.status(401).json({ error: "Du är inte inloggad" });
+
+  const pending = req.session.pendingExam;
+  if (!pending) return res.status(404).json({ error: "Inget prov att spara" });
+
+  const conn = await pool.getConnection();
+  try {
+    const attemptId = await saveExamAttempt(
+      conn,
+      userId,
+      pending.examId,
+      pending.timeSpentSeconds,
+      pending.answers,
+    );
+    delete req.session.pendingExam;
+    res.status(201).json({ attemptId });
+  } catch (err) {
+    await conn.rollback();
+    console.error(err);
+    res.status(500).json({ error: "Kunde inte spara provet" });
+  } finally {
+    conn.release();
+  }
+});
+
 module.exports = router;
