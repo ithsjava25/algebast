@@ -4,7 +4,7 @@
   <div class="home-view">
     <section class="hero">
       <h1>AlgeBäst</h1>
-      <p>Öva och förbered dig inför högskoleprovet</p>
+      <p>Öva och förbered dig inför högskoleprovet!</p>
     </section>
 
     <section class="dashboard-actions">
