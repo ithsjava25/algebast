@@ -142,12 +142,12 @@ function closeSummaryAndReset() {
     <!-- Välj kategorier-vyn -->
     <div v-if="questions.length === 0">
       <h1>Övning</h1>
-      <p class="subtitle">
-        Välj en eller flera frågekategorier. Du svarar på en fråga i taget tills
-        du väljer att avsluta. Du får direkt feedback på om svaret är rätt eller
-        fel tillsammans med eventuellt lösningsförslag. Du kan välja att hoppa
-        över en fråga och fortsätta till nästa. När du är klar får du en
-        sammanfattning av din övning.
+      <p class="subtitle">Välj en eller flera frågekategorier.</p>
+      <p>
+        Du svarar på en fråga i taget tills du väljer att avsluta. Du får direkt
+        feedback på om svaret är rätt eller fel tillsammans med eventuellt
+        lösningsförslag. Du kan välja att hoppa över en fråga och fortsätta till
+        nästa. När du är klar får du en sammanfattning av din övning.
       </p>
 
       <div class="categories">
