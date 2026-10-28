@@ -124,7 +124,7 @@ router.post("/login", async (req, res) => {
       });
     }
 
-     const pending = req.session.pendingExam;
+    const pending = req.session.pendingExam;
 
     req.session.regenerate((err) => {
       if (err) {
