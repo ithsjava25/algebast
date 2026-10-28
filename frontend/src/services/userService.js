@@ -1,5 +1,6 @@
 const API_URL = "/api";
 
+// Registrera en ny användare
 export async function registerUser(userData) {
   const response = await fetch(`${API_URL}/users/register`, {
     method: "POST",
@@ -17,6 +18,7 @@ export async function registerUser(userData) {
   return data;
 }
 
+// Logga in användaren
 export async function loginUser(email, password) {
   const response = await fetch(`${API_URL}/users/login`, {
     method: "POST",
@@ -35,6 +37,7 @@ export async function loginUser(email, password) {
   return data;
 }
 
+// Hämta information om den inloggade användaren
 export async function getCurrentUser() {
   const response = await fetch("/api/users/me");
 
@@ -53,6 +56,7 @@ export async function getCurrentUser() {
   return data;
 }
 
+// Logga ut användaren
 export async function logoutUser() {
   const response = await fetch("/api/users/logout", {
     method: "POST",
@@ -69,6 +73,7 @@ export async function logoutUser() {
   return data;
 }
 
+// Hämta användarens provhistorik
 export async function getUserResults() {
   const response = await fetch("/api/users/me/results");
 
@@ -78,6 +83,19 @@ export async function getUserResults() {
     throw new Error(
       data.error || "Kunde inte hämta provhistoriken"
     );
+  }
+
+  return data;
+}
+
+// Hämta användarens övningsstatistik
+export async function getExterciseStats() {
+  const response = await fetch("/api/users/me/exercise-stats");
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Kunde inte hämta övningsstatistik");
   }
 
   return data;

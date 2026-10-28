@@ -2,6 +2,8 @@
 import { ref, watch } from "vue";
 import ResultCard from "@/components/ResultCard.vue";
 import { getUserResults } from "@/services/userService.js";
+import ExerciseStats from "@/components/ExerciseStats.vue";
+import { getExterciseStats } from "@/services/userService.js";
 
 const props = defineProps({
   user: {
@@ -10,10 +12,28 @@ const props = defineProps({
   },
 });
 
-const results = ref([]);
-const isLoading = ref(false);
-const errorMessage = ref("");
+const exerciseStats = ref([]); // Användarens övningsstatistik
+const isLoadingStats = ref(false); // Indikator för laddning av övningsstatistik
+const statsErrorMessage = ref(""); // Felmeddelande vid problem med att hämta övningsstatistik
 
+const results = ref([]); // Användarens provresultat
+const isLoading = ref(false); // Indikator för laddning av provresultat
+const errorMessage = ref(""); // Felmeddelande vid problem med att hämta provresultat
+
+async function loadExterciseStats() {
+  isLoadingStats.value = true;
+  statsErrorMessage.value = "";
+
+  try {
+    exerciseStats.value = await getExterciseStats();
+  } catch (error) {
+    statsErrorMessage.value = "Kunde inte hämta övningsstatistiken.";
+  } finally {
+    isLoadingStats.value = false;
+  }
+}
+
+// Hämta användarens provresultat
 async function loadResults() {
   isLoading.value = true;
   errorMessage.value = "";
@@ -31,8 +51,10 @@ watch(
   () => props.user,
   (user) => {
     if (user) {
+      loadExterciseStats();
       loadResults();
     } else {
+      exerciseStats.value = [];
       results.value = [];
     }
   },
@@ -44,12 +66,18 @@ watch(
   <section class="profile-view">
     <h1 v-if="user">Hej {{ user.username }}</h1>
 
+    <h2>Mina övningsresultat</h2>
+
+    <p v-if="isLoadingStats"> Hämtar övningsstatistik...</p>
+    <p v-else-if="statsErrorMessage" class="error-message">
+      {{ statsErrorMessage }}
+    </p>
+    <ExerciseStats v-else :stats="exerciseStats" />
+
     <h2>Mina provresultat</h2>
 
-    <p v-if="isLoading">Laddar provresultat...</p>
-
+    <p v-if="isLoading">Hämtar provresultat...</p>
     <p v-else-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-
     <div v-else-if="results.length" class="results-list">
       <ResultCard
         v-for="result in results"
@@ -57,6 +85,7 @@ watch(
         :result="result"
       />
     </div>
+    
     <p v-else-if="user">Du har inga sparade provresultat ännu.</p>
   </section>
 </template>
