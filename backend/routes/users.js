@@ -252,7 +252,7 @@ router.get("/me/exercise-stats", requireAuth, async (req, res) => {
       `
         SELECT
           q.category,
-          COUNT(*) AS answered,
+          COUNT(ua.selected_position) AS answered,
           SUM(
             CASE
               WHEN EXISTS (
@@ -282,7 +282,7 @@ router.get("/me/exercise-stats", requireAuth, async (req, res) => {
       error: "Kunde inte hämta statistik för övningsfrågor",
     });
   }
-})
+});
 
 // POST /api/users/logout
 router.post("/logout", (req, res) => {
