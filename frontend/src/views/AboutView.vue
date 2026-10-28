@@ -9,11 +9,10 @@
       <h2>Vad är AlgeBäst?</h2>
       <p>
         AlgeBäst hjälper dig att öva matematik inför högskoleprovet och följa
-        dina framsteg.
+        dina framsteg. Kom igång direkt med en
+        <RouterLink to="/exercises">övning</RouterLink>, eller gör ett helt
+        <RouterLink to="/exams">prov</RouterLink> för att se hur du ligger till.
       </p>
-      Kom igång direkt med en <RouterLink to="/exercises">övning</RouterLink>,
-      eller gör ett helt <RouterLink to="/exams">prov</RouterLink> för att se
-      hur du ligger till.
 
       <p>
         <RouterLink to="/auth">Skapa ett konto</RouterLink> redan nu för att
