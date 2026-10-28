@@ -34,6 +34,14 @@ onMounted(loadExams);
   <div class="exam-selection-view">
     <h1>Prov</h1>
     <p class="subtitle">Välj ett provpass för att starta.</p>
+    <p>
+      Du genomför ett provpass under tidspress (max 55 minuter) för att simulera
+      den riktiga provsituationen. Du svarar på en fråga i taget. Du kan hoppa
+      över en fråga och fortsätta till nästa. Du kan närsomhelst under
+      provpasset hoppa tillbaka till en tidigare fråga för att lägga till eller
+      ändra ditt svar. Du kan välja att lämna frågor obesvarade. När du är klar
+      lämnar du in provet och får ett resultat.
+    </p>
 
     <!-- Laddar-tillstånd -->
     <p v-if="loading" class="state-msg">Laddar prov...</p>

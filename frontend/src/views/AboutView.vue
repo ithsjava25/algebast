@@ -11,7 +11,7 @@
         AlgeBäst hjälper dig att öva matematik inför högskoleprovet och följa
         dina framsteg.
       </p>
-      Kom igång direkt med <RouterLink to="/exercises">övningarna</RouterLink>,
+      Kom igång direkt med en <RouterLink to="/exercises">övning</RouterLink>,
       eller gör ett helt <RouterLink to="/exams">prov</RouterLink> för att se
       hur du ligger till.
 
@@ -46,7 +46,7 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          Anmäl dig till högskoleprovet här
+          Anmäl dig till högskoleprovet
         </a>
       </div>
     </section>
