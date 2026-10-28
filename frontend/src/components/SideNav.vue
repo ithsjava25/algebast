@@ -30,10 +30,10 @@ function closeMobileMenu() {
 <template>
   <!-- Mobil-header -->
   <header class="mobile-header">
-    <div class="brand">
+    <RouterLink to="/" class="brand">
       <span class="brand-mark">AB</span>
       <span class="brand-name">AlgeBäst</span>
-    </div>
+    </RouterLink>
     <button
       class="menu-toggle-btn"
       @click="isMobileMenuOpen = !isMobileMenuOpen"
@@ -44,10 +44,10 @@ function closeMobileMenu() {
 
   <!-- Sidomeny -->
   <aside class="side-nav" :class="{ 'mobile-open': isMobileMenuOpen }">
-    <div class="brand desktop-brand">
+    <RouterLink to="/" class="brand desktop-brand">
       <span class="brand-mark">AB</span>
       <span class="brand-name">AlgeBäst</span>
-    </div>
+    </RouterLink>
     <div class="menu-label">MENY</div>
     <nav @click="closeMobileMenu">
       <RouterLink
@@ -94,6 +94,8 @@ function closeMobileMenu() {
 }
 
 .brand {
+  text-decoration: none;
+  color: inherit;
   display: flex;
   align-items: center;
   gap: 10px;
