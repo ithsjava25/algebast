@@ -137,7 +137,7 @@ const totalPercentage = computed(() =>
 
 .progress-bar {
   width: 100%;
-  height: 8px;
+  height: 20px;
   margin-top: 16px;
   background: #e8eceb;
   border-radius: 4px;
