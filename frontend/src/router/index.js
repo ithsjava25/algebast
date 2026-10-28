@@ -6,12 +6,18 @@ import ExamView from "@/views/ExamView.vue";
 import ExerciseView from "@/views/ExerciseView.vue";
 import AuthView from "@/views/AuthView.vue";
 import ProfileView from "@/views/ProfileView.vue";
+import AboutView from "../views/AboutView.vue";
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: AboutView,
   },
   {
     path: "/exams",
@@ -38,7 +44,7 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: ProfileView,
-  }
+  },
 ];
 
 const router = createRouter({

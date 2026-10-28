@@ -32,8 +32,8 @@ onMounted(loadExams);
 
 <template>
   <div class="exam-selection-view">
-    <h1>Välj prov</h1>
-    <p class="subtitle">Välj vilket prov du vill köra igång med.</p>
+    <h1>Prov</h1>
+    <p class="subtitle">Välj ett provpass för att starta.</p>
 
     <!-- Laddar-tillstånd -->
     <p v-if="loading" class="state-msg">Laddar prov...</p>

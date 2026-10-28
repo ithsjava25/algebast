@@ -8,14 +8,15 @@ const props = defineProps({
   },
 });
 
-const menuItems = computed(() =>  [
-    { label: "Hem", route: "/" },
-    { label: "Prov", route: "/exams" },
-    { label: "Öva", route: "/exercises" },
-    { 
-        label: "Profil",
-        route: props.user ? "/profile" : "/auth" 
-    },
+const menuItems = computed(() => [
+  { label: "Hem", route: "/" },
+  { label: "Om", route: "/about" },
+  { label: "Prov", route: "/exams" },
+  { label: "Övning", route: "/exercises" },
+  {
+    label: "Profil",
+    route: props.user ? "/profile" : "/auth",
+  },
 ]);
 
 const emit = defineEmits(["logout"]);
@@ -29,10 +30,10 @@ function closeMobileMenu() {
 <template>
   <!-- Mobil-header -->
   <header class="mobile-header">
-    <div class="brand">
+    <RouterLink to="/" class="brand">
       <span class="brand-mark">AB</span>
-      <span class="brand-name">algeBäst</span>
-    </div>
+      <span class="brand-name">AlgeBäst</span>
+    </RouterLink>
     <button
       class="menu-toggle-btn"
       @click="isMobileMenuOpen = !isMobileMenuOpen"
@@ -43,10 +44,10 @@ function closeMobileMenu() {
 
   <!-- Sidomeny -->
   <aside class="side-nav" :class="{ 'mobile-open': isMobileMenuOpen }">
-    <div class="brand desktop-brand">
+    <RouterLink to="/" class="brand desktop-brand">
       <span class="brand-mark">AB</span>
-      <span class="brand-name">algeBäst</span>
-    </div>
+      <span class="brand-name">AlgeBäst</span>
+    </RouterLink>
     <div class="menu-label">MENY</div>
     <nav @click="closeMobileMenu">
       <RouterLink
@@ -61,18 +62,14 @@ function closeMobileMenu() {
       </RouterLink>
     </nav>
     <div v-if="user" class="user-section">
-        <div class="user-info">
-            <span class="user-label">Inloggad som</span>
-            <strong>{{ user.username }}</strong>
-        </div>
+      <div class="user-info">
+        <span class="user-label">Inloggad som</span>
+        <strong>{{ user.username }}</strong>
+      </div>
 
-        <button
-            type="button"
-            class="logout-button"
-            @click="emit('logout')"
-        >
-            Logga ut
-        </button>
+      <button type="button" class="logout-button" @click="emit('logout')">
+        Logga ut
+      </button>
     </div>
   </aside>
 </template>
@@ -97,6 +94,8 @@ function closeMobileMenu() {
 }
 
 .brand {
+  text-decoration: none;
+  color: inherit;
   display: flex;
   align-items: center;
   gap: 10px;

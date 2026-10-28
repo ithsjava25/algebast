@@ -3,16 +3,16 @@
 <template>
   <div class="home-view">
     <section class="hero">
-      <h1>ALGEBÄST</h1>
-      <p>Träna och förbered dig inför högskoleprovet</p>
+      <h1>AlgeBäst</h1>
+      <p>Öva och förbered dig inför högskoleprovet</p>
     </section>
 
     <section class="dashboard-actions">
       <article class="dashboard-card card">
-        <h2>Prov</h2>
+        <h2>Gör ett prov</h2>
         <p>
-          Gör hela högskoleprov eller specifika provpass under tidspress för att
-          simulera den riktiga provsituationen.
+          Gör ett högskoleprovpass under tidspress för att simulera den riktiga
+          provsituationen.
         </p>
 
         <RouterLink to="/exams" class="nav-btn primary action-btn">
@@ -21,10 +21,9 @@
       </article>
 
       <article class="dashboard-card card">
-        <h2>Öva</h2>
+        <h2>Starta en övning</h2>
         <p>
-          Träna på XYZ, KVA, NOG och DTK genom att själv välja vilka kategorier
-          du vill fokusera på.
+          Öva genom att själv välja vilka frågekategorier du vill fokusera på.
         </p>
 
         <RouterLink to="/exercises" class="nav-btn primary action-btn">
