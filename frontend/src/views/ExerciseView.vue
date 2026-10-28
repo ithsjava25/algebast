@@ -1,9 +1,11 @@
 <script setup>
 import { ref, computed } from "vue";
-import { getRandomQuestionsByCategories, turnInAnswers } from "@/services/questionService.js";
+import {
+  getRandomQuestionsByCategories,
+  turnInAnswers,
+} from "@/services/questionService.js";
 import QuestionCard from "@/components/QuestionCard.vue";
 import { renderMath } from "@/utils/rendermath";
-
 
 const categories = [
   { code: "XYZ", name: "Matematik" },
@@ -12,26 +14,28 @@ const categories = [
   { code: "DTK", name: "Diagram, tabeller och kartor" },
 ];
 
-const selectedCategories = ref([]); 
-const questions = ref([]);          
-const currentIndex = ref(0);        
+const selectedCategories = ref([]);
+const questions = ref([]);
+const currentIndex = ref(0);
 
+const selectedPosition = ref(null);
+const feedback = ref(null);
+const isLoadingMore = ref(false);
 
-const selectedPosition = ref(null); 
-const feedback = ref(null);         
-const isLoadingMore = ref(false);   
-
-const correctCount = ref(0);        // Håller koll på antal rätta svar
-const answeredCount = ref(0);      // Håller koll på hur många frågor vi svarat på
+const correctCount = ref(0); // Håller koll på antal rätta svar
+const answeredCount = ref(0); // Håller koll på hur många frågor vi svarat på
 const showSummaryModal = ref(false); // Styr om modalen för sammanfattning är öppen
 
 // Hämtar fram den aktuella frågan baserat på currentIndex
-const currentQuestion = computed(() => questions.value[currentIndex.value] || null);
-
+const currentQuestion = computed(
+  () => questions.value[currentIndex.value] || null,
+);
 
 function selectCategory(code) {
   if (selectedCategories.value.includes(code)) {
-    selectedCategories.value = selectedCategories.value.filter((c) => c !== code);
+    selectedCategories.value = selectedCategories.value.filter(
+      (c) => c !== code,
+    );
   } else {
     selectedCategories.value.push(code);
   }
@@ -46,7 +50,10 @@ async function startExercise() {
     correctCount.value = 0;
     answeredCount.value = 0;
     showSummaryModal.value = false;
-    questions.value = await getRandomQuestionsByCategories(selectedCategories.value, 20);
+    questions.value = await getRandomQuestionsByCategories(
+      selectedCategories.value,
+      20,
+    );
   } catch (err) {
     console.error("Kunde inte starta övning:", err);
   }
@@ -57,7 +64,10 @@ async function fetchMoreQuestions() {
   if (isLoadingMore.value) return;
   try {
     isLoadingMore.value = true;
-    const moreQuestions = await getRandomQuestionsByCategories(selectedCategories.value, 20);
+    const moreQuestions = await getRandomQuestionsByCategories(
+      selectedCategories.value,
+      20,
+    );
     questions.value.push(...moreQuestions);
   } catch (err) {
     console.error("Kunde inte ladda fler frågor:", err);
@@ -74,12 +84,12 @@ async function handleSelectAnswer(position) {
 
   try {
     const data = await turnInAnswers([
-      { questionId: currentQuestion.value.id, position: position }
+      { questionId: currentQuestion.value.id, position: position },
     ]);
-    
+
     if (data && data.results && data.results.length > 0) {
       feedback.value = data.results[0];
-      
+
       answeredCount.value++;
       if (feedback.value.isCorrect) {
         correctCount.value++;
@@ -131,8 +141,14 @@ function closeSummaryAndReset() {
   <section class="exercise-view">
     <!-- Välj kategorier-vyn -->
     <div v-if="questions.length === 0">
-      <h1>Öva</h1>
-      <p>Välj vilka områden du vill öva på. Övningen fortsätter tills du väljer att avbryta.</p>
+      <h1>Övning</h1>
+      <p class="subtitle">
+        Välj en eller flera frågekategorier. Du svarar på en fråga i taget tills
+        du väljer att avsluta. Du får direkt feedback på om svaret är rätt eller
+        fel tillsammans med eventuellt lösningsförslag. Du kan välja att hoppa
+        över en fråga och fortsätta till nästa. När du är klar får du en
+        sammanfattning av din övning.
+      </p>
 
       <div class="categories">
         <article
@@ -162,7 +178,9 @@ function closeSummaryAndReset() {
         <h2>Övningsläge</h2>
         <span class="question-counter">Fråga {{ currentIndex + 1 }}</span>
         <!-- Öppnar modal med sammanfattning -->
-        <button class="nav-btn danger" @click="openSummaryModal">Avsluta övning</button>
+        <button class="nav-btn danger" @click="openSummaryModal">
+          Avsluta övning
+        </button>
       </div>
 
       <QuestionCard
@@ -170,16 +188,30 @@ function closeSummaryAndReset() {
         :question="currentQuestion"
         v-model="selectedPosition"
         :disabled="feedback !== null"
-        :result="feedback ? { isCorrect: feedback.isCorrect, correctPosition: feedback.correctPosition } : null"
+        :result="
+          feedback
+            ? {
+                isCorrect: feedback.isCorrect,
+                correctPosition: feedback.correctPosition,
+              }
+            : null
+        "
         @update:modelValue="handleSelectAnswer"
       />
 
       <!-- Feedback-ruta -->
-      <div v-if="feedback !== null" class="feedback-box card" :class="feedback.isCorrect ? 'success' : 'error'">
+      <div
+        v-if="feedback !== null"
+        class="feedback-box card"
+        :class="feedback.isCorrect ? 'success' : 'error'"
+      >
         <p class="feedback-title">
-          {{ feedback.isCorrect ? 'Rätt svar!' : 'Fel svar.' }}
+          {{ feedback.isCorrect ? "Rätt svar!" : "Fel svar." }}
         </p>
-        <div v-if="!feedback.isCorrect && feedback.explanation" class="explanation">
+        <div
+          v-if="!feedback.isCorrect && feedback.explanation"
+          class="explanation"
+        >
           <strong>Lösningsförslag / Förklaring:</strong>
           <p v-html="renderMath(feedback.explanation)"></p>
         </div>
@@ -188,7 +220,7 @@ function closeSummaryAndReset() {
       <!-- Navigeringsknapp -->
       <div class="question-footer">
         <button class="nav-btn primary next-btn" @click="nextQuestion">
-          {{ feedback !== null ? 'Nästa fråga' : 'Hoppa över / Nästa' }}
+          {{ feedback !== null ? "Nästa fråga" : "Hoppa över / Nästa" }}
         </button>
       </div>
     </div>
@@ -197,8 +229,8 @@ function closeSummaryAndReset() {
     <div v-if="showSummaryModal" class="modal-backdrop">
       <div class="modal-card card">
         <h2>Övning avslutad</h2>
-        <p>Bra jobbat! Här är en sammanfattning av din omgång:</p>
-        
+        <p>Bra jobbat! Här är en sammanfattning av passet:</p>
+
         <div class="stats-box">
           <!-- Visar vilka kategorier som övats på -->
           <div class="stat-row categories-row">
@@ -215,10 +247,15 @@ function closeSummaryAndReset() {
           </div>
           <div v-if="answeredCount > 0" class="stat-row">
             <span>Träffsäkerhet:</span>
-            <strong>{{ Math.round((correctCount / answeredCount) * 100) }} %</strong>
+            <strong
+              >{{ Math.round((correctCount / answeredCount) * 100) }} %</strong
+            >
           </div>
         </div>
-        <button class="nav-btn primary modal-close-btn" @click="closeSummaryAndReset">
+        <button
+          class="nav-btn primary modal-close-btn"
+          @click="closeSummaryAndReset"
+        >
           Tillbaka till start
         </button>
       </div>

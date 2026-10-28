@@ -8,14 +8,14 @@ const props = defineProps({
   },
 });
 
-const menuItems = computed(() =>  [
-    { label: "Hem", route: "/" },
-    { label: "Prov", route: "/exams" },
-    { label: "Öva", route: "/exercises" },
-    { 
-        label: "Profil",
-        route: props.user ? "/profile" : "/auth" 
-    },
+const menuItems = computed(() => [
+  { label: "Hem", route: "/" },
+  { label: "Prov", route: "/exams" },
+  { label: "Övning", route: "/exercises" },
+  {
+    label: "Profil",
+    route: props.user ? "/profile" : "/auth",
+  },
 ]);
 
 const emit = defineEmits(["logout"]);
@@ -31,7 +31,7 @@ function closeMobileMenu() {
   <header class="mobile-header">
     <div class="brand">
       <span class="brand-mark">AB</span>
-      <span class="brand-name">algeBäst</span>
+      <span class="brand-name">AlgeBäst</span>
     </div>
     <button
       class="menu-toggle-btn"
@@ -45,7 +45,7 @@ function closeMobileMenu() {
   <aside class="side-nav" :class="{ 'mobile-open': isMobileMenuOpen }">
     <div class="brand desktop-brand">
       <span class="brand-mark">AB</span>
-      <span class="brand-name">algeBäst</span>
+      <span class="brand-name">AlgeBäst</span>
     </div>
     <div class="menu-label">MENY</div>
     <nav @click="closeMobileMenu">
@@ -61,18 +61,14 @@ function closeMobileMenu() {
       </RouterLink>
     </nav>
     <div v-if="user" class="user-section">
-        <div class="user-info">
-            <span class="user-label">Inloggad som</span>
-            <strong>{{ user.username }}</strong>
-        </div>
+      <div class="user-info">
+        <span class="user-label">Inloggad som</span>
+        <strong>{{ user.username }}</strong>
+      </div>
 
-        <button
-            type="button"
-            class="logout-button"
-            @click="emit('logout')"
-        >
-            Logga ut
-        </button>
+      <button type="button" class="logout-button" @click="emit('logout')">
+        Logga ut
+      </button>
     </div>
   </aside>
 </template>
