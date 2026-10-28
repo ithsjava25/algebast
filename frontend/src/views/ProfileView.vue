@@ -1,9 +1,11 @@
 <script setup>
 import { ref, watch } from "vue";
 import ResultCard from "@/components/ResultCard.vue";
+import BadgesCard from "@/components/BadgesCard.vue";
 import { getUserResults } from "@/services/userService.js";
 import ExerciseStats from "@/components/ExerciseStats.vue";
 import { getExterciseStats } from "@/services/userService.js";
+import { getUserBadges } from "@/services/userService.js";
 
 const props = defineProps({
   user: {
@@ -19,6 +21,10 @@ const statsErrorMessage = ref(""); // Felmeddelande vid problem med att hämta �
 const results = ref([]); // Användarens provresultat
 const isLoading = ref(false); // Indikator för laddning av provresultat
 const errorMessage = ref(""); // Felmeddelande vid problem med att hämta provresultat
+
+const userBadges = ref([]);
+const isLoadingBadges = ref(false);
+const badgeErrorMessage = ref("");
 
 async function loadExterciseStats() {
   isLoadingStats.value = true;
@@ -47,15 +53,30 @@ async function loadResults() {
   }
 }
 
+async function loadBadges() {
+  isLoadingBadges.value = true;
+  badgeErrorMessage.value = "";
+
+  try {
+    userBadges.value = await getUserBadges();
+  } catch (error) {
+    badgeErrorMessage.value = "Kunde inte hämta pokaler.";
+  } finally {
+    isLoadingBadges.value = false;
+  }
+}
+
 watch(
   () => props.user,
   (user) => {
     if (user) {
       loadExterciseStats();
       loadResults();
+      loadBadges();
     } else {
       exerciseStats.value = [];
       results.value = [];
+      userBadges.value = [];
     }
   },
   { immediate: true },
@@ -87,6 +108,16 @@ watch(
     </div>
     
     <p v-else-if="user">Du har inga sparade provresultat ännu.</p>
+
+    <section class="profile-section">
+      <h2>Mina pokaler</h2>
+      <p v-if="isLoadingBadges">Hämtar pokaler...</p>
+      <p v-else-if="badgeErrorMessage" class="error-message">
+        {{ badgeErrorMessage }}
+      </p>
+      <BadgesCard v-else :badges="userBadges" />
+    </section>
+
   </section>
 </template>
 

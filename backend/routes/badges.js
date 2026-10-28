@@ -71,6 +71,16 @@ function evaluateBadges(stats) {
       description: "Svara på frågor eller lämna in prov mellan 00:00 och 04:00",
       unlocked: stats.hasNightActivity,
     },
+    {
+      id: "polymath",
+      title: "Allkonstnären",
+      description: "Svara rätt på minst 15 frågor i alla fyra kategorier (XYZ, KVA, NOG, DTK)",
+      unlocked: 
+        stats.xyzCorrect >= 15 && 
+        stats.kvaCorrect >= 15 && 
+        stats.nogCorrect >= 15 && 
+        stats.dtkCorrect >= 15,
+    },
   ];
 }
 

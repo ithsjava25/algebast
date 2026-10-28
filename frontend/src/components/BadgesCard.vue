@@ -12,6 +12,7 @@ import {
   Timer,
   Moon,
   Lock,
+  GraduationCap,
 } from "lucide-vue-next";
 
 defineProps({
@@ -34,6 +35,7 @@ const iconMap = {
   analyst: BarChart2,
   speedrunner: Timer,
   night_owl: Moon,
+  polymath: GraduationCap,
 };
 
 function getBadgeIcon(id) {
@@ -43,7 +45,7 @@ function getBadgeIcon(id) {
 
 <template>
   <article class="badges-card card">
-    <h3>Dina pokaler & badges</h3>
+    
 
     <div v-if="badges.length === 0" class="no-badges">
       <p>Laddar pokaler...</p>
