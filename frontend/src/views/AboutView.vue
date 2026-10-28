@@ -1,5 +1,5 @@
 <template>
-  <main class="about-view">
+  <section class="about-view">
     <header class="about-hero">
       <h1>Om AlgeBäst</h1>
       <p class="subtitle">Öva matematik inför högskoleprovet.</p>
@@ -24,10 +24,14 @@
     <section class="about-section">
       <h2>Högskoleprovet</h2>
       <p>
-        Högskoleprovet är en nationell examination som används för att bedöma
-        studenters kunskaper i matematik, engelska och svenska. Högskoleprovet
-        mäter färdigheter som har betydelse för förmågan att klara av
-        högskolestudier.
+        Högskoleprovet är ett frivilligt prov som ger dig ytterligare en
+        möjlighet att konkurrera om platser på universitet och högskolor. Provet
+        består av en verbal del, som prövar bland annat ordförståelse och
+        läsförståelse på svenska och engelska, och en kvantitativ del, som
+        prövar matematisk problemlösning, logiskt resonemang och tolkning av
+        diagram och tabeller. Resultatet kan användas vid antagning till högre
+        utbildning och kompletterar dina gymnasiebetyg genom att ge dig en
+        ytterligare urvalsgrupp.
       </p>
 
       <div>
@@ -50,7 +54,7 @@
         </a>
       </div>
     </section>
-  </main>
+  </section>
 </template>
 
 <style scoped>
