@@ -23,18 +23,25 @@ async function handleSubmit() {
     return;
   }
 
+  let user;
   try {
-    const user = await loginUser(email.value.trim(), password.value);
-    emit("login", user);
+    user = await loginUser(email.value.trim(), password.value);
   } catch (error) {
     errorMessage.value = error.message;
+    return;
   }
 
+  // Logged in: save a pending guest exam, if there is one
   try {
     await claimPendingExam();
   } catch (err) {
     console.error(err);
+    errorMessage.value =
+      "Du är inloggad, men provet kunde inte sparas. Försök logga in igen.";
+    return;
   }
+
+  emit("login", user);
 }
 </script>
 
