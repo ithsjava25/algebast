@@ -34,22 +34,14 @@ async function handleLogout() {
 onMounted(() => {
   loadCurrentUser();
 });
-
 </script>
 
 <template>
   <div class="app-layout">
-    <SideNav
-      :user="currentUser"
-      @logout="handleLogout"
-    />
+    <SideNav :user="currentUser" @logout="handleLogout" />
     <main class="page-content">
       <RouterView v-slot="{ Component }">
-        <component 
-          :is="Component"
-          :user="currentUser"
-          @login="handleLogin"
-        />
+        <component :is="Component" :user="currentUser" @login="handleLogin" />
       </RouterView>
     </main>
   </div>
@@ -58,7 +50,7 @@ onMounted(() => {
 <style scoped>
 .app-layout {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   min-height: 100vh;
   width: 100%;
   background-color: #f8f9fa;
@@ -73,6 +65,11 @@ onMounted(() => {
 @media (min-width: 768px) {
   .app-layout {
     flex-direction: row;
+  }
+
+  .page-content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
   }
 }
 </style>

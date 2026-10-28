@@ -77,11 +77,16 @@ function closeMobileMenu() {
 <style scoped>
 /* Fast sidomeny */
 .side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 220px;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  overflow-y: auto;
   border-right: 1px solid #dcdde1;
   background: #f5f5f3;
   padding: 24px 18px;
@@ -189,6 +194,7 @@ function closeMobileMenu() {
     left: 0;
     width: 100%;
     height: calc(100vh - 57px);
+    overflow-y: auto;
     background: #f5f5f3;
     z-index: 99;
     transform: translateX(-100%);
