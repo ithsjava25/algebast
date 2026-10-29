@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch, computed, onMounted, onUnmounted } from "vue";
-import { onBeforeRouteLeave } from "vue-router";
+import { onBeforeRouteLeave, onBeforeRouteUpdate } from "vue-router";
 import QuestionCard from "@/components/QuestionCard.vue";
 import {
   getQuestionsByExam,
@@ -200,6 +200,20 @@ onBeforeRouteLeave(() => {
 
   return window.confirm(
     "Du har ett pågående prov. Om du lämnar sidan förlorar du dina framsteg. Vill du fortsätta?",
+  );
+});
+
+onBeforeRouteUpdate((to, from) => {
+  if (to.params.examId === from.params.examId) {
+    return true;
+  }
+
+  if (!isExamInProgress.value) {
+    return true;
+  }
+
+  return window.confirm(
+    "Du har ett pågående prov. Om du byter prov förlorar du dina framsteg. Vill du fortsätta?",
   );
 });
 

@@ -22,12 +22,18 @@ async function loadCurrentUser() {
 
 async function handleLogout() {
   try {
+    const navigationFailure = await router.push("/auth");
+
+    // Om navigationen misslyckas (t.ex avbryts av användaren), avbryt utloggningen
+    if (navigationFailure) {
+      return;
+    }
+
     await logoutUser();
 
     currentUser.value = null;
-    router.push("/auth");
   } catch (error) {
-    console.error("Utloggningen misslyckades");
+    console.error("Utloggningen misslyckades", error);
   }
 }
 
