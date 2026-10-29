@@ -92,7 +92,7 @@ function closeMobileMenu() {
 
       <RouterLink
         v-else
-        to="/auth"
+        to="/auth?mode=login"
         class="login-button"
         @click="closeMobileMenu"
       >
