@@ -23,8 +23,9 @@ const menuItems = computed(() => [
 
 const emit = defineEmits(["logout"]);
 const isMobileMenuOpen = ref(false);
-// VueUse keeps the existing storage key and follows the system until a manual choice.
+// Hantera mörkt/ljust läge 
 const colorMode = useColorMode({ emitAuto: true, modes: { light: "" } });
+// Kontrollera om det är mörkt läge
 const isDark = computed(() => colorMode.state.value === "dark");
 
 function toggleDark() {
@@ -168,8 +169,7 @@ function closeMobileMenu() {
   background: var(--hover-color);
 }
 
-.nav-item.router-link-exact-active,
-:global(html.dark .nav-item.nav-active) {
+.nav-item.nav-active {
   background: var(--button-primary-bg);
   color: var(--button-primary-text);
 }
