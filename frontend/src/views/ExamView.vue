@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch, computed, onUnmounted } from "vue";
+import { onBeforeRouteLeave } from "vue-router";
 import QuestionCard from "@/components/QuestionCard.vue";
 import {
   getQuestionsByExam,
@@ -49,6 +50,14 @@ const score = computed(() =>
 const unanswered = computed(
   () =>
     questions.value.filter((q) => selectedAnswers.value[q.id] == null).length,
+);
+
+const isExamInProgress = computed(
+  () =>
+    !loading.value &&
+    !error.value &&
+    questions.value.length > 0 &&
+    results.value === null,
 );
 
 let latestRequestId = 0;
@@ -179,6 +188,16 @@ onUnmounted(() => {
 
 watch(() => props.examId, loadExamData, { immediate: true });
 
+onBeforeRouteLeave(() => {
+  if (!isExamInProgress.value) {
+    return true;
+  }
+
+  return window.confirm(
+    "Du har ett pågående prov. Om du lämnar sidan förlorar du dina framsteg. Vill du fortsätta?",
+  );
+});
+
 const currentQuestion = computed(() => questions.value[currentIndex.value]);
 </script>
 
@@ -263,9 +282,14 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
         <p v-if="results && !saved" class="error-msg">
           Resultatet är inte sparat.
-          <router-link :to="{ path: '/auth', query: { mode: 'login' } }">Logga in</router-link> eller
-          <router-link :to="{ path: '/auth', query: { mode: 'register' } }">registrera dig</router-link> för att spara
-          det.
+          <router-link :to="{ path: '/auth', query: { mode: 'login' } }"
+            >Logga in</router-link
+          >
+          eller
+          <router-link :to="{ path: '/auth', query: { mode: 'register' } }"
+            >registrera dig</router-link
+          >
+          för att spara det.
         </p>
 
         <p v-if="submitError" class="error-msg" role="alert">
