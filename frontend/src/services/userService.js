@@ -100,3 +100,15 @@ export async function getExterciseStats() {
 
   return data;
 }
+
+
+export async function getUserBadges() {
+  const response = await fetch("/api/badges");
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Kunde inte hämta användarens badges");
+  }
+
+  return data;
+}

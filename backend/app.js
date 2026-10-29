@@ -41,6 +41,7 @@ app.use(
 app.use("/api/exams", require("./routes/exams"));
 app.use("/api/questions", require("./routes/questions"));
 app.use("/api/users", require("./routes/users"));
+app.use("/api/badges" , require("./routes/badges"))
 
 sessionStore
   .onReady()
