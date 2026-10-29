@@ -2,7 +2,6 @@ const express = require("express");
 const pool = require("../config/connectionMySQL");
 const router = express.Router();
 
-// Hjälpfunktion som utvärderar vilka badges som är upplåsta
 function evaluateBadges(stats) {
   return [
     {
@@ -84,7 +83,7 @@ function evaluateBadges(stats) {
   ];
 }
 
-// GET /api/badges (eller /api/users/me/badges)
+// GET /api/users/me/badges)
 router.get("/", async (req, res) => {
   try {
     const userId = req.session.userId;
