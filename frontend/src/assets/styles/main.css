@@ -26,6 +26,10 @@
   --warning-text: #9a4d00;
   --danger-bg: #dc3545;
   --danger-hover: #c82333;
+  --badge-gold-bg: linear-gradient(135deg, #fef9e7 0%, #fef5d1 100%);
+  --badge-gold-border: #f1c40f;
+  --badge-gold-text: #d4ac0d;
+  --badge-gold-shadow: rgba(241, 196, 15, 0.15);
 }
 
 html.dark {
@@ -55,6 +59,10 @@ html.dark {
   --warning-text: #ffbc75;
   --danger-bg: #f08b96;
   --danger-hover: #ffa7b0;
+  --badge-gold-bg: linear-gradient(135deg, #fef9e7 0%, #fef5d1 100%);
+  --badge-gold-border: #f1c40f;
+  --badge-gold-text: #d4ac0d;
+  --badge-gold-shadow: rgba(241, 196, 15, 0.15);
 }
 
 * {

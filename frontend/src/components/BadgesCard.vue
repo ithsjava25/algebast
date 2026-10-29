@@ -106,13 +106,13 @@ function getBadgeIcon(id) {
 
 /* Upplåsta pokaler */
 .badge-item.unlocked {
-  background: linear-gradient(135deg, #fef9e7 0%, #fef5d1 100%);
-  border-color: #f1c40f;
-  box-shadow: 0 4px 12px rgba(241, 196, 15, 0.15);
+  background: var(--badge-gold-bg);
+  border-color: var(--badge-gold-border);
+  box-shadow: 0 4px 12px var(--badge-gold-shadow);
 }
 
 .badge-item.unlocked .badge-icon {
-  color: #d4ac0d;
+  color: var(--badge-gold-text);
 }
 
 /* Keep text readable on the original light gold surface in both themes. */
