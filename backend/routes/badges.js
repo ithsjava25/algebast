@@ -91,7 +91,7 @@ router.get("/", async (req, res) => {
       return res.status(401).json({ error: "Du är inte inloggad" });
     }
 
-    // 1. Hämta svar-statistik
+    // Hämta svar-statistik
     const [answerRows] = await pool.execute(
       `
         SELECT 
@@ -109,7 +109,7 @@ router.get("/", async (req, res) => {
       [userId]
     );
 
-    // 2. Hämta prov-statistik
+    // Hämta prov-statistik
     const [examRows] = await pool.execute(
       `
         SELECT 

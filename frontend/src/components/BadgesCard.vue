@@ -22,7 +22,7 @@ defineProps({
   },
 });
 
-// Mappar respektive badge-ID till motsvarande vektorikon
+
 const iconMap = {
   first_step: CheckCircle2,
   getting_started: Flame,
