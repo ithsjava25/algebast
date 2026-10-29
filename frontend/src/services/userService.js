@@ -103,7 +103,7 @@ export async function getExterciseStats() {
 
 
 export async function getUserBadges() {
-  const response = await fetch("/api/user/me/badges");
+  const response = await fetch("/api/users/me/badges");
   const data = await response.json();
 
   if (!response.ok) {
