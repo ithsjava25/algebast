@@ -45,8 +45,13 @@ app.use("/api/exams", require("./routes/exams"));
 app.use("/api/questions", require("./routes/questions"));
 app.use("/api/users", require("./routes/users"));
 
+app.use("/api", (req, res) =>
+  res.status(404).json({ error: "Hittades inte" }),
+);
+
 app.get("/{*splat}", (req, res) =>
-     res.sendFile(path.join(__dirname, "../frontend/dist/index.html")));
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html")),
+);
 
 sessionStore
   .onReady()
