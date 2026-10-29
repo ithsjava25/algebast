@@ -58,6 +58,7 @@ function getBadgeIcon(id) {
         class="badge-item"
         :class="{ unlocked: badge.unlocked, locked: !badge.unlocked }"
         :aria-label="`${badge.title}: ${badge.description} (${badge.unlocked ? 'Upplåst' : 'Låst'})`"
+
       >
         <div class="badge-icon-wrapper">
           <component :is="getBadgeIcon(badge.id)" class="badge-icon" />
