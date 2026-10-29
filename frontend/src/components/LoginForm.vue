@@ -85,7 +85,7 @@ async function handleSubmit() {
 
 .form-group input {
   padding: 10px 12px;
-  border: 1px solid #aaa;
+  border: 1px solid var(--input-border);
   font: inherit;
 }
 
@@ -104,6 +104,6 @@ async function handleSubmit() {
 .error-message {
   margin: 0;
   font-size: 14px;
-  color: #b00020;
+  color: var(--error-message);
 }
 </style>

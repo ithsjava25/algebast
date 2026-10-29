@@ -65,7 +65,7 @@ const selected = defineModel();
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #7f8c8d;
+  color: var(--text-secondary);
 }
 
 .question-text {
@@ -73,7 +73,7 @@ const selected = defineModel();
   font-size: 18px;
   font-weight: 600;
   line-height: 1.5;
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .question-image-container {
@@ -84,7 +84,8 @@ const selected = defineModel();
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  border: 1px solid #dcdde1;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-diagram);
 }
 
 .answer-options {
@@ -98,16 +99,16 @@ const selected = defineModel();
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  border: 1px solid #dcdde1;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
-  background-color: #fafafa;
+  background-color: var(--bg-option);
   transition: all 0.2s ease;
 }
 
 .answer-option:hover {
-  background: #f1f2f6;
-  border-color: #3498db;
+  background: var(--bg-muted);
+  border-color: var(--accent-color);
 }
 
 .answer-option input {
@@ -130,15 +131,15 @@ const selected = defineModel();
 }
 
 .result.correct { 
-  background-color: #d4edda;
-  border-color: #28a745; 
-  color: #155724;
+  background-color: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success-text);
 }
 
 .result.wrong { 
-  background-color: #f8d7da;
-  border-color: #dc3545; 
-  color: #721c24;
+  background-color: var(--error-bg);
+  border-color: var(--error-border);
+  color: var(--error-text);
 }
 
 .result p { 

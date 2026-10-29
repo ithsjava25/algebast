@@ -388,7 +388,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  border-bottom: 2px solid #f8f9fa;
+  border-bottom: 2px solid var(--bg-primary);
   padding-bottom: 15px;
   flex-wrap: wrap;
   gap: 12px;
@@ -402,9 +402,9 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 }
 
 .toggle-sidebar-btn {
-  background: #f1f2f6;
-  border: 1px solid #dcdde1;
-  color: #2c3e50;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
   padding: 8px 14px;
   border-radius: 8px;
   font-family: "Space Mono", monospace;
@@ -415,14 +415,14 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 }
 
 .toggle-sidebar-btn:hover {
-  background: #e4e6eb;
-  border-color: #3498db;
+  background: var(--hover-muted);
+  border-color: var(--accent-color);
 }
 
 .timer-box {
-  background: #f8f9fa;
-  border: 1px solid #dcdde1;
-  color: #2c3e50;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
   padding: 8px 14px;
   border-radius: 8px;
   font-size: 14px;
@@ -430,9 +430,9 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 }
 
 .timer-box.warning {
-  background: #fff9f9;
-  border-color: #dc3545;
-  color: #dc3545;
+  background: var(--timer-warning-bg);
+  border-color: var(--error-border);
+  color: var(--exam-error-text);
 }
 
 .question-meta {
@@ -441,7 +441,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
 .progress-text {
   font-size: 14px;
-  color: #7f8c8d;
+  color: var(--text-secondary);
   font-weight: 700;
 }
 
@@ -455,19 +455,19 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 .score-summary {
   margin-top: 24px;
   padding: 16px;
-  background: #e8f8f5;
-  border: 1px solid #2ecc71;
+  background: var(--score-bg);
+  border: 1px solid var(--score-border);
   border-radius: 8px;
   text-align: center;
 }
 
 .score-summary h3 {
   margin: 0 0 6px 0;
-  color: #27ae60;
+  color: var(--score-text);
 }
 
 .error-msg {
-  color: #dc3545;
+  color: var(--exam-error-text);
   font-weight: 700;
   margin-top: 12px;
 }
@@ -480,13 +480,13 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 .sidebar-title {
   margin-top: 0;
   font-size: 18px;
-  color: #2c3e50;
+  color: var(--text-primary);
   font-weight: 700;
 }
 
 .sidebar-sub {
   font-size: 12px;
-  color: #7f8c8d;
+  color: var(--text-secondary);
   margin-bottom: 20px;
 }
 
@@ -499,9 +499,9 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
 .grid-btn {
   aspect-ratio: 1;
-  border: 1px solid #dcdde1;
-  background-color: #f1f2f6;
-  color: #2c3e50;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-muted);
+  color: var(--text-primary);
   border-radius: 8px;
   font-family: "Space Mono", monospace;
   font-weight: 700;
@@ -511,43 +511,43 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 }
 
 .grid-btn:hover {
-  background-color: #e4e6eb;
-  border-color: #3498db;
+  background-color: var(--hover-muted);
+  border-color: var(--accent-color);
 }
 
 .grid-btn.active {
-  border-color: #3498db;
-  background-color: #ebf3f9;
-  color: #3498db;
+  border-color: var(--accent-color);
+  background-color: var(--accent-bg);
+  color: var(--accent-text);
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
 .grid-btn.answered {
-  background-color: #e2e8f0;
-  border-color: #94a3b8;
-  color: #1e293b;
+  background-color: var(--answered-bg);
+  border-color: var(--answered-border);
+  color: var(--answered-text);
 }
 
 .grid-btn.correct {
-  background-color: #d4edda;
-  border-color: #28a745;
-  color: #155724;
+  background-color: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success-text);
 }
 
 .grid-btn.wrong {
-  background-color: #f8d7da;
-  border-color: #dc3545;
-  color: #721c24;
+  background-color: var(--error-bg);
+  border-color: var(--error-border);
+  color: var(--error-text);
 }
 
 .sidebar-footer {
-  border-top: 1px solid #f1f2f6;
+  border-top: 1px solid var(--bg-muted);
   padding-top: 15px;
 }
 
 .unanswered-text {
   font-size: 13px;
-  color: #e67e22;
+  color: var(--warning-text);
   font-weight: 600;
   margin-bottom: 12px;
   text-align: center;
@@ -555,8 +555,8 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
 .finish-btn {
   width: 100%;
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--danger-bg);
+  color: var(--button-primary-text);
   border: none;
   padding: 12px;
   border-radius: 8px;
@@ -568,6 +568,6 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 }
 
 .finish-btn:hover {
-  background-color: #c82333;
+  background-color: var(--danger-hover);
 }
 </style>

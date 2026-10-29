@@ -88,8 +88,8 @@ const totalPercentage = computed(() =>
 .stats-summary {
   padding: 24px;
   margin-bottom: 20px;
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-card);
   border-radius: 12px;
 }
 
@@ -110,8 +110,8 @@ const totalPercentage = computed(() =>
 
 .category-result {
   padding: 24px;
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-card);
   border-radius: 12px;
 }
 
@@ -139,14 +139,14 @@ const totalPercentage = computed(() =>
   width: 100%;
   height: 20px;
   margin-top: 16px;
-  background: #e8eceb;
+  background: var(--progress-track);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: #2c3e50;
+  background: var(--button-primary-bg);
   border-radius: 4px;
 }
 

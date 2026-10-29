@@ -62,9 +62,9 @@ const formattedDate = computed(() => {
 <style scoped>
 .result-card {
   padding: 24px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-card);
   border-radius: 12px;
-  background: white;
+  background: var(--bg-secondary);
 }
 
 .result-card h3 {

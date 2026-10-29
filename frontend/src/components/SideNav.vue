@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useDark, useToggle } from "@vueuse/core";
+import { useColorMode } from "@vueuse/core";
 import { Sun, Moon } from "lucide-vue-next";
 
 const props = defineProps({
@@ -23,8 +23,13 @@ const menuItems = computed(() => [
 
 const emit = defineEmits(["logout"]);
 const isMobileMenuOpen = ref(false);
-const isDark = useDark(); // Används för att hantera mörkt/ljust tema
-const toggleDark = useToggle(isDark); // Funktion för att växla mellan mörkt och ljust tema
+// VueUse keeps the existing storage key and follows the system until a manual choice.
+const colorMode = useColorMode({ emitAuto: true, modes: { light: "" } });
+const isDark = computed(() => colorMode.state.value === "dark");
+
+function toggleDark() {
+  colorMode.value = isDark.value ? "light" : "dark";
+}
 
 function closeMobileMenu() {
   isMobileMenuOpen.value = false;
@@ -116,8 +121,8 @@ function closeMobileMenu() {
 }
 
 .brand-mark {
-  background: #111;
-  color: white;
+  background: var(--brand-bg);
+  color: var(--button-primary-text);
   font-weight: 700;
   padding: 6px 10px;
   font-size: 14px;
@@ -163,9 +168,10 @@ function closeMobileMenu() {
   background: var(--hover-color);
 }
 
-.nav-item.router-link-exact-active {
-  background: #2c3e50;
-  color: #fff;
+.nav-item.router-link-exact-active,
+:global(html.dark .nav-item.nav-active) {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
 }
 
 /* Mobil-header (dold på desktop) */
@@ -184,8 +190,8 @@ function closeMobileMenu() {
 }
 
 .menu-toggle-btn {
-  background: #2c3e50;
-  color: white;
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
   border: none;
   padding: 8px 14px;
   border-radius: 8px;

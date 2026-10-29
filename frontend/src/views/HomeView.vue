@@ -52,11 +52,11 @@
   font-weight: 700;
   letter-spacing: -1px;
   margin-bottom: 8px;
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .hero p {
-  color: #7f8c8d;
+  color: var(--text-secondary);
   font-size: 16px;
   margin: 0;
 }
@@ -89,13 +89,13 @@
   margin: 0 0 8px 0;
   font-size: 20px;
   font-weight: 700;
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .dashboard-card p {
   margin: 0;
   font-size: 14px;
-  color: #7f8c8d;
+  color: var(--text-secondary);
   line-height: 1.5;
 }
 
