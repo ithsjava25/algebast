@@ -5,7 +5,7 @@ import RegisterForm from "@/components/RegisterForm.vue";
 import LoginForm from "@/components/LoginForm.vue";
 
 const route = useRoute();
-const authMode = ref(route.query.mode === "login" ? "login" : "register");
+const authMode = ref(route.query.mode === "register" ? "register" : "login");
 const justRegistered = ref(false);
 const emit = defineEmits(["login"]);
 const props = defineProps({
