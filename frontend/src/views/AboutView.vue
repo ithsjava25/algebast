@@ -11,13 +11,16 @@
         AlgeBäst hjälper dig att öva matematik inför högskoleprovet och följa
         dina framsteg. Kom igång direkt med en
         <RouterLink to="/exercises">övning</RouterLink>, eller gör ett helt
-        <RouterLink to="/exams">prov</RouterLink> för att se hur du ligger till.
+        <RouterLink to="/exams">prov</RouterLink> för att se hur du ligger till!
       </p>
 
-      <p>
-        <RouterLink to="/auth">Skapa ett konto</RouterLink> redan nu för att
-        spara dina resultat och följa dina framsteg!
-      </p>
+      <div class="link-section">
+        <p>Vill du spara dina resultat och följa dina framsteg över tid?</p>
+
+        <RouterLink to="/auth?mode=register" class="link-button">
+          Skapa ett konto
+        </RouterLink>
+      </div>
     </section>
 
     <section class="about-section">
@@ -33,7 +36,7 @@
         ytterligare urvalsgrupp.
       </p>
 
-      <div>
+      <div class="link-section">
         <a
           href="https://www.uhr.se/studier-och-antagning/Hogskoleprovet/"
           target="_blank"
@@ -41,13 +44,11 @@
         >
           Läs mer hos UHR
         </a>
-      </div>
-
-      <div>
         <a
           href="https://www.hogskoleprov.nu"
           target="_blank"
           rel="noopener noreferrer"
+          class="link-button"
         >
           Anmäl dig till högskoleprovet
         </a>
@@ -62,5 +63,41 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.link-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.link-section p {
+  margin: 0;
+}
+
+.link-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.link-button:hover {
+  opacity: 0.85;
+}
+
+.link-button:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
 }
 </style>

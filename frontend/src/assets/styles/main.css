@@ -122,9 +122,24 @@ html.dark {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Space Mono', monospace, sans-serif;
+  font-family: "Space Mono", monospace, sans-serif;
   color: var(--text-primary);
   background-color: var(--bg-primary);
+}
+
+a:link,
+a:visited {
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+a:hover {
+  color: var(--text-secondary);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
 }
 
 /* Gemensam kortdesign för Dashboard, Prov och Övningar */
@@ -153,7 +168,9 @@ h1 {
   color: var(--text-primary);
 }
 
-.subtitle, .state-msg, .sidebar-sub {
+.subtitle,
+.state-msg,
+.sidebar-sub {
   color: var(--text-secondary);
   font-size: 15px;
   margin: 0 0 20px 0;
@@ -196,7 +213,7 @@ h1 {
   color: var(--text-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  font-family: 'Space Mono', monospace;
+  font-family: "Space Mono", monospace;
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
