@@ -35,13 +35,13 @@ const emit = defineEmits(["start-exam"]);
   margin: 0 0 6px 0;
   font-size: 18px;
   font-weight: 700;
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .exam-info p {
   margin: 0;
   font-size: 14px;
-  color: #7f8c8d;
+  color: var(--text-secondary);
 }
 
 
