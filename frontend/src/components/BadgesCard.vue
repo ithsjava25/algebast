@@ -76,15 +76,15 @@ function getBadgeIcon(id) {
 <style scoped>
 .badges-card {
   padding: 24px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  background: white;
+  background: var(--bg-secondary);
 }
 
 .badges-card h3 {
   margin: 0 0 20px;
   font-size: 18px;
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .badges-grid {
@@ -99,8 +99,8 @@ function getBadgeIcon(id) {
   gap: 14px;
   padding: 14px;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  background-color: #f8f9fa;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
   transition: all 0.2s ease;
 }
 
@@ -115,6 +115,15 @@ function getBadgeIcon(id) {
   color: #d4ac0d;
 }
 
+/* Keep text readable on the original light gold surface in both themes. */
+.badge-item.unlocked .badge-info h4 {
+  color: #2c3e50;
+}
+
+.badge-item.unlocked .badge-info p {
+  color: #59666a;
+}
+
 /* Låsta pokaler */
 .badge-item.locked {
   opacity: 0.5;
@@ -122,7 +131,7 @@ function getBadgeIcon(id) {
 }
 
 .badge-item.locked .badge-icon {
-  color: #7f8c8d;
+  color: var(--text-secondary);
 }
 
 .badge-icon-wrapper {
@@ -145,8 +154,8 @@ function getBadgeIcon(id) {
   right: -4px;
   width: 14px;
   height: 14px;
-  color: #e74c3c;
-  background: white;
+  color: var(--error-text);
+  background: var(--bg-secondary);
   border-radius: 50%;
   padding: 2px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -155,18 +164,18 @@ function getBadgeIcon(id) {
 .badge-info h4 {
   margin: 0 0 4px 0;
   font-size: 14px;
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .badge-info p {
   margin: 0;
   font-size: 11px;
-  color: #7f8c8d;
+  color: var(--text-secondary);
   line-height: 1.3;
 }
 
 .no-badges {
-  color: #7f8c8d;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 </style>

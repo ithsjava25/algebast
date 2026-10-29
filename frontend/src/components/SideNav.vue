@@ -136,8 +136,8 @@ function closeMobileMenu() {
 }
 
 .brand-mark {
-  background: var(--brand-bg);
-  color: var(--button-primary-text);
+  background: var(--button-bg);
+  color: var(--button-text);
   font-weight: 700;
   padding: 6px 10px;
   font-size: 14px;
@@ -184,8 +184,8 @@ function closeMobileMenu() {
 }
 
 .nav-item.nav-active {
-  background: var(--button-primary-bg);
-  color: var(--button-primary-text);
+  background: var(--button-bg);
+  color: var(--button-text);
 }
 
 /* Mobil-header (dold på desktop) */
@@ -204,8 +204,8 @@ function closeMobileMenu() {
 }
 
 .menu-toggle-btn {
-  background: var(--button-primary-bg);
-  color: var(--button-primary-text);
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 8px 14px;
   border-radius: 8px;

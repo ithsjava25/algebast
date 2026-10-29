@@ -102,7 +102,7 @@ const selected = defineModel();
   border: 1px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
-  background-color: var(--bg-option);
+  background-color: var(--bg-secondary);
   transition: all 0.2s ease;
 }
 

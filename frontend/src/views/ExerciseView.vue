@@ -297,9 +297,9 @@ function closeSummaryAndReset() {
 }
 
 .category-card.selected {
-  background: var(--button-primary-bg);
-  color: var(--button-primary-text);
-  border-color: var(--button-primary-bg);
+  background: var(--button-bg);
+  color: var(--button-text);
+  border-color: var(--button-bg);
   box-shadow: 0 4px 16px rgba(44, 62, 80, 0.2);
 }
 
@@ -314,7 +314,7 @@ function closeSummaryAndReset() {
 
 .question-counter {
   font-weight: 600;
-  color: var(--question-counter-text);
+  color: var(--text-secondary);
 }
 
 .feedback-box {
@@ -323,15 +323,15 @@ function closeSummaryAndReset() {
 }
 
 .feedback-box.success {
-  border-left: 4px solid var(--feedback-success-border);
-  background: var(--feedback-success-bg);
-  color: var(--feedback-success-text);
+  border-left: 4px solid var(--success-border);
+  background: var(--success-bg);
+  color: var(--success-text);
 }
 
 .feedback-box.error {
-  border-left: 4px solid var(--feedback-error-border);
-  background: var(--feedback-error-bg);
-  color: var(--feedback-error-text);
+  border-left: 4px solid var(--error-border);
+  background: var(--error-bg);
+  color: var(--error-text);
 }
 
 .feedback-title {
@@ -343,7 +343,7 @@ function closeSummaryAndReset() {
 .explanation {
   margin-top: 8px;
   font-size: 14px;
-  color: var(--explanation-text);
+  color: var(--text-primary);
 }
 
 .question-footer {
@@ -400,11 +400,11 @@ function closeSummaryAndReset() {
   display: flex;
   justify-content: space-between;
   font-size: 15px;
-  color: var(--stat-text);
+  color: var(--text-secondary);
 }
 
 .success-text {
-  color: var(--exercise-success-text);
+  color: var(--success-text);
 }
 
 .modal-close-btn {

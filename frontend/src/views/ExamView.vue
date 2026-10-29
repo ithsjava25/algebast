@@ -477,7 +477,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 }
 
 .toggle-sidebar-btn:hover {
-  background: var(--hover-muted);
+  background: var(--hover-color);
   border-color: var(--accent-color);
 }
 
@@ -492,9 +492,9 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 }
 
 .timer-box.warning {
-  background: var(--timer-warning-bg);
+  background: var(--error-bg);
   border-color: var(--error-border);
-  color: var(--exam-error-text);
+  color: var(--error-text);
 }
 
 .question-meta {
@@ -517,19 +517,19 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 .score-summary {
   margin-top: 24px;
   padding: 16px;
-  background: var(--score-bg);
-  border: 1px solid var(--score-border);
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
   border-radius: 8px;
   text-align: center;
 }
 
 .score-summary h3 {
   margin: 0 0 6px 0;
-  color: var(--score-text);
+  color: var(--success-text);
 }
 
 .error-msg {
-  color: var(--exam-error-text);
+  color: var(--error-text);
   font-weight: 700;
   margin-top: 12px;
 }
@@ -573,21 +573,21 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 }
 
 .grid-btn:hover {
-  background-color: var(--hover-muted);
+  background-color: var(--hover-color);
   border-color: var(--accent-color);
 }
 
 .grid-btn.active {
   border-color: var(--accent-color);
   background-color: var(--accent-bg);
-  color: var(--accent-text);
+  color: var(--accent-color);
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
 .grid-btn.answered {
   background-color: var(--answered-bg);
-  border-color: var(--answered-border);
-  color: var(--answered-text);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
 }
 
 .grid-btn.correct {
@@ -618,7 +618,7 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 .finish-btn {
   width: 100%;
   background-color: var(--danger-bg);
-  color: var(--button-primary-text);
+  color: var(--button-text);
   border: none;
   padding: 12px;
   border-radius: 8px;
