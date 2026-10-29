@@ -8,6 +8,12 @@ const route = useRoute();
 const authMode = ref(route.query.mode === "login" ? "login" : "register");
 const justRegistered = ref(false);
 const emit = defineEmits(["login"]);
+const props = defineProps({
+  isLoggingOut: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 function showLogin() {
   justRegistered.value = true;
@@ -34,7 +40,10 @@ function showLogin() {
       <h2>Logga in</h2>
       <p v-if="justRegistered">Ditt konto är skapat. Du kan nu logga in.</p>
 
-      <LoginForm @login="emit('login', $event)" />
+      <LoginForm
+        :is-logging-out="props.isLoggingOut"
+        @login="emit('login', $event)"
+      />
 
       <button type="button" @click="authMode = 'register'">
         Inget konto? Registrera dig

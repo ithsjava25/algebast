@@ -1,13 +1,20 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import SideNav from "./components/SideNav.vue";
-import { useRouter } from "vue-router";
+import {
+  useRouter,
+  isNavigationFailure,
+  NavigationFailureType,
+} from "vue-router";
 import { getCurrentUser, logoutUser } from "@/services/userService.js";
 
 const router = useRouter();
 const currentUser = ref(null);
+const isLoggingOut = ref(false);
 
 function handleLogin(user) {
+  if (isLoggingOut.value) return;
+
   currentUser.value = user;
   router.push("/");
 }
@@ -21,19 +28,29 @@ async function loadCurrentUser() {
 }
 
 async function handleLogout() {
+  if (isLoggingOut.value) {
+    return;
+  }
+
+  isLoggingOut.value = true;
+
   try {
     const navigationFailure = await router.push("/auth");
 
     // Om navigationen misslyckas (t.ex avbryts av användaren), avbryt utloggningen
-    if (navigationFailure) {
+    if (
+      navigationFailure &&
+      !isNavigationFailure(navigationFailure, NavigationFailureType.duplicated)
+    ) {
       return;
     }
 
     await logoutUser();
-
     currentUser.value = null;
   } catch (error) {
     console.error("Utloggningen misslyckades", error);
+  } finally {
+    isLoggingOut.value = false;
   }
 }
 
@@ -47,7 +64,12 @@ onMounted(() => {
     <SideNav :user="currentUser" @logout="handleLogout" />
     <main class="page-content">
       <RouterView v-slot="{ Component }">
-        <component :is="Component" :user="currentUser" @login="handleLogin" />
+        <component
+          :is="Component"
+          :user="currentUser"
+          :is-logging-out="isLoggingOut"
+          @login="handleLogin"
+        />
       </RouterView>
     </main>
   </div>
