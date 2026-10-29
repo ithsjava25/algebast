@@ -95,7 +95,7 @@ router.get("/", async (req, res) => {
     const [answerRows] = await pool.execute(
       `
         SELECT 
-          COUNT(ua.id) AS totalAnswered,
+          SUM(CASE WHEN ua.selected_position IS NOT NULL THEN 1 ELSE 0 END) AS totalAnswered,
           SUM(CASE WHEN q.category = 'XYZ' AND ua.selected_position = ao.position THEN 1 ELSE 0 END) AS xyzCorrect,
           SUM(CASE WHEN q.category = 'KVA' AND ua.selected_position = ao.position THEN 1 ELSE 0 END) AS kvaCorrect,
           SUM(CASE WHEN q.category = 'NOG' AND ua.selected_position = ao.position THEN 1 ELSE 0 END) AS nogCorrect,
