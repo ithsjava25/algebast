@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed, onUnmounted } from "vue";
+import { ref, watch, computed, onMounted, onUnmounted } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 import QuestionCard from "@/components/QuestionCard.vue";
 import {
@@ -182,8 +182,13 @@ function startTimer() {
   }
 }
 
+onMounted(() => {
+  window.addEventListener("beforeunload", handleBeforeUnload);
+});
+
 onUnmounted(() => {
   stopTimer();
+  window.removeEventListener("beforeunload", handleBeforeUnload);
 });
 
 watch(() => props.examId, loadExamData, { immediate: true });
@@ -197,6 +202,15 @@ onBeforeRouteLeave(() => {
     "Du har ett pågående prov. Om du lämnar sidan förlorar du dina framsteg. Vill du fortsätta?",
   );
 });
+
+function handleBeforeUnload(event) {
+  if (!isExamInProgress.value) {
+    return;
+  }
+
+  event.preventDefault();
+  event.returnValue = "";
+}
 
 const currentQuestion = computed(() => questions.value[currentIndex.value]);
 </script>
