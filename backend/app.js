@@ -9,7 +9,8 @@ if (!process.env.SESSION_SECRET) {
 }
 
 const app = express();
-const port = 3000;
+app.set("trust proxy", 1);
+const port = process.env.PORT || 3000;
 
 const sessionStore = new MySQLStore({}, pool);
 
@@ -20,7 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
-app.use(express.static("public"));
+
+const path = require("path");
+   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 app.use(
   session({
@@ -42,6 +45,14 @@ app.use("/api/exams", require("./routes/exams"));
 app.use("/api/questions", require("./routes/questions"));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/badges" , require("./routes/badges"))
+
+app.use("/api", (req, res) =>
+  res.status(404).json({ error: "Hittades inte" }),
+);
+
+app.get("/{*splat}", (req, res) =>
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html")),
+);
 
 sessionStore
   .onReady()
