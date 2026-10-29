@@ -29,7 +29,10 @@ export async function getRandomQuestionsByCategories(categories, count = 10) {
   return await response.json();
 }
 
-export async function turnInAnswers(answers, { examId, timeSpentSeconds } = {}) {
+export async function turnInAnswers(
+  answers,
+  { examId, timeSpentSeconds } = {},
+) {
   const body = { answers };
   if (examId !== undefined) {
     body.examId = examId;
@@ -46,5 +49,15 @@ export async function turnInAnswers(answers, { examId, timeSpentSeconds } = {}) 
   if (!response.ok) {
     throw new Error(data.error || "Kunde inte skicka in svaren");
   }
+  return data;
+}
+
+export async function claimPendingExam() {
+  const response = await fetch("/api/questions/claim-pending", {
+    method: "POST",
+  });
+  if (response.status === 404 || response.status === 401) return null;
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || "Kunde inte spara provet");
   return data;
 }

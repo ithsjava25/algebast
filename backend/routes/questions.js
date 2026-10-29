@@ -137,23 +137,32 @@ router.post("/check", async (req, res) => {
       };
     });
 
-    // Save only for logged-in users
     let attemptId = null;
     if (userId) {
-      await conn.beginTransaction();
       if (isExam) {
-        const [attempt] = await conn.query(
-          `INSERT INTO user_exam_attempts (user_id, exam_id, time_spent_seconds, completed_at)
-           VALUES (?, ?, ?, NOW())`,
-          [userId, examId, timeSpentSeconds],
+        attemptId = await saveExamAttempt(
+          conn,
+          userId,
+          examId,
+          timeSpentSeconds,
+          results,
         );
-        attemptId = attempt.insertId;
+      } else {
+        await conn.query(
+          "INSERT INTO user_answers (user_id, attempt_id, question_id, selected_position) VALUES ?",
+          [results.map((r) => [userId, null, r.questionId, r.chosen])],
+        );
       }
-      await conn.query(
-        "INSERT INTO user_answers (user_id, attempt_id, question_id, selected_position) VALUES ?",
-        [results.map((r) => [userId, attemptId, r.questionId, r.chosen])],
-      );
-      await conn.commit();
+    } else if (isExam) {
+      // Guest: remember the graded exam so it can be claimed after login
+      req.session.pendingExam = {
+        examId,
+        timeSpentSeconds,
+        answers: results.map((r) => ({
+          questionId: r.questionId,
+          chosen: r.chosen,
+        })),
+      };
     }
 
     res.status(isExam && userId ? 201 : 200).json({
@@ -167,6 +176,55 @@ router.post("/check", async (req, res) => {
     await conn.rollback();
     console.error(err);
     res.status(500).json({ error: "Could not check answers" });
+  } finally {
+    conn.release();
+  }
+});
+
+async function saveExamAttempt(
+  conn,
+  userId,
+  examId,
+  timeSpentSeconds,
+  answers,
+) {
+  await conn.beginTransaction();
+  const [attempt] = await conn.query(
+    `INSERT INTO user_exam_attempts (user_id, exam_id, time_spent_seconds, completed_at)
+     VALUES (?, ?, ?, NOW())`,
+    [userId, examId, timeSpentSeconds],
+  );
+  await conn.query(
+    "INSERT INTO user_answers (user_id, attempt_id, question_id, selected_position) VALUES ?",
+    [answers.map((a) => [userId, attempt.insertId, a.questionId, a.chosen])],
+  );
+  await conn.commit();
+  return attempt.insertId;
+}
+
+// POST /api/questions/claim-pending
+router.post("/claim-pending", async (req, res) => {
+  const userId = req.session?.userId;
+  if (!userId) return res.status(401).json({ error: "Du är inte inloggad" });
+
+  const pending = req.session.pendingExam;
+  if (!pending) return res.status(404).json({ error: "Inget prov att spara" });
+
+  const conn = await pool.getConnection();
+  try {
+    const attemptId = await saveExamAttempt(
+      conn,
+      userId,
+      pending.examId,
+      pending.timeSpentSeconds,
+      pending.answers,
+    );
+    delete req.session.pendingExam;
+    res.status(201).json({ attemptId });
+  } catch (err) {
+    await conn.rollback();
+    console.error(err);
+    res.status(500).json({ error: "Kunde inte spara provet" });
   } finally {
     conn.release();
   }

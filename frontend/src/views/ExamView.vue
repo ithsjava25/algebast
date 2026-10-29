@@ -24,6 +24,7 @@ const selectedAnswers = ref({}); // { [questionId]: position }
 const results = ref(null); // { [questionId]: result }
 const submitting = ref(false);
 const submitError = ref(null);
+const saved = ref(true);
 
 const isSidebarCollapsed = ref(false);
 
@@ -63,6 +64,7 @@ async function loadExamData() {
   questions.value = [];
   selectedAnswers.value = {};
   results.value = null;
+  saved.value = true;
   submitting.value = false;
   submitError.value = null;
 
@@ -112,26 +114,27 @@ async function finishExam({ automatic = false } = {}) {
   const requestId = latestRequestId;
 
   try {
-  const answers = questions.value.map((q) => ({
-    questionId: q.id,
-    position: selectedAnswers.value[q.id] ?? null,
-  }));
+    const answers = questions.value.map((q) => ({
+      questionId: q.id,
+      position: selectedAnswers.value[q.id] ?? null,
+    }));
 
-  const timeSpentSeconds = Math.min(
-    EXAM_DURATION,
-    Math.round((Date.now() - (examDeadline - EXAM_DURATION * 1000)) / 1000),
-  );
+    const timeSpentSeconds = Math.min(
+      EXAM_DURATION,
+      Math.round((Date.now() - (examDeadline - EXAM_DURATION * 1000)) / 1000),
+    );
 
-  const data = await turnInAnswers(answers, {
-    examId: Number(props.examId), // prop is a String, backend needs an integer
-    timeSpentSeconds,
-  });
+    const data = await turnInAnswers(answers, {
+      examId: Number(props.examId), // prop is a String, backend needs an integer
+      timeSpentSeconds,
+    });
 
-  if (requestId !== latestRequestId) return;
+    if (requestId !== latestRequestId) return;
 
-  results.value = Object.fromEntries(
-    data.results.map((r) => [r.questionId, r]),
-  );
+    results.value = Object.fromEntries(
+      data.results.map((r) => [r.questionId, r]),
+    );
+    saved.value = data.saved;
   } catch (err) {
     if (requestId !== latestRequestId) return;
 
@@ -257,6 +260,13 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
             <strong>{{ questions.length }}</strong> rätt.
           </p>
         </div>
+
+        <p v-if="results && !saved" class="error-msg">
+          Resultatet är inte sparat.
+          <router-link :to="{ path: '/auth', query: { mode: 'login' } }">Logga in</router-link> eller
+          <router-link :to="{ path: '/auth', query: { mode: 'register' } }">registrera dig</router-link> för att spara
+          det.
+        </p>
 
         <p v-if="submitError" class="error-msg" role="alert">
           {{ submitError }}

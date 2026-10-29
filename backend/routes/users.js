@@ -124,6 +124,8 @@ router.post("/login", async (req, res) => {
       });
     }
 
+    const pending = req.session.pendingExam;
+
     req.session.regenerate((err) => {
       if (err) {
         console.error(err);
@@ -133,6 +135,7 @@ router.post("/login", async (req, res) => {
       }
 
       req.session.userId = user.id;
+      if (pending) req.session.pendingExam = pending;
 
       req.session.save((err) => {
         if (err) {
