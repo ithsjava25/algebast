@@ -48,9 +48,7 @@ export async function getCurrentUser() {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.error || "Kunde inte hämta användaren"
-    );
+    throw new Error(data.error || "Kunde inte hämta användaren");
   }
 
   return data;
@@ -60,14 +58,13 @@ export async function getCurrentUser() {
 export async function logoutUser() {
   const response = await fetch("/api/users/logout", {
     method: "POST",
+    signal: AbortSignal.timeout(10000),
   });
 
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.error || "Kunde inte logga ut"
-    );
+    throw new Error(data.error || "Kunde inte logga ut");
   }
 
   return data;
@@ -80,9 +77,7 @@ export async function getUserResults() {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.error || "Kunde inte hämta provhistoriken"
-    );
+    throw new Error(data.error || "Kunde inte hämta provhistoriken");
   }
 
   return data;
@@ -101,7 +96,7 @@ export async function getExterciseStats() {
   return data;
 }
 
-
+// Hämta användarens pokaler
 export async function getUserBadges() {
   const response = await fetch("/api/badges");
   const data = await response.json();

@@ -7,8 +7,16 @@ const email = ref("");
 const password = ref("");
 const errorMessage = ref("");
 const emit = defineEmits(["login"]);
+const props = defineProps({
+  isLoggingOut: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 async function handleSubmit() {
+  if (props.isLoggingOut) return;
+
   errorMessage.value = "";
 
   if (!email.value.trim() || !password.value) {
@@ -49,19 +57,31 @@ async function handleSubmit() {
   <form class="login-form" @submit.prevent="handleSubmit">
     <div class="form-group">
       <label for="login-email">E-postadress</label>
-      <input id="login-email" v-model="email" type="email" />
+      <input
+        id="login-email"
+        v-model="email"
+        type="email"
+        :disabled="isLoggingOut"
+      />
     </div>
 
     <div class="form-group">
       <label for="login-password">Lösenord</label>
-      <input id="login-password" v-model="password" type="password" />
+      <input
+        id="login-password"
+        v-model="password"
+        type="password"
+        :disabled="isLoggingOut"
+      />
     </div>
 
     <p v-if="errorMessage" class="error-message">
       {{ errorMessage }}
     </p>
 
-    <button type="submit">Logga in</button>
+    <button type="submit" :disabled="isLoggingOut">
+      {{ isLoggingOut ? "Loggar ut..." : "Logga in" }}
+    </button>
   </form>
 </template>
 
