@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useColorMode } from "@vueuse/core";
-import { Sun, Moon } from "lucide-vue-next";
+import { Sun, Moon, LogIn, LogOut } from "lucide-vue-next";
 
 const props = defineProps({
   user: {
@@ -23,7 +23,7 @@ const menuItems = computed(() => [
 
 const emit = defineEmits(["logout"]);
 const isMobileMenuOpen = ref(false);
-// Hantera mörkt/ljust läge 
+// Hantera mörkt/ljust läge
 const colorMode = useColorMode({ emitAuto: true, modes: { light: "" } });
 // Kontrollera om det är mörkt läge
 const isDark = computed(() => colorMode.state.value === "dark");
@@ -76,15 +76,29 @@ function closeMobileMenu() {
       <Moon v-else :size="18" />
       {{ isDark ? "Ljust läge" : "Mörkt läge" }}
     </button>
-    <div v-if="user" class="user-section">
-      <div class="user-info">
-        <span class="user-label">Inloggad som</span>
-        <strong>{{ user.username }}</strong>
-      </div>
 
-      <button type="button" class="logout-button" @click="emit('logout')">
-        Logga ut
-      </button>
+    <div class="user-section">
+      <template v-if="user">
+        <div class="user-info">
+          <span class="user-label">Inloggad som</span>
+          <strong>{{ user.username }}</strong>
+        </div>
+
+        <button type="button" class="login-button" @click="emit('logout')">
+          <LogOut :size="18" />
+          Logga ut
+        </button>
+      </template>
+
+      <RouterLink
+        v-else
+        to="/auth"
+        class="login-button"
+        @click="closeMobileMenu"
+      >
+        <LogIn :size="18" />
+        Logga in
+      </RouterLink>
     </div>
   </aside>
 </template>
@@ -273,9 +287,13 @@ function closeMobileMenu() {
   font-size: 13px;
 }
 
-.logout-button {
-  width: 150px;
-  padding: 9px 12px;
+.login-button {
+  display: flex;
+  align-self: stretch;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   background: transparent;
@@ -283,10 +301,12 @@ function closeMobileMenu() {
   font-family: "Space Mono", monospace;
   font-size: 12px;
   font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
-.logout-button:hover {
+.login-button:hover {
   background: var(--hover-color);
 }
 
