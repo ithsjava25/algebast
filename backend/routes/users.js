@@ -281,6 +281,76 @@ router.patch("/me", requireAuth, async (req, res) => {
   }
 });
 
+// PATCH /api/users/me/password
+router.patch("/me/password", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        error: "Både nuvarande och nytt lösenord måste fyllas i",
+      });
+    }
+
+    if (newPassword.length < 8) {
+      return res.status(400).json({
+        error: "Det nya lösenordet måste innehålla minst 8 tecken",
+      });
+    }
+
+    const [users] = await pool.execute(
+      `
+        SELECT password_hash
+        FROM users
+        WHERE id = ?
+      `,
+      [userId],
+    );
+
+    if (users.length === 0) {
+      return res.status(404).json({
+        error: "Användaren kunde inte hittas",
+      });
+    }
+
+    const user = users[0];
+
+    const passwordMatches = await bcrypt.compare(
+      currentPassword,
+      user.password_hash,
+    );
+
+    if (!passwordMatches) {
+      return res.status(401).json({
+        error: "Nuvarande lösenord är felaktigt",
+      });
+    }
+
+    const newPasswordHash = await bcrypt.hash(newPassword, 10);
+
+    await pool.execute(
+      `
+        UPDATE users
+        SET password_hash = ?
+        WHERE id = ?
+      `,
+      [newPasswordHash, userId],
+    );
+
+    res.status(200).json({
+      message: "Lösenordet har uppdaterats",
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: "Kunde inte uppdatera lösenordet",
+    });
+  }
+});
+
 // GET /api/users/me/results
 router.get("/me/results", requireAuth, async (req, res) => {
   try {
