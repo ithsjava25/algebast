@@ -85,7 +85,7 @@ watch(
 
 <template>
   <section class="profile-view">
-    <h1 v-if="user">Hej {{ user.username }}</h1>
+    <h1 v-if="user">Hej {{ user.firstname }}</h1>
 
     <h2>Mina övningsresultat</h2>
 

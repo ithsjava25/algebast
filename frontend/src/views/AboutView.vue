@@ -83,8 +83,8 @@
   align-items: center;
   padding: 12px 20px;
   border-radius: 8px;
-  background: var(--button-primary-bg);
-  color: var(--button-primary-text);
+  background: var(--button-bg);
+  color: var(--button-text);
   font-family: "Space Mono", monospace;
   font-size: 14px;
   font-weight: 600;

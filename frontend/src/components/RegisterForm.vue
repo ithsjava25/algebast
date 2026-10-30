@@ -142,7 +142,9 @@ async function handleSubmit() {
 }
 .form-group input {
   padding: 10px 12px;
-  border: 1px solid var(--input-border);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   font: inherit;
 }
 .register-form button {
@@ -153,11 +155,11 @@ async function handleSubmit() {
 .error-message {
   margin: 0;
   font-size: 14px;
-  color: var(--error-message);
+  color: var(--error-text);
 }
 .success-message {
   margin: 0;
   font-size: 14px;
-  color: var(--registration-success);
+  color: var(--success-text);
 }
 </style>
