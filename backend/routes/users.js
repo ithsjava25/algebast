@@ -190,6 +190,59 @@ router.get("/me", requireAuth, async (req, res) => {
   }
 });
 
+// PATCH /api/users/me/username
+router.patch("/me/username", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const { username } = req.body;
+
+    if (!username || username.trim().length < 3) {
+      return res.status(400).json({
+        error: "Användarnamnet måste innehålla minst 3 tecken",
+      });
+    }
+
+    const trimmedUsername = username.trim();
+
+    const [existingUsers] = await pool.execute(
+      `
+        SELECT id
+        FROM users
+        WHERE username = ? 
+          AND id != ?
+      `,
+      [trimmedUsername, userId],
+    );
+
+    if (existingUsers.length > 0) {
+      return res.status(409).json({
+        error: "Användarnamnet är upptaget, vänligen välj ett annat",
+      });
+    }
+
+    await pool.execute(
+      `
+        UPDATE users
+        SET username = ?
+        WHERE id = ?
+      `,
+      [trimmedUsername, userId],
+    );
+
+    res.status(200).json({
+      message: "Användarnamnet har uppdaterats",
+      username: trimmedUsername,
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: "Kunde inte uppdatera användarnamnet",
+    });
+  }
+});
+
 // GET /api/users/me/results
 router.get("/me/results", requireAuth, async (req, res) => {
   try {
