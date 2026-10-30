@@ -56,7 +56,7 @@ const formattedTimestamp = computed(() => {
     <div class="result-details">
       <p>
         <strong>Prov:</strong>
-        HT {{ result.semester }} {{ result.year }}, pass
+        {{ result.semester }} {{ result.year }}, pass
         {{ result.session }}
       </p>
       <p>
