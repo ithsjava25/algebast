@@ -196,14 +196,13 @@ router.patch("/me/username", requireAuth, async (req, res) => {
     const userId = req.session.userId;
 
     const { username } = req.body;
+    const trimmedUsername = username?.trim();
 
-    if (!username || username.trim().length < 3) {
+    if (!trimmedUsername || trimmedUsername.length < 3) {
       return res.status(400).json({
         error: "Användarnamnet måste innehålla minst 3 tecken",
       });
     }
-
-    const trimmedUsername = username.trim();
 
     const [existingUsers] = await pool.execute(
       `
@@ -239,6 +238,45 @@ router.patch("/me/username", requireAuth, async (req, res) => {
 
     res.status(500).json({
       error: "Kunde inte uppdatera användarnamnet",
+    });
+  }
+});
+
+// PATCH /api/users/me
+router.patch("/me", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const { firstname, lastname } = req.body;
+
+    const trimmedFirstname = firstname.trim();
+    const trimmedLastname = lastname.trim();
+
+    if (!trimmedFirstname || !trimmedLastname) {
+      return res.status(400).json({
+        error: "Förnamn och efternamn måste fyllas i",
+      });
+    }
+
+    await pool.execute(
+      `
+        UPDATE users
+        SET firstname = ?, lastname = ?
+        WHERE id = ?
+      `,
+      [trimmedFirstname, trimmedLastname, userId],
+    );
+
+    res.status(200).json({
+      message: "Förnamn och efternamn har uppdaterats",
+      firstname: trimmedFirstname,
+      lastname: trimmedLastname,
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: "Kunde inte uppdatera förnamn och efternamn",
     });
   }
 });
