@@ -107,3 +107,15 @@ export async function getUserBadges() {
 
   return data;
 }
+
+// Hämta detaljerat provresultat för granskning
+export async function getUserResultDetail(attemptId) {
+  const response = await fetch(`${API_URL}/users/me/results/${attemptId}`);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Kunde inte hämta provdetaljer");
+  }
+
+  return data;
+}

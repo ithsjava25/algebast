@@ -6,6 +6,7 @@ import { getUserResults } from "@/services/userService.js";
 import ExerciseStats from "@/components/ExerciseStats.vue";
 import { getExterciseStats } from "@/services/userService.js";
 import { getUserBadges } from "@/services/userService.js";
+import ExamReviewModal from "@/components/ExamReviewModal.vue";
 
 const props = defineProps({
   user: {
@@ -25,6 +26,8 @@ const errorMessage = ref(""); // Felmeddelande vid problem med att hämta provre
 const userBadges = ref([]);
 const isLoadingBadges = ref(false);
 const badgeErrorMessage = ref("");
+
+const activeAttemptId = ref(null); // Sparar valt attemptId för modalen
 
 async function loadExterciseStats() {
   isLoadingStats.value = true;
@@ -104,10 +107,20 @@ watch(
         v-for="result in results"
         :key="result.attemptId"
         :result="result"
+        @select="activeAttemptId = $event"
       />
     </div>
-    
+
     <p v-else-if="user">Du har inga sparade provresultat ännu.</p>
+
+    <!-- Modal visas när activeAttemptId har ett värde -->
+    <ExamReviewModal
+      v-if="activeAttemptId"
+      :attempt-id="activeAttemptId"
+      @close="activeAttemptId = null"
+    />
+    
+    
 
     <section class="profile-section">
       <h2>Mina pokaler</h2>

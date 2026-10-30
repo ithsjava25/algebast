@@ -307,4 +307,89 @@ router.post("/logout", (req, res) => {
   });
 });
 
+// GET /api/users/me/results/:attemptId
+router.get("/me/results/:attemptId", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const attemptId = Number(req.params.attemptId);
+
+    if (!Number.isInteger(attemptId) || attemptId <= 0) {
+      return res.status(400).json({ error: "Ogiltigt försök-ID" });
+    }
+
+    // 1. Verifiera att försökstillfället tillhör den inloggade användaren
+    const [attempts] = await pool.execute(
+      `SELECT uea.id, uea.exam_id, uea.time_spent_seconds, uea.completed_at,
+              e.year, e.semester, e.session
+       FROM user_exam_attempts uea
+       JOIN exam e ON e.id = uea.exam_id
+       WHERE uea.id = ? AND uea.user_id = ?`,
+      [attemptId, userId]
+    );
+
+    if (attempts.length === 0) {
+      return res.status(404).json({ error: "Provförsök kunde inte hittas" });
+    }
+
+    const attempt = attempts[0];
+
+    // 2. Hämta alla frågor för provet tillsammans med facit och användarens val
+    const [questions] = await pool.execute(
+      `SELECT q.id, q.question_order, q.category, q.question_text, q.image_url, q.explanation,
+              ao.position AS correct_position,
+              ua.selected_position AS chosen_position
+       FROM question q
+       JOIN answer_option ao ON ao.question_id = q.id AND ao.is_correct = TRUE
+       LEFT JOIN user_answers ua ON ua.question_id = q.id AND ua.attempt_id = ? AND ua.user_id = ?
+       WHERE q.exam_id = ?
+       ORDER BY q.question_order`,
+      [attemptId, userId, attempt.exam_id]
+    );
+
+    // 3. Hämta alla svarsalternativ
+    const [options] = await pool.execute(
+      `SELECT ao.question_id, ao.position, ao.option_text, ao.option_image_url
+       FROM answer_option ao
+       JOIN question q ON q.id = ao.question_id
+       WHERE q.exam_id = ?
+       ORDER BY ao.question_id, ao.position`,
+      [attempt.exam_id]
+    );
+
+    const byQuestion = new Map();
+    for (const o of options) {
+      if (!byQuestion.has(o.question_id)) byQuestion.set(o.question_id, []);
+      byQuestion.get(o.question_id).push({
+        position: o.position,
+        text: o.option_text,
+        imageUrl: o.option_image_url,
+      });
+    }
+
+    res.json({
+      attemptId: attempt.id,
+      examId: attempt.exam_id,
+      year: attempt.year,
+      semester: attempt.semester,
+      session: attempt.session,
+      timeSpentSeconds: attempt.time_spent_seconds,
+      completedAt: attempt.completed_at,
+      questions: questions.map((q) => ({
+        id: q.id,
+        order: q.question_order,
+        category: q.category,
+        text: q.question_text,
+        imageUrl: q.image_url,
+        explanation: q.explanation,
+        correctPosition: q.correct_position,
+        chosenPosition: q.chosen_position,
+        options: byQuestion.get(q.id) ?? [],
+      })),
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Kunde inte hämta provdetaljer" });
+  }
+});
+
 module.exports = router;

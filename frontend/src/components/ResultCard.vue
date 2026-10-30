@@ -2,61 +2,68 @@
 import { computed } from "vue";
 
 const props = defineProps({
-    result: {
-        type: Object,
-        required: true,
-    },
+  result: {
+    type: Object,
+    required: true,
+  },
 });
 
+defineEmits(["select"]);
+
+// Beräkna procent
 const percentage = computed(() => {
-    if (!props.result.totalQuestions) return 0;
-
-    return Math.round(
-        (props.result.correctAnswers / props.result.totalQuestions) * 100
-    );
+  if (!props.result.totalQuestions) return 0;
+  return Math.round(
+    (props.result.correctAnswers / props.result.totalQuestions) * 100
+  );
 });
 
+// Formatera tid
 const formattedTime = computed(() => {
-    const seconds = props.result.timeSpentSeconds;
-    if (seconds == null) return "Okänd";
-
-    return `${Math.floor(seconds / 60)} min ${seconds % 60} sek`;
+  const seconds = props.result.timeSpentSeconds || 0;
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes} min ${remainingSeconds} sek`;
 });
 
+// Formatera datum
 const formattedDate = computed(() => {
-    return new Date(props.result.completedAt).toLocaleDateString("sv-SE", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
+  if (!props.result.completedAt) return "";
+  return new Date(props.result.completedAt).toLocaleDateString("sv-SE", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 });
 </script>
 
 <template>
-    <article class="result-card">
-        <h3>
-            Högskoleprovet {{ result.semester }} {{ result.year }},
-            pass {{ result.session }}
-        </h3>
-        <div class="result-details">
-            <p>
-                <strong>Resultat:</strong>
-                {{ result.correctAnswers }} / {{ result.totalQuestions }} rätt
-            </p>
-            <p>
-                <strong>Procent:</strong>
-                {{ percentage }}%
-            </p>
-            <p>
-                <strong>Tid:</strong>
-                {{ formattedTime }}
-            </p>
-            <p>
-                <strong>Datum:</strong>
-                {{ formattedDate }}
-            </p>
-        </div>
-    </article>
+  <article class="result-card" @click="$emit('select', result.attemptId)">
+    <h3>
+      Högskoleprovet {{ result.semester }} {{ result.year }},
+      pass {{ result.session }}
+    </h3>
+    <div class="result-details">
+      <p>
+        <strong>Resultat:</strong>
+        {{ result.correctAnswers }} / {{ result.totalQuestions }} rätt
+      </p>
+      <p>
+        <strong>Procent:</strong>
+        {{ percentage }}%
+      </p>
+      <p>
+        <strong>Tid:</strong>
+        {{ formattedTime }}
+      </p>
+      <p>
+        <strong>Datum:</strong>
+        {{ formattedDate }}
+      </p>
+    </div>
+  </article>
 </template>
 
 <style scoped>
@@ -65,6 +72,13 @@ const formattedDate = computed(() => {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   background: var(--bg-secondary);
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.result-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-color, #3498db);
 }
 
 .result-card h3 {
