@@ -190,6 +190,260 @@ router.get("/me", requireAuth, async (req, res) => {
   }
 });
 
+// PATCH /api/users/me
+router.patch("/me", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const { username, firstname, lastname, email } = req.body;
+
+    const allowedFields = ["username", "firstname", "lastname", "email"];
+
+    const invalidFields = Object.keys(req.body).filter(
+      (field) => !allowedFields.includes(field),
+    );
+
+    if (invalidFields.length > 0) {
+      return res.status(400).json({
+        error: "Ogiltiga fält har skickats med",
+      });
+    }
+
+    if (Object.keys(req.body).length === 0) {
+      return res.status(400).json({
+        error: "Minst ett fält måste anges",
+      });
+    }
+
+    // Skapa ett tomt objekt för de fält och värden som ska uppdateras
+    const updates = {};
+
+    // Validera och lägg till fält i objektet
+    if (username !== undefined) {
+      if (typeof username !== "string" || username.trim().length < 3) {
+        return res.status(400).json({
+          error: "Användarnamnet måste innehålla minst 3 tecken",
+        });
+      }
+      updates.username = username.trim();
+    }
+
+    if (firstname !== undefined) {
+      if (typeof firstname !== "string" || firstname.trim().length === 0) {
+        return res.status(400).json({
+          error: "Förnamn får inte vara tomt",
+        });
+      }
+      updates.firstname = firstname.trim();
+    }
+
+    if (lastname !== undefined) {
+      if (typeof lastname !== "string" || lastname.trim().length === 0) {
+        return res.status(400).json({
+          error: "Efternamn får inte vara tomt",
+        });
+      }
+      updates.lastname = lastname.trim();
+    }
+
+    if (email !== undefined) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (typeof email !== "string" || !emailPattern.test(email.trim())) {
+        return res.status(400).json({
+          error: "Ange en giltig e-postadress",
+        });
+      }
+      updates.email = email.trim();
+    }
+
+    // Samla alla fält som ska uppdateras
+    const fields = Object.keys(updates);
+
+    // Filtrera ut de fält som måste vara unika i databasen (username och email)
+    const uniqueFields = fields.filter((field) =>
+      ["username", "email"].includes(field),
+    );
+
+    // Skapa SQL-villkor för varje fält som måste vara unikt
+    const duplicateConditions = uniqueFields.map((field) => `${field} = ?`);
+
+    // Hämta värdena som ska användas vid kontrollen av unika fält
+    const duplicateValues = uniqueFields.map((field) => updates[field]);
+
+    // Slå ihop SQL-villkoren med OR till en enda sträng
+    const duplicateQuery = duplicateConditions.join(" OR ");
+
+    // Om det finns fält som måste vara unika, kontrollera om det redan finns användare med samma värden
+    if (uniqueFields.length > 0) {
+      const [existingUsers] = await pool.execute(
+        ` 
+          SELECT id
+          FROM users
+          WHERE id != ?
+          AND (${duplicateQuery})
+        `,
+        [userId, ...duplicateValues],
+      );
+
+      if (existingUsers.length > 0) {
+        return res.status(409).json({
+          error: "Användarnamn eller e-postadress är redan registrerad",
+        });
+      }
+    }
+
+    // Skapa SQL-frågan för att uppdatera användarinformationen
+    const updateFields = fields.map((field) => `${field} = ?`);
+
+    // Slå ihop fälten som ska uppdateras till en enda sträng, separerad med kommatecken
+    const updateQuery = updateFields.join(", ");
+
+    // Hämta värdena som ska användas vid uppdateringen
+    const updateValues = Object.values(updates);
+
+    // Uppdatera användarinformationen i databasen
+    await pool.execute(
+      `
+        UPDATE users
+        SET ${updateQuery}
+        WHERE id = ?
+      `,
+      [...updateValues, userId],
+    );
+
+    const [users] = await pool.execute(
+      `
+        SELECT id, username, firstname, lastname, email
+        FROM users
+        WHERE id = ?
+      `,
+      [userId],
+    );
+
+    res.status(200).json(users[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Ett fel uppstod när användarinformationen skulle uppdateras",
+    });
+  }
+});
+
+// PATCH /api/users/me/password
+router.patch("/me/password", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        error: "Både nuvarande och nytt lösenord måste fyllas i",
+      });
+    }
+
+    if (newPassword.length < 8) {
+      return res.status(400).json({
+        error: "Det nya lösenordet måste innehålla minst 8 tecken",
+      });
+    }
+
+    const [users] = await pool.execute(
+      `
+        SELECT password_hash
+        FROM users
+        WHERE id = ?
+      `,
+      [userId],
+    );
+
+    if (users.length === 0) {
+      return res.status(404).json({
+        error: "Användaren kunde inte hittas",
+      });
+    }
+
+    const user = users[0];
+
+    const passwordMatches = await bcrypt.compare(
+      currentPassword,
+      user.password_hash,
+    );
+
+    if (!passwordMatches) {
+      return res.status(401).json({
+        error: "Nuvarande lösenord är felaktigt",
+      });
+    }
+
+    const newPasswordHash = await bcrypt.hash(newPassword, 10);
+
+    await pool.execute(
+      `
+        UPDATE users
+        SET password_hash = ?
+        WHERE id = ?
+      `,
+      [newPasswordHash, userId],
+    );
+
+    res.status(200).json({
+      message: "Lösenordet har uppdaterats",
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: "Kunde inte uppdatera lösenordet",
+    });
+  }
+});
+
+// DELETE /api/users/me
+router.delete("/me", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const [result] = await pool.execute(
+      `
+        DELETE FROM users
+        WHERE id = ?
+      `,
+      [userId],
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        error: "Användaren kunde inte hittas",
+      });
+    }
+
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+
+        return res.status(500).json({
+          error: "Ett fel uppstod när kontot skulle raderas",
+        });
+      }
+
+      res.clearCookie("algebast.sid", {
+        path: "/",
+      });
+
+      res.status(200).json({
+        message: "Användaren har tagits bort",
+      });
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: "Ett fel uppstod när kontot skulle raderas",
+    });
+  }
+});
+
 // GET /api/users/me/results
 router.get("/me/results", requireAuth, async (req, res) => {
   try {
