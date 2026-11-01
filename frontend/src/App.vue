@@ -34,6 +34,11 @@ async function handleLogout() {
 
   isLoggingOut.value = true;
 
+  async function handleAccountDeleted() {
+    currentUser.value = null;
+    await router.push("/");
+  }
+
   try {
     const navigationFailure = await router.push("/auth");
 

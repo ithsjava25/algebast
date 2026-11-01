@@ -541,6 +541,65 @@ router.get("/me/exercise-stats", requireAuth, async (req, res) => {
   }
 });
 
+// DELETE /api/users/me
+router.delete("/me", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const { password } = req.body;
+
+    if (!password) {
+      return res.status(400).json({
+        error: "Ange ditt lösenord för att radera kontot",
+      });
+    }
+    // Hämta användarens lösenordshash från databasen
+    const [users] = await pool.execute(
+      "SELECT password_hash FROM users WHERE id = ?",
+      [userId]
+    );
+
+    if (users.length === 0) {
+      return res.status(404).json({
+        error: "Användaren hittades inte",
+      });
+    }
+
+    // Kontrollera lösenordet
+    const passwordMatches = await bcrypt.compare(password, users[0].password_hash);
+
+    if (!passwordMatches) {
+      return res.status(401).json({
+        error: "Felaktigt lösenord",
+      });
+    }
+
+    // Radera användaren från databasen
+    await pool.execute("DELETE FROM users WHERE id = ?", [userId]);
+
+    // Förstör sessionen
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({
+          error: "Ett fel uppstod vid radering av kontot",
+        });
+      }
+
+      res.clearCookie("algebast.sid", {
+        path: "/",
+      });
+      res.status(200).json({
+        message: "Kontot har raderats",
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: "Ett fel uppstod vid radering av kontot",
+    });
+  }
+});
+
 // POST /api/users/logout
 router.post("/logout", (req, res) => {
   req.session.destroy((err) => {
