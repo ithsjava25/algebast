@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("../config/connectionMySQL");
 const router = express.Router();
+const { userExists } = require("../middleware/requireAuth");
 
 const CATEGORIES = ["XYZ", "KVA", "NOG", "DTK"];
 const MAX_COUNT = 120;
@@ -80,7 +81,13 @@ router.get("/", async (req, res) => {
 router.post("/check", async (req, res) => {
   const conn = await pool.getConnection();
   try {
-    const userId = req.session?.userId ?? null; // null = guest
+    let userId = req.session?.userId ?? null; // null = guest
+
+    if (userId && !(await userExists(userId, conn))) {
+      delete req.session.userId;
+      userId = null;
+    }
+
     const { examId, answers, timeSpentSeconds = null } = req.body ?? {};
     const isExam = examId !== undefined;
 
@@ -212,6 +219,11 @@ router.post("/claim-pending", async (req, res) => {
 
   const conn = await pool.getConnection();
   try {
+    if (!(await userExists(userId, conn))) {
+      delete req.session.userId;
+      return res.status(401).json({ error: "Du är inte inloggad" });
+    }
+
     const attemptId = await saveExamAttempt(
       conn,
       userId,

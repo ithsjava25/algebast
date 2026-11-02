@@ -1,5 +1,18 @@
 const pool = require("../config/connectionMySQL");
 
+async function userExists(userId, db = pool) {
+  const [users] = await db.execute(
+    `
+      SELECT id
+      FROM users
+      WHERE id = ?
+    `,
+    [userId],
+  );
+
+  return users.length > 0;
+}
+
 async function requireAuth(req, res, next) {
   const userId = req.session?.userId;
 
@@ -10,16 +23,7 @@ async function requireAuth(req, res, next) {
   }
 
   try {
-    const [users] = await pool.execute(
-      `
-        SELECT id
-        FROM users
-        WHERE id = ?
-      `,
-      [userId],
-    );
-
-    if (users.length === 0) {
+    if (!(await userExists(userId))) {
       // Användaren är borttagen, så sessionen är inte längre giltig
       return req.session.destroy(() => {
         res.clearCookie("algebast.sid", {
@@ -43,3 +47,4 @@ async function requireAuth(req, res, next) {
 }
 
 module.exports = requireAuth;
+module.exports.userExists = userExists;
