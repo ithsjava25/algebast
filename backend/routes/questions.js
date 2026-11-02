@@ -155,9 +155,13 @@ router.post("/check", async (req, res) => {
       }
     } else if (isExam) {
       // Guest: remember the graded exam so it can be claimed after login
+      const [[{ completedAt }]] = await conn.query(
+        "SELECT DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s') AS completedAt",
+      );
       req.session.pendingExam = {
         examId,
         timeSpentSeconds,
+        completedAt,
         answers: results.map((r) => ({
           questionId: r.questionId,
           chosen: r.chosen,
@@ -187,12 +191,13 @@ async function saveExamAttempt(
   examId,
   timeSpentSeconds,
   answers,
+  completedAt = null,
 ) {
   await conn.beginTransaction();
   const [attempt] = await conn.query(
     `INSERT INTO user_exam_attempts (user_id, exam_id, time_spent_seconds, completed_at)
-     VALUES (?, ?, ?, NOW())`,
-    [userId, examId, timeSpentSeconds],
+     VALUES (?, ?, ?, COALESCE(?, NOW()))`,
+    [userId, examId, timeSpentSeconds, completedAt],
   );
   await conn.query(
     "INSERT INTO user_answers (user_id, attempt_id, question_id, selected_position) VALUES ?",
@@ -218,6 +223,7 @@ router.post("/claim-pending", async (req, res) => {
       pending.examId,
       pending.timeSpentSeconds,
       pending.answers,
+      pending.completedAt,
     );
     delete req.session.pendingExam;
     res.status(201).json({ attemptId });

@@ -1,5 +1,7 @@
 const express = require("express");
 const pool = require("../config/connectionMySQL");
+const requireAuth = require("../middleware/requireAuth");
+
 const router = express.Router();
 
 function evaluateBadges(stats) {
@@ -62,7 +64,8 @@ function evaluateBadges(stats) {
       id: "speedrunner",
       title: "Speedrun",
       description: "Genomför ett provpass på under 45 minuter",
-      unlocked: stats.fastestExamSeconds !== null && stats.fastestExamSeconds <= 2700,
+      unlocked:
+        stats.fastestExamSeconds !== null && stats.fastestExamSeconds <= 2700,
     },
     {
       id: "night_owl",
@@ -73,23 +76,21 @@ function evaluateBadges(stats) {
     {
       id: "polymath",
       title: "Allkonstnären",
-      description: "Svara rätt på minst 15 frågor i alla fyra kategorier (XYZ, KVA, NOG, DTK)",
-      unlocked: 
-        stats.xyzCorrect >= 15 && 
-        stats.kvaCorrect >= 15 && 
-        stats.nogCorrect >= 15 && 
+      description:
+        "Svara rätt på minst 15 frågor i alla fyra kategorier (XYZ, KVA, NOG, DTK)",
+      unlocked:
+        stats.xyzCorrect >= 15 &&
+        stats.kvaCorrect >= 15 &&
+        stats.nogCorrect >= 15 &&
         stats.dtkCorrect >= 15,
     },
   ];
 }
 
 // GET /api/users/me/badges)
-router.get("/", async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
   try {
     const userId = req.session.userId;
-    if (!userId) {
-      return res.status(401).json({ error: "Du är inte inloggad" });
-    }
 
     // Hämta svar-statistik
     const [answerRows] = await pool.execute(
@@ -106,7 +107,7 @@ router.get("/", async (req, res) => {
         LEFT JOIN answer_option ao ON ao.question_id = q.id AND ao.is_correct = TRUE
         WHERE ua.user_id = ? 
       `,
-      [userId]
+      [userId],
     );
 
     // Hämta prov-statistik
@@ -119,7 +120,7 @@ router.get("/", async (req, res) => {
         FROM user_exam_attempts 
         WHERE user_id = ?
       `,
-      [userId]
+      [userId],
     );
 
     const aStats = answerRows[0] || {};
@@ -132,7 +133,10 @@ router.get("/", async (req, res) => {
       nogCorrect: Number(aStats.nogCorrect || 0),
       dtkCorrect: Number(aStats.dtkCorrect || 0),
       completedExams: Number(eStats.completedExams || 0),
-      fastestExamSeconds: eStats.fastestExamSeconds !== null ? Number(eStats.fastestExamSeconds) : null,
+      fastestExamSeconds:
+        eStats.fastestExamSeconds !== null
+          ? Number(eStats.fastestExamSeconds)
+          : null,
       hasNightActivity: Boolean(aStats.nightAnswer || eStats.nightExam),
     };
 
