@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch, onMounted, onUnmounted } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from "vue";
 import QuestionCard from "@/components/QuestionCard.vue";
 import { getUserResultDetail } from "@/services/userService.js";
 
@@ -17,6 +17,10 @@ const error = ref(null);
 const detail = ref(null);
 const currentIndex = ref(0);
 const isSidebarCollapsed = ref(false);
+
+
+const closeBtnRef = ref(null);
+let previouslyFocusedElement = null;
 
 const currentQuestion = computed(() => detail.value?.questions[currentIndex.value]);
 
@@ -58,19 +62,49 @@ async function loadDetail() {
 
 watch(() => props.attemptId, loadDetail, { immediate: true });
 
+// Hantera fokus, skroll-lås och tangentbordsnavigering (Escape för att stänga)
 onMounted(() => {
+  // Spara elementet som hade fokus innan modalen öppnades
+  previouslyFocusedElement = document.activeElement;
+  
+  // Lås bakgrundens scroll
   document.body.style.overflow = "hidden";
+
+  // Flytta fokus till stäng-knappen när den renderats
+  nextTick(() => {
+    closeBtnRef.value?.focus();
+  });
+
+  // Lyssna på Escape-tangenten för att stänga smidigt
+  window.addEventListener("keydown", handleKeyDown);
 });
 
 onUnmounted(() => {
   document.body.style.overflow = "";
+  window.removeEventListener("keydown", handleKeyDown);
+
+  // Återställ fokus till det element som användaren stod på från början
+  if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === "function") {
+    previouslyFocusedElement.focus();
+  }
 });
+
+function handleKeyDown(e) {
+  if (e.key === "Escape") {
+    emit("close");
+  }
+}
 </script>
 
 <template>
   <div class="modal-backdrop" @click.self="emit('close')">
-    <div class="modal-content">
-      <button class="close-btn" @click="emit('close')">✕</button>
+    <div 
+      class="modal-content" 
+      role="dialog" 
+      aria-modal="true" 
+      aria-label="Provgranskning"
+    >
+      <button ref="closeBtnRef" class="close-btn" @click="emit('close')" aria-label="Stäng granskning">✕</button>
 
       <div v-if="loading" class="state-container">
         <p>Laddar provdetaljer...</p>
@@ -97,7 +131,7 @@ onUnmounted(() => {
                 class="toggle-sidebar-btn nav-btn"
                 @click="isSidebarCollapsed = !isSidebarCollapsed"
               >
-                {{ isSidebarCollapsed ? "Visa översikt" : "Dölj översikt" }}
+                {{ isSidebarCollapsed ? "Visa översikt" : "✕ Dölj översikt" }}
               </button>
             </div>
           </header>
@@ -161,6 +195,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* Din existerande CSS behålls precis som den är */
 .modal-backdrop {
   position: fixed;
   top: 0;
