@@ -40,7 +40,7 @@ const formattedDate = computed(() => {
 </script>
 
 <template>
-  <article class="result-card" @click="$emit('select', result.attemptId)">
+  <article class="result-card" tabindex="0" role="button" @click="$emit('select', result.attemptId)">
     <h3>
       Högskoleprovet {{ result.semester }} {{ result.year }},
       pass {{ result.session }}
