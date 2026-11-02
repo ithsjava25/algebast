@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { onBeforeRouteLeave } from "vue-router";
 import { deleteAccount } from "@/services/userService.js";
 
 const emit = defineEmits(["account-deleted"]);
@@ -8,6 +9,12 @@ const showConfirmation = ref(false);
 const password = ref("");
 const errorMessage = ref("");
 const isDeleting = ref(false);
+
+onBeforeRouteLeave(() => {
+  if (isDeleting.value) {
+    return false;
+  }
+});
 
 function closeConfirmation() {
   if (isDeleting.value) return;
