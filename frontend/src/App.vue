@@ -27,17 +27,17 @@ async function loadCurrentUser() {
   }
 }
 
+async function handleAccountDeleted() {
+  currentUser.value = null;
+  await router.push("/");
+}
+
 async function handleLogout() {
   if (isLoggingOut.value) {
     return;
   }
 
   isLoggingOut.value = true;
-
-  async function handleAccountDeleted() {
-    currentUser.value = null;
-    await router.push("/");
-  }
 
   try {
     const navigationFailure = await router.push("/auth");
@@ -74,6 +74,7 @@ onMounted(() => {
           :user="currentUser"
           :is-logging-out="isLoggingOut"
           @login="handleLogin"
+          @account-deleted="handleAccountDeleted"
         />
       </RouterView>
     </main>
