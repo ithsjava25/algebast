@@ -48,9 +48,10 @@ router.post("/register", async (req, res) => {
 
     const [existingUsers] = await pool.execute(
       `
-            SELECT id
-            FROM users
-            WHERE username = ? OR email = ?`,
+        SELECT id
+        FROM users
+        WHERE username = ? OR email = ?
+      `,
       [trimmedUsername, trimmedEmail],
     );
 
@@ -64,9 +65,10 @@ router.post("/register", async (req, res) => {
 
     const [result] = await pool.execute(
       `
-            INSERT INTO users
-            (username, firstname, lastname, email, password_hash)
-            VALUES (?, ?, ?, ?, ?)`,
+        INSERT INTO users
+        (username, firstname, lastname, email, password_hash)
+        VALUES (?, ?, ?, ?, ?)
+      `,
       [
         trimmedUsername,
         trimmedFirstname,
@@ -102,9 +104,10 @@ router.post("/login", async (req, res) => {
 
     const [users] = await pool.execute(
       `
-            SELECT id, username, firstname, lastname, email, password_hash
-            FROM users
-            WHERE email = ?`,
+        SELECT id, username, firstname, lastname, email, password_hash
+        FROM users
+        WHERE email = ?
+      `,
       [email],
     );
 
@@ -302,7 +305,11 @@ router.delete("/me", requireAuth, async (req, res) => {
 
     // Hämta användarens lösenordshash från databasen
     const [users] = await pool.execute(
-      "SELECT password_hash FROM users WHERE id = ?",
+      `
+        SELECT password_hash
+        FROM users
+        WHERE id = ?
+      `,
       [userId],
     );
 
@@ -342,8 +349,9 @@ router.delete("/me", requireAuth, async (req, res) => {
     // Förstör sessionen
     req.session.destroy((err) => {
       if (err) {
-        console.error(err);
-
+        console.error("Kunde inte förstöra sessionen efter kontoborttagning", err);
+      }
+        
         return res.status(500).json({
           error: "Ett fel uppstod när kontot skulle raderas",
         });
@@ -357,6 +365,7 @@ router.delete("/me", requireAuth, async (req, res) => {
         message: "Kontot har raderats",
       });
     });
+
   } catch (err) {
     console.error(err);
 
