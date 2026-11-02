@@ -58,7 +58,6 @@ async function loadDetail() {
 
 watch(() => props.attemptId, loadDetail, { immediate: true });
 
-// Lås bakgrundens scroll när modalen är öppen
 onMounted(() => {
   document.body.style.overflow = "hidden";
 });
@@ -95,10 +94,10 @@ onUnmounted(() => {
                 Resultat: {{ score }} / {{ detail.questions.length }}
               </span>
               <button
-                class="toggle-sidebar-btn"
+                class="toggle-sidebar-btn nav-btn"
                 @click="isSidebarCollapsed = !isSidebarCollapsed"
               >
-                {{ isSidebarCollapsed ? "Visa översikt" : "✕ Dölj översikt" }}
+                {{ isSidebarCollapsed ? "Visa översikt" : "Dölj översikt" }}
               </button>
             </div>
           </header>
@@ -176,9 +175,8 @@ onUnmounted(() => {
   padding: 15px;
 }
 
-/* Kompaktare och fast höjd för att slippa scrolla på desktop */
 .modal-content {
-  background: var(--bg-primary, #fff);
+  background: var(--bg-primary);
   width: 100%;
   max-width: 1050px;
   height: 88vh;
@@ -222,7 +220,7 @@ onUnmounted(() => {
   height: 100%;
   min-height: 0;
   overflow: hidden;
-  padding: 16px 20px !important; /* Gör inner-paddingen lite tightare */
+  padding: 16px 20px !important;
 }
 
 .review-sidebar {
@@ -237,8 +235,14 @@ onUnmounted(() => {
   align-items: center;
   margin-bottom: 10px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-color, #eee);
+  border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .question-meta {
@@ -246,7 +250,6 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-/* Låter själva frågekortet scrolla internt om frågan är jättelång, istället för hela modalen */
 .question-card-wrapper {
   flex: 1;
   overflow-y: auto;
@@ -261,21 +264,8 @@ onUnmounted(() => {
 }
 
 .toggle-sidebar-btn {
-  background: var(--bg-muted, #f1f3f5);
-  border: 1px solid var(--border-color, #ccc);
-  color: var(--text-primary, #333);
   padding: 6px 12px;
-  border-radius: 8px;
-  font-family: "Space Mono", monospace;
-  font-weight: 700;
   font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.toggle-sidebar-btn:hover {
-  background: var(--hover-color, #e9ecef);
-  border-color: var(--accent-color, #3498db);
 }
 
 .nav-buttons {
@@ -283,7 +273,7 @@ onUnmounted(() => {
   justify-content: space-between;
   margin-top: 12px;
   padding-top: 10px;
-  border-top: 1px solid var(--border-color, #eee);
+  border-top: 1px solid var(--border-color);
   flex-shrink: 0;
 }
 
@@ -297,23 +287,28 @@ onUnmounted(() => {
 .grid-btn {
   aspect-ratio: 1;
   border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   border-radius: 6px;
   font-weight: 700;
   font-size: 12px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .grid-btn.correct {
-  background-color: var(--success-bg, #d4edda);
-  color: var(--success-text, #155724);
+  background-color: var(--success-bg);
+  color: var(--success-text);
+  border-color: var(--success-border);
 }
 
 .grid-btn.wrong {
-  background-color: var(--error-bg, #f8d7da);
-  color: var(--error-text, #721c24);
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  border-color: var(--error-border);
 }
 
 .grid-btn.active {
-  box-shadow: 0 0 0 2px var(--accent-color, #3498db);
+  box-shadow: 0 0 0 2px var(--accent-color);
 }
 </style>

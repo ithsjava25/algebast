@@ -113,7 +113,6 @@ watch(
 
     <p v-else-if="user">Du har inga sparade provresultat ännu.</p>
 
-    <!-- Modal visas när activeAttemptId har ett värde -->
     <ExamReviewModal
       v-if="activeAttemptId"
       :attempt-id="activeAttemptId"

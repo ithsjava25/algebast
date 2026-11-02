@@ -63,6 +63,11 @@ const formattedDate = computed(() => {
         {{ formattedDate }}
       </p>
     </div>
+
+    <div class="card-footer">
+      <span class="action-link">Visa detaljer &rarr;</span>
+    </div>
+
   </article>
 </template>
 
@@ -96,4 +101,18 @@ const formattedDate = computed(() => {
   margin: 0;
   font-size: 14px;
 }
+
+.card-footer {
+  
+  padding-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
 </style>

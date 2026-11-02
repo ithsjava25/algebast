@@ -317,7 +317,7 @@ router.get("/me/results/:attemptId", requireAuth, async (req, res) => {
       return res.status(400).json({ error: "Ogiltigt försök-ID" });
     }
 
-    // 1. Verifiera att försökstillfället tillhör den inloggade användaren
+    // Hämta provförsöket och kontrollera att det tillhör användaren
     const [attempts] = await pool.execute(
       `SELECT uea.id, uea.exam_id, uea.time_spent_seconds, uea.completed_at,
               e.year, e.semester, e.session
@@ -333,7 +333,7 @@ router.get("/me/results/:attemptId", requireAuth, async (req, res) => {
 
     const attempt = attempts[0];
 
-    // 2. Hämta alla frågor för provet tillsammans med facit och användarens val
+    // Hämta alla frågor för provet tillsammans med facit och användarens val
     const [questions] = await pool.execute(
       `SELECT q.id, q.question_order, q.category, q.question_text, q.image_url, q.explanation,
               ao.position AS correct_position,
@@ -346,7 +346,7 @@ router.get("/me/results/:attemptId", requireAuth, async (req, res) => {
       [attemptId, userId, attempt.exam_id]
     );
 
-    // 3. Hämta alla svarsalternativ
+    // Hämta alla svarsalternativ
     const [options] = await pool.execute(
       `SELECT ao.question_id, ao.position, ao.option_text, ao.option_image_url
        FROM answer_option ao
