@@ -25,14 +25,14 @@ const formattedTime = computed(() => {
   return `${Math.floor(seconds / 60)} min ${seconds % 60} sek`;
 });
 
-// Beräkna starttid (från main)
+// Beräkna starttid
 const startedAt = computed(() => {
   const { completedAt, timeSpentSeconds } = props.result;
   if (!completedAt || timeSpentSeconds == null) return null;
   return new Date(new Date(completedAt).getTime() - timeSpentSeconds * 1000);
 });
 
-// Formaterad tidsstämpel som rubrik (från main)
+// Formaterad tidsstämpel som rubrik
 const formattedTimestamp = computed(() => {
   if (!startedAt.value) return "Okänd";
 
