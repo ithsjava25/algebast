@@ -62,20 +62,18 @@ async function loadDetail() {
 
 watch(() => props.attemptId, loadDetail, { immediate: true });
 
-// Hantera fokus, skroll-lås och tangentbordsnavigering (Escape för att stänga)
 onMounted(() => {
-  // Spara elementet som hade fokus innan modalen öppnades
+  
   previouslyFocusedElement = document.activeElement;
   
-  // Lås bakgrundens scroll
   document.body.style.overflow = "hidden";
 
-  // Flytta fokus till stäng-knappen när den renderats
+ 
   nextTick(() => {
     closeBtnRef.value?.focus();
   });
 
-  // Lyssna på Escape-tangenten för att stänga smidigt
+
   window.addEventListener("keydown", handleKeyDown);
 });
 
@@ -83,7 +81,7 @@ onUnmounted(() => {
   document.body.style.overflow = "";
   window.removeEventListener("keydown", handleKeyDown);
 
-  // Återställ fokus till det element som användaren stod på från början
+  
   if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === "function") {
     previouslyFocusedElement.focus();
   }
@@ -249,6 +247,24 @@ function handleKeyDown(e) {
   grid-template-columns: 1fr;
 }
 
+
+@media (max-width: 768px) {
+  .review-container {
+    grid-template-columns: 1fr; 
+  }
+  
+  .review-sidebar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 260px;
+    z-index: 20;
+    background: var(--bg-secondary);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
 .review-main {
   display: flex;
   flex-direction: column;
@@ -258,11 +274,6 @@ function handleKeyDown(e) {
   padding: 16px 20px !important;
 }
 
-.review-sidebar {
-  height: 100%;
-  overflow-y: auto;
-  padding: 16px !important;
-}
 
 .quiz-header {
   display: flex;
