@@ -349,12 +349,11 @@ router.delete("/me", requireAuth, async (req, res) => {
     // Förstör sessionen
     req.session.destroy((err) => {
       if (err) {
-        console.error("Kunde inte förstöra sessionen efter kontoborttagning", err);
-      }
-        
-        return res.status(500).json({
-          error: "Ett fel uppstod när kontot skulle raderas",
-        });
+        // Kontot är redan raderat, loggar enbart felet
+        console.error(
+          "Kunde inte förstöra sessionen efter kontoborttagning",
+          err,
+        );
       }
 
       res.clearCookie("algebast.sid", {
@@ -365,7 +364,6 @@ router.delete("/me", requireAuth, async (req, res) => {
         message: "Kontot har raderats",
       });
     });
-
   } catch (err) {
     console.error(err);
 
