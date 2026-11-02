@@ -10,7 +10,7 @@ const props = defineProps({
 
 defineEmits(["select"]);
 
-// Beräkna procent
+// Beräkning av procent
 const percentage = computed(() => {
   if (!props.result.totalQuestions) return 0;
   return Math.round(
@@ -20,32 +20,48 @@ const percentage = computed(() => {
 
 // Formatera tid
 const formattedTime = computed(() => {
-  const seconds = props.result.timeSpentSeconds || 0;
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes} min ${remainingSeconds} sek`;
+  const seconds = props.result.timeSpentSeconds;
+  if (seconds == null) return "Okänd";
+  return `${Math.floor(seconds / 60)} min ${seconds % 60} sek`;
 });
 
-// Formatera datum
-const formattedDate = computed(() => {
-  if (!props.result.completedAt) return "";
-  return new Date(props.result.completedAt).toLocaleDateString("sv-SE", {
+// Beräkna starttid (från main)
+const startedAt = computed(() => {
+  const { completedAt, timeSpentSeconds } = props.result;
+  if (!completedAt || timeSpentSeconds == null) return null;
+  return new Date(new Date(completedAt).getTime() - timeSpentSeconds * 1000);
+});
+
+// Formaterad tidsstämpel som rubrik (från main)
+const formattedTimestamp = computed(() => {
+  if (!startedAt.value) return "Okänd";
+
+  const date = startedAt.value.toLocaleDateString("sv-SE", {
     year: "numeric",
-    month: "short",
+    month: "long",
     day: "numeric",
+  });
+
+  const time = startedAt.value.toLocaleTimeString("sv-SE", {
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  return `${date} kl ${time}`;
 });
 </script>
 
 <template>
   <article class="result-card" tabindex="0" role="button" @click="$emit('select', result.attemptId)">
     <h3>
-      Högskoleprovet {{ result.semester }} {{ result.year }},
-      pass {{ result.session }}
+      {{ formattedTimestamp }}
     </h3>
     <div class="result-details">
+      <p>
+        <strong>Prov:</strong>
+        Högskoleprovet {{ result.semester }} {{ result.year }}, pass
+        {{ result.session }}
+      </p>
       <p>
         <strong>Resultat:</strong>
         {{ result.correctAnswers }} / {{ result.totalQuestions }} rätt
@@ -58,16 +74,11 @@ const formattedDate = computed(() => {
         <strong>Tid:</strong>
         {{ formattedTime }}
       </p>
-      <p>
-        <strong>Datum:</strong>
-        {{ formattedDate }}
-      </p>
     </div>
 
     <div class="card-footer">
       <span class="action-link">Visa detaljer &rarr;</span>
     </div>
-
   </article>
 </template>
 
@@ -103,7 +114,8 @@ const formattedDate = computed(() => {
 }
 
 .card-footer {
-  
+  border-top: 1px solid var(--border-color);
+  margin-top: 16px;
   padding-top: 12px;
   display: flex;
   justify-content: flex-end;
@@ -114,5 +126,4 @@ const formattedDate = computed(() => {
   font-weight: 700;
   color: var(--accent-color);
 }
-
 </style>
