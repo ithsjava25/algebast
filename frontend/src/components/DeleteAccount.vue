@@ -43,7 +43,7 @@ async function handleDeleteAccount() {
 
     <p>
       Om du raderar ditt konto försvinner dina uppgifter, provresultat och
-      sparade övningssvar permanent.
+      sparade övningssvar permanent och kan inte återställas.
     </p>
 
     <button
@@ -92,7 +92,7 @@ async function handleDeleteAccount() {
             class="delete-button"
             :disabled="isDeleting || !password"
           >
-            {{ isDeleting ? "Raderar..." : "Bekräfta radering" }}
+            {{ isDeleting ? "Raderar..." : "Bekräfta" }}
           </button>
         </div>
       </form>

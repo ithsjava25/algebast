@@ -291,27 +291,32 @@ router.get("/me/exercise-stats", requireAuth, async (req, res) => {
 router.delete("/me", requireAuth, async (req, res) => {
   try {
     const userId = req.session.userId;
-    const { password } = req.body;
 
-    if (!password) {
+    const { password } = req.body ?? {};
+
+    if (!password || typeof password !== "string") {
       return res.status(400).json({
         error: "Ange ditt lösenord för att radera kontot",
       });
     }
+
     // Hämta användarens lösenordshash från databasen
     const [users] = await pool.execute(
       "SELECT password_hash FROM users WHERE id = ?",
-      [userId]
+      [userId],
     );
 
     if (users.length === 0) {
       return res.status(404).json({
-        error: "Användaren hittades inte",
+        error: "Kontot hittades inte",
       });
     }
 
     // Kontrollera lösenordet
-    const passwordMatches = await bcrypt.compare(password, users[0].password_hash);
+    const passwordMatches = await bcrypt.compare(
+      password,
+      users[0].password_hash,
+    );
 
     if (!passwordMatches) {
       return res.status(401).json({
@@ -320,28 +325,43 @@ router.delete("/me", requireAuth, async (req, res) => {
     }
 
     // Radera användaren från databasen
-    await pool.execute("DELETE FROM users WHERE id = ?", [userId]);
+    const [result] = await pool.execute(
+      `
+        DELETE FROM users 
+        WHERE id = ?
+      `,
+      [userId],
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        error: "Kontot hittades inte",
+      });
+    }
 
     // Förstör sessionen
     req.session.destroy((err) => {
       if (err) {
         console.error(err);
+
         return res.status(500).json({
-          error: "Ett fel uppstod vid radering av kontot",
+          error: "Ett fel uppstod när kontot skulle raderas",
         });
       }
 
       res.clearCookie("algebast.sid", {
         path: "/",
       });
+
       res.status(200).json({
         message: "Kontot har raderats",
       });
     });
   } catch (err) {
     console.error(err);
+
     res.status(500).json({
-      error: "Ett fel uppstod vid radering av kontot",
+      error: "Ett fel uppstod när kontot skulle raderas",
     });
   }
 });
