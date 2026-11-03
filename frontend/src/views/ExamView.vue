@@ -85,6 +85,10 @@ async function loadExamData() {
   submitting.value = false;
   submitError.value = null;
 
+  showSummaryModal.value = false;
+  reviewAttemptId.value = null;
+  examResult.value = null;
+
   try {
     const [allExams, qResult] = await Promise.all([
       getExams().catch(() => []),
