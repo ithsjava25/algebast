@@ -7,6 +7,10 @@ import {
   turnInAnswers,
 } from "@/services/questionService.js";
 import { getExams } from "@/services/examService.js";
+import ExamReviewModal from "@/components/ExamReviewModal.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const props = defineProps({
   examId: {
@@ -28,6 +32,10 @@ const submitError = ref(null);
 const saved = ref(true);
 
 const isSidebarCollapsed = ref(false);
+
+const showSummaryModal = ref(false);
+const examResult = ref(null); 
+const reviewAttemptId = ref(null); 
 
 // Timer: 55 minuter
 const EXAM_DURATION = 55 * 60;
@@ -144,6 +152,20 @@ async function finishExam({ automatic = false } = {}) {
       data.results.map((r) => [r.questionId, r]),
     );
     saved.value = data.saved;
+  examResult.value = {
+    attemptId: data.attemptId,
+    semester: examDetails.value?.semester,
+    year: examDetails.value?.year,
+    session: examDetails.value?.session,
+    correctAnswers: Object.values(results.value).filter((r) => r.isCorrect).length,
+    totalQuestions: questions.value.length,
+    timeSpentSeconds: data.timeSpentSeconds,
+    completedAt: new Date().toISOString(),
+  };
+
+  showSummaryModal.value = true;
+  
+  
   } catch (err) {
     if (requestId !== latestRequestId) return;
 
@@ -227,6 +249,23 @@ function handleBeforeUnload(event) {
 }
 
 const currentQuestion = computed(() => questions.value[currentIndex.value]);
+
+
+function goToExamsList() {
+  router.push("/exams"); 
+}
+
+function openReview() {
+  showSummaryModal.value = false;
+  reviewAttemptId.value = examResult.value?.attemptId;
+}
+
+function handleCloseReview() {
+  reviewAttemptId.value = null;
+  showSummaryModal.value = true; 
+}
+
+
 </script>
 
 <template>
@@ -398,6 +437,67 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
       </aside>
     </div>
   </div>
+
+  <!-- Sammanfattning vid inlämnat prov -->
+    <div v-if="showSummaryModal && examResult" class="modal-backdrop">
+      <div class="modal-card card" role="dialog" aria-modal="true" aria-label="Provresultat">
+        <h2>Prov inlämnat!</h2>
+        <p class="subtitle">Här är en sammanfattning av ditt provresultat:</p>
+
+        
+        <div class="summary-result-card">
+          <div class="result-details">
+            <p>
+              <strong>Prov:</strong>
+              Högskoleprovet {{ examResult.semester }} {{ examResult.year }}, pass
+              {{ examResult.session }}
+            </p>
+            <p>
+              <strong>Resultat:</strong>
+              {{ examResult.correctAnswers }} / {{ examResult.totalQuestions }} rätt
+            </p>
+            <p>
+              <strong>Procent:</strong>
+              {{ Math.round((examResult.correctAnswers / examResult.totalQuestions) * 100) }}%
+            </p>
+            <p>
+              <strong>Tid:</strong>
+              {{ Math.floor(examResult.timeSpentSeconds / 60) }} min {{ examResult.timeSpentSeconds % 60 }} sek
+            </p>
+          </div>
+        </div>
+
+        
+        <p v-if="!saved" class="error-msg">
+          Resultatet är inte sparat.
+          <router-link :to="{ path: '/auth', query: { mode: 'login' } }"
+            >Logga in</router-link
+          >
+          eller
+          <router-link :to="{ path: '/auth', query: { mode: 'register' } }"
+            >registrera dig</router-link
+          >
+          för att spara det.
+        </p>
+
+        <!-- Val mellan att granska eller gå till startsida -->
+        <div class="modal-actions">
+          <button class="nav-btn" @click="goToExamsList">
+            Tillbaka till provlistan
+          </button>
+          <button class="nav-btn primary" @click="openReview">
+            Granska svar &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    
+    <ExamReviewModal
+      v-if="reviewAttemptId"
+      :attemptId="reviewAttemptId"
+      @close="handleCloseReview"
+    />
 </template>
 
 <style scoped>
@@ -632,4 +732,72 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 .finish-btn:hover {
   background-color: var(--danger-hover);
 }
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-card {
+  background: var(--bg-secondary);
+  width: 100%;
+  max-width: 480px;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-card h2 {
+  margin-top: 0;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.summary-result-card {
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-primary);
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.result-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result-details p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.modal-actions .nav-btn {
+  flex: 1;
+}
+
 </style>
