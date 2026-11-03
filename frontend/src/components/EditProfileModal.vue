@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
-// import { updateUser } from "@/services/userService.js";
+import { updateUser } from "@/services/userService.js";
 
 const props = defineProps({
   user: { type: Object, required: true },
@@ -27,10 +27,17 @@ async function save() {
   error.value = null;
 
   try {
-    emit("saved");
+    const updatedUser = await updateUser({
+      username: form.value.username,
+      firstname: form.value.firstname,
+      lastname: form.value.lastname,
+      email: form.value.email,
+    });
+
+    emit("saved", updatedUser);
   } catch (err) {
     console.error(err);
-    error.value = "Kunde inte spara ändringarna.";
+    error.value = err.message || "Kunde inte spara ändringarna.";
   } finally {
     isSaving.value = false;
   }

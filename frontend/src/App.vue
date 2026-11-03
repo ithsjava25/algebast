@@ -27,6 +27,10 @@ async function loadCurrentUser() {
   }
 }
 
+function handleProfileUpdated(updatedUser) {
+  currentUser.value = updatedUser;
+}
+
 async function handleAccountDeleted() {
   currentUser.value = null;
   await router.push("/");
@@ -74,8 +78,8 @@ onMounted(() => {
           :user="currentUser"
           :is-logging-out="isLoggingOut"
           @login="handleLogin"
+          @profile-updated="handleProfileUpdated"
           @account-deleted="handleAccountDeleted"
-          @profile-updated="loadCurrentUser"
         />
       </RouterView>
     </main>

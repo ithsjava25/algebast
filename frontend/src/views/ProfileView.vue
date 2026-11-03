@@ -74,9 +74,9 @@ async function loadBadges() {
   }
 }
 
-function handleProfileSaved() {
+function handleProfileSaved(updatedUser) {
   showEditModal.value = false;
-  emit("profile-updated");
+  emit("profile-updated", updatedUser);
 }
 
 watch(

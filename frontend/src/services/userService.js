@@ -54,6 +54,25 @@ export async function getCurrentUser() {
   return data;
 }
 
+// Uppdatera användarens profil
+export async function updateUser(userData) {
+  const response = await fetch(`${API_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Kunde inte uppdatera profilen.");
+  }
+
+  return data;
+}
+
 // Logga ut användaren
 export async function logoutUser() {
   const response = await fetch("/api/users/logout", {
@@ -119,7 +138,8 @@ export async function getUserResultDetail(attemptId) {
 
   return data;
 }
-    // Radera användarens konto
+
+// Radera användarens konto
 export async function deleteAccount(password) {
   const response = await fetch("/api/users/me", {
     method: "DELETE",
