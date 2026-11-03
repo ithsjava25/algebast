@@ -134,6 +134,23 @@ export async function getExterciseStats() {
   return data;
 }
 
+// Hämtar användarens övningshistorik för en kategori
+export async function getExerciseHistory(category) {
+  const response = await fetch(
+    `/api/users/me/exercise-history/${encodeURIComponent(category)}`,
+    {
+      method: "GET",
+      credentials: "include",
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Kunde inte hämta övningshistoriken");
+  }
+
+  return await response.json();
+}
+
 // Hämta användarens pokaler
 export async function getUserBadges() {
   const response = await fetch("/api/badges");
