@@ -33,6 +33,13 @@ async function save() {
       email: form.value.email,
     });
 
+    Object.assign(form.value, {
+      username: updatedUser.username,
+      firstname: updatedUser.firstname,
+      lastname: updatedUser.lastname,
+      email: updatedUser.email,
+    });
+
     emit("saved", updatedUser);
   } catch (err) {
     console.error(err);
