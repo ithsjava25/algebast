@@ -499,6 +499,66 @@ router.get("/me/exercise-stats", requireAuth, async (req, res) => {
   }
 });
 
+// GET /api/users/me/exercise-history/:category
+router.get("/me/exercise-history/:category", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const category = req.params.category.toUpperCase();
+
+    const validCategories = ["XYZ", "KVA", "NOG", "DTK"];
+
+    if (!validCategories.includes(category)) {
+      return res.status(400).json({
+        error: "Ogiltig frågekategori",
+      });
+    }
+
+    const [results] = await pool.execute(
+      `
+        SELECT
+          ua.id AS answerId,
+          ua.question_id AS questionId,
+          ua.selected_position AS selectedPosition,
+          ua.answered_at AS answeredAt,
+          q.category,
+          q.question_text AS questionText,
+          q.image_url AS imageUrl,
+          q.explanation,
+          selected.option_text AS selectedAnswer,
+          selected.option_image_url AS selectedAnswerImage,
+          correct.option_text AS correctAnswer,
+          correct.option_image_url AS correctAnswerImage,
+          CASE
+            WHEN selected.is_correct = TRUE THEN TRUE
+            ELSE FALSE
+          END AS isCorrect
+        FROM user_answers ua
+        JOIN question q
+          ON q.id = ua.question_id
+        LEFT JOIN answer_option selected
+          ON selected.question_id = ua.question_id
+          AND selected.position = ua.selected_position
+        LEFT JOIN answer_option correct
+          ON correct.question_id = ua.question_id
+          AND correct.is_correct = TRUE
+        WHERE ua.user_id = ?
+          AND ua.attempt_id IS NULL
+          AND q.category = ?
+        ORDER BY ua.answered_at DESC, ua.id DESC
+      `,
+      [userId, category],
+    );
+
+    res.status(200).json(results);
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: "Kunde inte hämta övningshistoriken",
+    });
+  }
+});
+
 // DELETE /api/users/me
 router.delete("/me", requireAuth, async (req, res) => {
   try {
