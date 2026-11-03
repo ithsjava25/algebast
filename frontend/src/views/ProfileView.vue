@@ -7,8 +7,6 @@ import ExerciseStats from "@/components/ExerciseStats.vue";
 import { getExterciseStats } from "@/services/userService.js";
 import { getUserBadges } from "@/services/userService.js";
 import ExamReviewModal from "@/components/ExamReviewModal.vue";
-import DeleteAccount from "@/components/DeleteAccount.vue";
-import EditProfileModal from "@/components/EditProfileModal.vue";
 
 const props = defineProps({
   user: {
@@ -30,9 +28,6 @@ const isLoadingBadges = ref(false); // Indikator för laddning av pokaler
 const badgeErrorMessage = ref(""); // Felmeddelande vid problem med att hämta pokaler
 
 const activeAttemptId = ref(null); // Sparar valt attemptId för modalen
-const showEditModal = ref(false); // Indikator för att visa redigeringsmodalen
-
-const emit = defineEmits(["account-deleted", "profile-updated"]); // Emit för att meddela när kontot har raderats eller profilen har uppdaterats
 
 async function loadExterciseStats() {
   isLoadingStats.value = true;
@@ -74,11 +69,6 @@ async function loadBadges() {
   }
 }
 
-function handleProfileSaved(updatedUser) {
-  showEditModal.value = false;
-  emit("profile-updated", updatedUser);
-}
-
 watch(
   () => props.user,
   (user) => {
@@ -99,10 +89,9 @@ watch(
 <template>
   <section class="profile-view">
     <div v-if="user" class="profile-header">
-      <h1 v-if="user">Hej {{ user.firstname }}</h1>
-      <button class="nav-btn" type="button" @click="showEditModal = true">
-        Redigera profil
-      </button>
+      <h1>Hej {{ user.firstname }}</h1>
+
+      <RouterLink to="/account" class="nav-btn"> Hantera konto </RouterLink>
     </div>
 
     <h2>Mina övningsresultat</h2>
@@ -149,7 +138,6 @@ watch(
       </p>
       <BadgesCard v-else :badges="userBadges" />
     </section>
-    <DeleteAccount @account-deleted="emit('account-deleted')" />
   </section>
 </template>
 

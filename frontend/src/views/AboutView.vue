@@ -17,7 +17,7 @@
       <div class="link-section">
         <p>Vill du spara dina resultat och följa dina framsteg över tid?</p>
 
-        <RouterLink to="/auth?mode=register" class="link-button">
+        <RouterLink to="/auth?mode=register" class="nav-btn primary">
           Skapa ett konto
         </RouterLink>
       </div>
@@ -48,7 +48,7 @@
           href="https://www.hogskoleprov.nu"
           target="_blank"
           rel="noopener noreferrer"
-          class="link-button"
+          class="nav-btn primary"
         >
           Anmäl dig till högskoleprovet
         </a>
@@ -75,29 +75,5 @@
 
 .link-section p {
   margin: 0;
-}
-
-.link-button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px 20px;
-  border-radius: 8px;
-  background: var(--button-bg);
-  color: var(--button-text);
-  font-family: "Space Mono", monospace;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: opacity 0.15s ease;
-}
-
-.link-button:hover {
-  opacity: 0.85;
-}
-
-.link-button:focus-visible {
-  outline: 2px solid var(--text-primary);
-  outline-offset: 3px;
 }
 </style>

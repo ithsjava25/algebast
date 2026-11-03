@@ -87,6 +87,7 @@ async function handleDeleteAccount() {
 
         <div class="confirmation-actions">
           <button
+            class="nav-btn"
             type="button"
             :disabled="isDeleting"
             @click="closeConfirmation"
@@ -109,9 +110,7 @@ async function handleDeleteAccount() {
 
 <style scoped>
 .delete-account {
-  margin-top: 48px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-color);
+  margin-bottom: 48px;
 }
 
 .delete-account p {
@@ -119,11 +118,14 @@ async function handleDeleteAccount() {
 }
 
 .delete-button {
+  font-family: "Space Mono", monospace, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
   background: var(--danger-bg);
   color: var(--button-text);
-  border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 24px;
   cursor: pointer;
 }
 

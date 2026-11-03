@@ -7,6 +7,7 @@ import ExerciseView from "@/views/ExerciseView.vue";
 import AuthView from "@/views/AuthView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import AboutView from "../views/AboutView.vue";
+import AccountSettingsView from "@/views/AccountSettingsView.vue";
 
 const routes = [
   {
@@ -44,6 +45,11 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: ProfileView,
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: AccountSettingsView,
   },
 ];
 

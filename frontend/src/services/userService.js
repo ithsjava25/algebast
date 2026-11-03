@@ -54,7 +54,7 @@ export async function getCurrentUser() {
   return data;
 }
 
-// Uppdatera användarens profil
+// Uppdatera användarens profil (användarnamn, förnamn, efternamn, e-post)
 export async function updateUser(userData) {
   const response = await fetch(`${API_URL}/users/me`, {
     method: "PATCH",
@@ -68,6 +68,25 @@ export async function updateUser(userData) {
 
   if (!response.ok) {
     throw new Error(data.error || "Kunde inte uppdatera profilen.");
+  }
+
+  return data;
+}
+
+// Uppdatera användarens lösenord
+export async function changePassword(passwordData) {
+  const response = await fetch(`${API_URL}/users/me/password`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(passwordData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Kunde inte byta lösenord.");
   }
 
   return data;
