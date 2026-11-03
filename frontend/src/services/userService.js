@@ -107,3 +107,23 @@ export async function getUserBadges() {
 
   return data;
 }
+
+// Radera användarens konto
+export async function deleteAccount(password) {
+  const response = await fetch("/api/users/me", {
+    method: "DELETE",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Kunde inte radera kontot");
+  }
+
+  return data;
+}

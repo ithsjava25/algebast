@@ -6,6 +6,7 @@ import { getUserResults } from "@/services/userService.js";
 import ExerciseStats from "@/components/ExerciseStats.vue";
 import { getExterciseStats } from "@/services/userService.js";
 import { getUserBadges } from "@/services/userService.js";
+import DeleteAccount from "@/components/DeleteAccount.vue";
 
 const props = defineProps({
   user: {
@@ -25,6 +26,8 @@ const errorMessage = ref(""); // Felmeddelande vid problem med att hämta provre
 const userBadges = ref([]);
 const isLoadingBadges = ref(false);
 const badgeErrorMessage = ref("");
+
+const emit = defineEmits(["account-deleted"]); // Emit event för att meddela när kontot har raderats
 
 async function loadExterciseStats() {
   isLoadingStats.value = true;
@@ -89,7 +92,7 @@ watch(
 
     <h2>Mina övningsresultat</h2>
 
-    <p v-if="isLoadingStats"> Hämtar övningsstatistik...</p>
+    <p v-if="isLoadingStats">Hämtar övningsstatistik...</p>
     <p v-else-if="statsErrorMessage" class="error-message">
       {{ statsErrorMessage }}
     </p>
@@ -106,7 +109,7 @@ watch(
         :result="result"
       />
     </div>
-    
+
     <p v-else-if="user">Du har inga sparade provresultat ännu.</p>
 
     <section class="profile-section">
@@ -117,7 +120,7 @@ watch(
       </p>
       <BadgesCard v-else :badges="userBadges" />
     </section>
-
+    <DeleteAccount @account-deleted="emit('account-deleted')" />
   </section>
 </template>
 

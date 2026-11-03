@@ -48,9 +48,10 @@ router.post("/register", async (req, res) => {
 
     const [existingUsers] = await pool.execute(
       `
-            SELECT id
-            FROM users
-            WHERE username = ? OR email = ?`,
+        SELECT id
+        FROM users
+        WHERE username = ? OR email = ?
+      `,
       [trimmedUsername, trimmedEmail],
     );
 
@@ -64,9 +65,10 @@ router.post("/register", async (req, res) => {
 
     const [result] = await pool.execute(
       `
-            INSERT INTO users
-            (username, firstname, lastname, email, password_hash)
-            VALUES (?, ?, ?, ?, ?)`,
+        INSERT INTO users
+        (username, firstname, lastname, email, password_hash)
+        VALUES (?, ?, ?, ?, ?)
+      `,
       [
         trimmedUsername,
         trimmedFirstname,
@@ -102,9 +104,10 @@ router.post("/login", async (req, res) => {
 
     const [users] = await pool.execute(
       `
-            SELECT id, username, firstname, lastname, email, password_hash
-            FROM users
-            WHERE email = ?`,
+        SELECT id, username, firstname, lastname, email, password_hash
+        FROM users
+        WHERE email = ?
+      `,
       [email],
     );
 
@@ -537,6 +540,89 @@ router.get("/me/exercise-stats", requireAuth, async (req, res) => {
     console.error(err);
     res.status(500).json({
       error: "Kunde inte hämta statistik för övningsfrågor",
+    });
+  }
+});
+
+// DELETE /api/users/me
+router.delete("/me", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const { password } = req.body ?? {};
+
+    if (!password || typeof password !== "string") {
+      return res.status(400).json({
+        error: "Ange ditt lösenord för att radera kontot",
+      });
+    }
+
+    // Hämta användarens lösenordshash från databasen
+    const [users] = await pool.execute(
+      `
+        SELECT password_hash
+        FROM users
+        WHERE id = ?
+      `,
+      [userId],
+    );
+
+    if (users.length === 0) {
+      return res.status(404).json({
+        error: "Kontot hittades inte",
+      });
+    }
+
+    // Kontrollera lösenordet
+    const passwordMatches = await bcrypt.compare(
+      password,
+      users[0].password_hash,
+    );
+
+    if (!passwordMatches) {
+      return res.status(401).json({
+        error: "Felaktigt lösenord",
+      });
+    }
+
+    // Radera användaren från databasen
+    const [result] = await pool.execute(
+      `
+        DELETE FROM users 
+        WHERE id = ?
+      `,
+      [userId],
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        error: "Kontot hittades inte",
+      });
+    }
+
+    // Förstör sessionen
+    req.session.destroy((err) => {
+      if (err) {
+        // Kontot är redan raderat, loggar enbart felet
+        console.error(
+          "Kunde inte förstöra sessionen efter kontoborttagning",
+          err,
+        );
+      }
+
+      res.clearCookie("algebast.sid", {
+        path: "/",
+      });
+
+      res.status(200).json({
+        message: "Kontot har raderats",
+      });
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: "Ett fel uppstod när kontot skulle raderas",
     });
   }
 });
