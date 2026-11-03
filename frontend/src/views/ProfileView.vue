@@ -89,12 +89,12 @@ watch(
 <template>
   <section class="profile-view">
     <div v-if="user" class="profile-header">
-      <h1>Hej {{ user.firstname }}</h1>
+      <h1>Välkommen {{ user.firstname }}!</h1>
 
       <RouterLink to="/account" class="nav-btn"> Hantera konto </RouterLink>
     </div>
 
-    <h2>Mina övningsresultat</h2>
+    <h2>Övningsresultat</h2>
 
     <p v-if="isLoadingStats">Hämtar övningsstatistik...</p>
     <p v-else-if="statsErrorMessage" class="error-message">
@@ -102,7 +102,9 @@ watch(
     </p>
     <ExerciseStats v-else :stats="exerciseStats" />
 
-    <h2>Mina provresultat</h2>
+    <hr class="section-divider" />
+
+    <h2>Provresultat</h2>
 
     <p v-if="isLoading">Hämtar provresultat...</p>
     <p v-else-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -123,15 +125,10 @@ watch(
       @close="activeAttemptId = null"
     />
 
-    <EditProfileModal
-      v-if="showEditModal"
-      :user="user"
-      @close="showEditModal = false"
-      @saved="handleProfileSaved"
-    />
+    <hr class="section-divider" />
 
     <section class="profile-section">
-      <h2>Mina pokaler</h2>
+      <h2>Pokaler</h2>
       <p v-if="isLoadingBadges">Hämtar pokaler...</p>
       <p v-else-if="badgeErrorMessage" class="error-message">
         {{ badgeErrorMessage }}
@@ -159,5 +156,11 @@ watch(
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.section-divider {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 32px 0;
 }
 </style>
