@@ -8,28 +8,31 @@ const props = defineProps({
   },
 });
 
+defineEmits(["select"]);
+
+// Beräkning av procent
 const percentage = computed(() => {
   if (!props.result.totalQuestions) return 0;
-
   return Math.round(
-    (props.result.correctAnswers / props.result.totalQuestions) * 100,
+    (props.result.correctAnswers / props.result.totalQuestions) * 100
   );
 });
 
+// Formatera tid
 const formattedTime = computed(() => {
   const seconds = props.result.timeSpentSeconds;
   if (seconds == null) return "Okänd";
-
   return `${Math.floor(seconds / 60)} min ${seconds % 60} sek`;
 });
 
+// Beräkna starttid
 const startedAt = computed(() => {
   const { completedAt, timeSpentSeconds } = props.result;
   if (!completedAt || timeSpentSeconds == null) return null;
-
   return new Date(new Date(completedAt).getTime() - timeSpentSeconds * 1000);
 });
 
+// Formaterad tidsstämpel som rubrik
 const formattedTimestamp = computed(() => {
   if (!startedAt.value) return "Okänd";
 
@@ -49,14 +52,14 @@ const formattedTimestamp = computed(() => {
 </script>
 
 <template>
-  <article class="result-card">
+  <article class="result-card" tabindex="0" role="button" @click="$emit('select', result.attemptId)">
     <h3>
       {{ formattedTimestamp }}
     </h3>
     <div class="result-details">
       <p>
         <strong>Prov:</strong>
-        {{ result.semester }} {{ result.year }}, pass
+        Högskoleprovet {{ result.semester }} {{ result.year }}, pass
         {{ result.session }}
       </p>
       <p>
@@ -64,9 +67,17 @@ const formattedTimestamp = computed(() => {
         {{ result.correctAnswers }} / {{ result.totalQuestions }} rätt
       </p>
       <p>
+        <strong>Procent:</strong>
+        {{ percentage }}%
+      </p>
+      <p>
         <strong>Tid:</strong>
         {{ formattedTime }}
       </p>
+    </div>
+
+    <div class="card-footer">
+      <span class="action-link">Visa detaljer &rarr;</span>
     </div>
   </article>
 </template>
@@ -77,6 +88,13 @@ const formattedTimestamp = computed(() => {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   background: var(--bg-secondary);
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.result-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-color, #3498db);
 }
 
 .result-card h3 {
@@ -93,5 +111,19 @@ const formattedTimestamp = computed(() => {
 .result-details p {
   margin: 0;
   font-size: 14px;
+}
+
+.card-footer {
+  border-top: 1px solid var(--border-color);
+  margin-top: 16px;
+  padding-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-color);
 }
 </style>

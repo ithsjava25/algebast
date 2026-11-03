@@ -108,7 +108,18 @@ export async function getUserBadges() {
   return data;
 }
 
-// Radera användarens konto
+// Hämta detaljerat provresultat för granskning
+export async function getUserResultDetail(attemptId) {
+  const response = await fetch(`${API_URL}/users/me/results/${attemptId}`);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "Kunde inte hämta provdetaljer");
+  }
+
+  return data;
+}
+    // Radera användarens konto
 export async function deleteAccount(password) {
   const response = await fetch("/api/users/me", {
     method: "DELETE",
