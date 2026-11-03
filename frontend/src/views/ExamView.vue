@@ -515,12 +515,17 @@ function handleKeyDown(event) {
           för att spara det.
         </p>
 
-        <!-- Val mellan att granska eller gå till startsida -->
+        
         <div class="modal-actions">
-          <button class="nav-btn" @click="goToExamsList">
-            Tillbaka till provlistan
+          <button class="nav-btn" @click="closeSummaryModal(); goToExamsList();">
+            Till provöversikt
           </button>
-          <button class="nav-btn primary" @click="openReview">
+          
+          <button 
+            v-if="saved" 
+            class="nav-btn primary" 
+            @click="closeSummaryModal(); openReview();"
+          >
             Granska svar &rarr;
           </button>
         </div>
