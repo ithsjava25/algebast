@@ -18,16 +18,17 @@ const detail = ref(null);
 const currentIndex = ref(0);
 const isSidebarCollapsed = ref(false);
 
-
 const closeBtnRef = ref(null);
 let previouslyFocusedElement = null;
 
-const currentQuestion = computed(() => detail.value?.questions[currentIndex.value]);
+const currentQuestion = computed(
+  () => detail.value?.questions[currentIndex.value],
+);
 
 const score = computed(() => {
   if (!detail.value) return 0;
   return detail.value.questions.filter(
-    (q) => q.chosenPosition === q.correctPosition
+    (q) => q.chosenPosition === q.correctPosition,
   ).length;
 });
 
@@ -63,16 +64,13 @@ async function loadDetail() {
 watch(() => props.attemptId, loadDetail, { immediate: true });
 
 onMounted(() => {
-  
   previouslyFocusedElement = document.activeElement;
-  
+
   document.body.style.overflow = "hidden";
 
- 
   nextTick(() => {
     closeBtnRef.value?.focus();
   });
-
 
   window.addEventListener("keydown", handleKeyDown);
 });
@@ -81,8 +79,10 @@ onUnmounted(() => {
   document.body.style.overflow = "";
   window.removeEventListener("keydown", handleKeyDown);
 
-  
-  if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === "function") {
+  if (
+    previouslyFocusedElement &&
+    typeof previouslyFocusedElement.focus === "function"
+  ) {
     previouslyFocusedElement.focus();
   }
 });
@@ -96,13 +96,20 @@ function handleKeyDown(e) {
 
 <template>
   <div class="modal-backdrop" @click.self="emit('close')">
-    <div 
-      class="modal-content" 
-      role="dialog" 
-      aria-modal="true" 
+    <div
+      class="modal-content"
+      role="dialog"
+      aria-modal="true"
       aria-label="Provgranskning"
     >
-      <button ref="closeBtnRef" class="close-btn" @click="emit('close')" aria-label="Stäng granskning">✕</button>
+      <button
+        ref="closeBtnRef"
+        class="close-btn"
+        @click="emit('close')"
+        aria-label="Stäng granskning"
+      >
+        ✕
+      </button>
 
       <div v-if="loading" class="state-container">
         <p>Laddar provdetaljer...</p>
@@ -112,13 +119,21 @@ function handleKeyDown(e) {
         <p>{{ error }}</p>
       </div>
 
-      <div v-else-if="detail" class="review-container" :class="{ collapsed: isSidebarCollapsed }">
+      <div
+        v-else-if="detail"
+        class="review-container"
+        :class="{ collapsed: isSidebarCollapsed }"
+      >
         <!-- Huvudvy för frågor -->
         <div class="review-main card">
           <header class="quiz-header">
             <div class="header-left">
-              <span class="badge">HP {{ detail.semester }} {{ detail.year }}</span>
-              <span class="sub-badge" v-if="detail.session">PASS {{ detail.session }}</span>
+              <span class="badge"
+                >HP {{ detail.semester }} {{ detail.year }}</span
+              >
+              <span class="sub-badge" v-if="detail.session"
+                >PASS {{ detail.session }}</span
+              >
             </div>
 
             <div class="header-right">
@@ -251,7 +266,7 @@ function handleKeyDown(e) {
   .review-container {
     grid-template-columns: 1fr;
   }
-  
+
   /* Om sidomenyn är öppen staplar vi den under huvudinnehållet 
      så att headern och toggle-knappen aldrig döljs */
   .review-container:not(.collapsed) {

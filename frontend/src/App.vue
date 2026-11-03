@@ -75,6 +75,7 @@ onMounted(() => {
           :is-logging-out="isLoggingOut"
           @login="handleLogin"
           @account-deleted="handleAccountDeleted"
+          @profile-updated="loadCurrentUser"
         />
       </RouterView>
     </main>
