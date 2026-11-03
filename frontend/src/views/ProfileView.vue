@@ -7,8 +7,6 @@ import ExerciseStats from "@/components/ExerciseStats.vue";
 import { getExterciseStats } from "@/services/userService.js";
 import { getUserBadges } from "@/services/userService.js";
 import ExamReviewModal from "@/components/ExamReviewModal.vue";
-import DeleteAccount from "@/components/DeleteAccount.vue";
-import EditProfileModal from "@/components/EditProfileModal.vue";
 
 const props = defineProps({
   user: {
@@ -30,9 +28,6 @@ const isLoadingBadges = ref(false); // Indikator för laddning av pokaler
 const badgeErrorMessage = ref(""); // Felmeddelande vid problem med att hämta pokaler
 
 const activeAttemptId = ref(null); // Sparar valt attemptId för modalen
-const showEditModal = ref(false); // Indikator för att visa redigeringsmodalen
-
-const emit = defineEmits(["account-deleted", "profile-updated"]); // Emit för att meddela när kontot har raderats eller profilen har uppdaterats
 
 async function loadExterciseStats() {
   isLoadingStats.value = true;
@@ -74,11 +69,6 @@ async function loadBadges() {
   }
 }
 
-function handleProfileSaved() {
-  showEditModal.value = false;
-  emit("profile-updated");
-}
-
 watch(
   () => props.user,
   (user) => {
@@ -99,13 +89,12 @@ watch(
 <template>
   <section class="profile-view">
     <div v-if="user" class="profile-header">
-      <h1 v-if="user">Hej {{ user.firstname }}</h1>
-      <button class="nav-btn" type="button" @click="showEditModal = true">
-        Redigera profil
-      </button>
+      <h1>Välkommen {{ user.firstname }}!</h1>
+
+      <RouterLink to="/account" class="nav-btn"> Hantera konto </RouterLink>
     </div>
 
-    <h2>Mina övningsresultat</h2>
+    <h2>Övningsresultat</h2>
 
     <p v-if="isLoadingStats">Hämtar övningsstatistik...</p>
     <p v-else-if="statsErrorMessage" class="error-message">
@@ -113,7 +102,9 @@ watch(
     </p>
     <ExerciseStats v-else :stats="exerciseStats" />
 
-    <h2>Mina provresultat</h2>
+    <hr class="section-divider" />
+
+    <h2>Provresultat</h2>
 
     <p v-if="isLoading">Hämtar provresultat...</p>
     <p v-else-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -134,22 +125,16 @@ watch(
       @close="activeAttemptId = null"
     />
 
-    <EditProfileModal
-      v-if="showEditModal"
-      :user="user"
-      @close="showEditModal = false"
-      @saved="handleProfileSaved"
-    />
+    <hr class="section-divider" />
 
     <section class="profile-section">
-      <h2>Mina pokaler</h2>
+      <h2>Pokaler</h2>
       <p v-if="isLoadingBadges">Hämtar pokaler...</p>
       <p v-else-if="badgeErrorMessage" class="error-message">
         {{ badgeErrorMessage }}
       </p>
       <BadgesCard v-else :badges="userBadges" />
     </section>
-    <DeleteAccount @account-deleted="emit('account-deleted')" />
   </section>
 </template>
 
@@ -171,5 +156,11 @@ watch(
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.section-divider {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 32px 0;
 }
 </style>
