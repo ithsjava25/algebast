@@ -159,7 +159,7 @@ async function finishExam({ automatic = false } = {}) {
     session: examDetails.value?.session,
     correctAnswers: Object.values(results.value).filter((r) => r.isCorrect).length,
     totalQuestions: questions.value.length,
-    timeSpentSeconds: data.timeSpentSeconds,
+    timeSpentSeconds: timeSpentSeconds,
     completedAt: new Date().toISOString(),
   };
 
