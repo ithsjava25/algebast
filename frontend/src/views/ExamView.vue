@@ -269,6 +269,37 @@ function handleCloseReview() {
   showSummaryModal.value = true; 
 }
 
+const summaryModalRef = ref(null);
+let previousActiveElement = null;
+
+function openSummaryModal() {
+  previousActiveElement = document.activeElement;
+  showSummaryModal.value = true;
+  
+  
+  setTimeout(() => {
+    summaryModalRef.value?.focus();
+  }, 50);
+
+  window.addEventListener("keydown", handleKeyDown);
+}
+
+function closeSummaryModal() {
+  showSummaryModal.value = false;
+  window.removeEventListener("keydown", handleKeyDown);
+
+  
+  if (previousActiveElement && typeof previousActiveElement.focus === "function") {
+    previousActiveElement.focus();
+  }
+}
+
+function handleKeyDown(event) {
+  if (event.key === "Escape") {
+    closeSummaryModal();
+  }
+}
+
 
 </script>
 
@@ -444,7 +475,7 @@ function handleCloseReview() {
 
   <!-- Sammanfattning vid inlämnat prov -->
     <div v-if="showSummaryModal && examResult" class="modal-backdrop">
-      <div class="modal-card card" role="dialog" aria-modal="true" aria-label="Provresultat">
+      <div ref="summaryModalRef" class="modal-card card" role="dialog" aria-modal="true" aria-label="Provresultat" tabindex="-1">
         <h2>Prov inlämnat!</h2>
         <p class="subtitle">Här är en sammanfattning av ditt provresultat:</p>
 
