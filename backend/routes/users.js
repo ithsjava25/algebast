@@ -402,51 +402,6 @@ router.patch("/me/password", requireAuth, async (req, res) => {
   }
 });
 
-// DELETE /api/users/me
-router.delete("/me", requireAuth, async (req, res) => {
-  try {
-    const userId = req.session.userId;
-
-    const [result] = await pool.execute(
-      `
-        DELETE FROM users
-        WHERE id = ?
-      `,
-      [userId],
-    );
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        error: "Användaren kunde inte hittas",
-      });
-    }
-
-    req.session.destroy((err) => {
-      if (err) {
-        console.error(err);
-
-        return res.status(500).json({
-          error: "Ett fel uppstod när kontot skulle raderas",
-        });
-      }
-
-      res.clearCookie("algebast.sid", {
-        path: "/",
-      });
-
-      res.status(200).json({
-        message: "Användaren har tagits bort",
-      });
-    });
-  } catch (err) {
-    console.error(err);
-
-    res.status(500).json({
-      error: "Ett fel uppstod när kontot skulle raderas",
-    });
-  }
-});
-
 // GET /api/users/me/results
 router.get("/me/results", requireAuth, async (req, res) => {
   try {
@@ -664,7 +619,7 @@ router.get("/me/results/:attemptId", requireAuth, async (req, res) => {
        FROM user_exam_attempts uea
        JOIN exam e ON e.id = uea.exam_id
        WHERE uea.id = ? AND uea.user_id = ?`,
-      [attemptId, userId]
+      [attemptId, userId],
     );
 
     if (attempts.length === 0) {
@@ -683,7 +638,7 @@ router.get("/me/results/:attemptId", requireAuth, async (req, res) => {
        LEFT JOIN user_answers ua ON ua.question_id = q.id AND ua.attempt_id = ? AND ua.user_id = ?
        WHERE q.exam_id = ?
        ORDER BY q.question_order`,
-      [attemptId, userId, attempt.exam_id]
+      [attemptId, userId, attempt.exam_id],
     );
 
     // Hämta alla svarsalternativ
@@ -693,7 +648,7 @@ router.get("/me/results/:attemptId", requireAuth, async (req, res) => {
        JOIN question q ON q.id = ao.question_id
        WHERE q.exam_id = ?
        ORDER BY ao.question_id, ao.position`,
-      [attempt.exam_id]
+      [attempt.exam_id],
     );
 
     const byQuestion = new Map();
