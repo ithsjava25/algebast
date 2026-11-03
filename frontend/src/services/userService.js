@@ -115,7 +115,11 @@ export async function getUserResultDetail(attemptId) {
 
   if (!response.ok) {
     throw new Error(data.error || "Kunde inte hämta provdetaljer");
-// Radera användarens konto
+  }
+
+  return data;
+}
+    // Radera användarens konto
 export async function deleteAccount(password) {
   const response = await fetch("/api/users/me", {
     method: "DELETE",
