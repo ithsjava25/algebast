@@ -193,7 +193,6 @@ function handleKeyDown(e) {
 </template>
 
 <style scoped>
-/* Din existerande CSS behålls precis som den är */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -247,21 +246,30 @@ function handleKeyDown(e) {
   grid-template-columns: 1fr;
 }
 
-
+/* Responsiv anpassning för mobiler / mindre skärmar */
 @media (max-width: 768px) {
   .review-container {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
   }
   
+  /* Om sidomenyn är öppen staplar vi den under huvudinnehållet 
+     så att headern och toggle-knappen aldrig döljs */
+  .review-container:not(.collapsed) {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .review-container:not(.collapsed) .review-main {
+    height: auto;
+    max-height: 55vh;
+    flex-shrink: 0;
+  }
+
   .review-sidebar {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 260px;
-    z-index: 20;
-    background: var(--bg-secondary);
-    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-height: 220px;
+    overflow-y: auto;
   }
 }
 
@@ -274,6 +282,14 @@ function handleKeyDown(e) {
   padding: 16px 20px !important;
 }
 
+.review-sidebar {
+  height: 100%;
+  overflow-y: auto;
+  padding: 16px !important;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
 
 .quiz-header {
   display: flex;
