@@ -3,6 +3,7 @@ const pool = require("../config/connectionMySQL");
 const requireAuth = require("../middleware/requireAuth");
 
 const router = express.Router();
+const requireAuth = require("../middleware/requireAuth");
 
 function evaluateBadges(stats) {
   return [
