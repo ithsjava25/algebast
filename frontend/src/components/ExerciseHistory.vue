@@ -41,7 +41,7 @@ defineProps({
       <div class="answer-details">
         <p>
           <strong>Ditt svar:</strong>
-          <span v-html="renderMath(answer.userAnswer ?? 'Inget svar')"></span>
+          <span v-html="renderMath(answer.selectedAnswer ?? 'Inget svar')"></span>
         </p>
 
         <p>

@@ -53,17 +53,25 @@ async function loadExterciseStats() {
 
 // Hämta historik för övningar i vald kategori
 async function loadExerciseHistory(category) {
+  const requestId = ++historyRequestId;
   selectedCategory.value = category;
   exerciseHistory.value = [];
   isLoadingHistory.value = true;
   historyErrorMessage.value = "";
 
   try {
-    exerciseHistory.value = await getExerciseHistory(category);
+    const history = await getExerciseHistory(category);
+    if (requestId === historyRequestId) {
+      exerciseHistory.value = history;
+    }
   } catch (erroro) {
-    historyErrorMessage.value = "Kunde inte hämta övningshistoriken.";
+    if (requestId === historyRequestId) {
+      historyErrorMessage.value = "Kunde inte hämta övningshistoriken.";
+    }
   } finally {
-    isLoadingHistory.value = false;
+    if (requestId === historyRequestId) {
+      isLoadingHistory.value = false;
+    }
   }
 }
 
