@@ -39,7 +39,8 @@ let historyRequestId = 0; // Håller reda på senaste requestId för att undvika
 
 const showAllResultsModal = ref(false);
 const dialogRef = ref(null);
-const recentResults = computed(() => results.value.slice(0, 5));
+const fromAllResults = ref(false); // Indikerar om modalen öppnades från "Visa alla provresultat"-knappen
+const recentResults = computed(() => results.value.slice(0, 3)); // Visar de tre senaste resultaten
 
 
 // Hämta användarens övningsstatistik
@@ -142,6 +143,23 @@ function closeAllResultsModal() {
   showAllResultsModal.value = false;
 }
 
+// Hantera öppning av granskning från "Alla prov"-modalen
+function openReviewFromAll(attemptId) {
+  fromAllResults.value = true;
+  activeAttemptId.value = attemptId;
+}
+
+// Hantera stängning av granskningsmodalen
+function handleReviewClose() {
+  activeAttemptId.value = null;
+  
+  // Om vi kom från "Alla prov"-modalen öppnar vi den igen
+  if (fromAllResults.value) {
+    showAllResultsModal.value = true;
+    fromAllResults.value = false;
+  }
+}
+
 </script>
 
 <template>
@@ -184,13 +202,13 @@ function closeAllResultsModal() {
           v-for="result in recentResults"
           :key="result.attemptId"
           :result="result"
-          @select="activeAttemptId = $event"
+          @select="fromAllResults = falseactiveAttemptId = $event"
         />
       </div>
 
-      <!-- Visa knappen endast om det finns fler än 5 resultat -->
+      <!-- Visa knappen endast om det finns fler än 3 resultat -->
       <button
-        v-if="results.length > 5"
+        v-if="results.length > 3"
         class="nav-btn secondary show-all-btn"
         @click="openAllResultsModal"
       >
@@ -225,7 +243,7 @@ function closeAllResultsModal() {
             v-for="result in results"
             :key="result.attemptId"
             :result="result"
-            @select="closeAllResultsModal(); activeAttemptId = $event"
+            @select="closeAllResultsModal(); openReviewFromAll($event)"
           />
         </div>
       </div>
@@ -234,7 +252,7 @@ function closeAllResultsModal() {
     <ExamReviewModal
       v-if="activeAttemptId"
       :attempt-id="activeAttemptId"
-      @close="activeAttemptId = null"
+      @close="handleReviewClose"
     />
 
     <hr class="section-divider" />
