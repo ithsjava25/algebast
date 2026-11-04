@@ -8,12 +8,20 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["select-category"]);
+
 const categories = [
   { code: "XYZ", name: "Matematik" },
   { code: "KVA", name: "Kvantitativa jämförelser" },
   { code: "NOG", name: "Kvantitativa resonemang" },
   { code: "DTK", name: "Diagram, tabeller och kartor" },
 ];
+
+function selectCategory(category) {
+  if (category.answered === 0) return;
+
+  emit("select-category", category.code);
+}
 
 // Beräkna statistik per kategori
 const categoryStats = computed(() =>
@@ -59,8 +67,15 @@ const totalPercentage = computed(() =>
       <article
         v-for="category in categoryStats"
         :key="category.code"
-        class="category-result"
+        class="category-card card"
+        :class="{ 'is-disabled': category.answered === 0 }"
       >
+        <button
+          type="button"
+          class="category-button"
+          :disabled="category.answered === 0"
+          @click="selectCategory(category)"
+        >
         <div class="category-header">
           <h3>{{ category.code }}</h3>
           <h3>{{ category.percentage }}%</h3>
@@ -75,6 +90,7 @@ const totalPercentage = computed(() =>
             :style="{ width: `${category.percentage}%` }"
           ></div>
         </div>
+        </button>
       </article>
     </div>
   </section>
@@ -133,6 +149,7 @@ const totalPercentage = computed(() =>
 .category-result p {
   margin: 10px 0;
   font-size: 14px;
+  
 }
 
 .progress-bar {
@@ -148,6 +165,33 @@ const totalPercentage = computed(() =>
   height: 100%;
   background: var(--button-bg);
   border-radius: 4px;
+}
+
+.category-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+}
+
+.category-button:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.category-button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.category-button:disabled {
+  cursor: default;
 }
 
 @media (max-width: 640px) {
