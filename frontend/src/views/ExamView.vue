@@ -7,7 +7,6 @@ import {
   turnInAnswers,
 } from "@/services/questionService.js";
 import { getExams } from "@/services/examService.js";
-import ExamReviewModal from "@/components/ExamReviewModal.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -33,9 +32,7 @@ const saved = ref(true);
 
 const isSidebarCollapsed = ref(false);
 
-const showSummaryModal = ref(false);
 const examResult = ref(null);
-const reviewAttemptId = ref(null);
 
 // Timer: 55 minuter
 const EXAM_DURATION = 55 * 60;
@@ -49,11 +46,19 @@ const formatTime = computed(() => {
   return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 });
 
-const score = computed(() =>
-  results.value
-    ? Object.values(results.value).filter((r) => r.isCorrect).length
+const percent = computed(() =>
+  examResult.value && examResult.value.totalQuestions > 0
+    ? Math.round(
+        (examResult.value.correctAnswers / examResult.value.totalQuestions) *
+          100,
+      )
     : 0,
 );
+
+const timeSpentText = computed(() => {
+  const s = examResult.value?.timeSpentSeconds ?? 0;
+  return `${Math.floor(s / 60)} min ${s % 60} sek`;
+});
 
 const unanswered = computed(
   () =>
@@ -84,9 +89,6 @@ async function loadExamData() {
   saved.value = true;
   submitting.value = false;
   submitError.value = null;
-
-  showSummaryModal.value = false;
-  reviewAttemptId.value = null;
   examResult.value = null;
 
   try {
@@ -167,8 +169,6 @@ async function finishExam({ automatic = false } = {}) {
       timeSpentSeconds: timeSpentSeconds,
       completedAt: new Date().toISOString(),
     };
-
-    showSummaryModal.value = true;
   } catch (err) {
     if (requestId !== latestRequestId) return;
 
@@ -256,48 +256,6 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 function goToExamsList() {
   router.push("/exams");
 }
-
-function openReview() {
-  showSummaryModal.value = false;
-  reviewAttemptId.value = examResult.value?.attemptId;
-}
-
-function handleCloseReview() {
-  reviewAttemptId.value = null;
-  showSummaryModal.value = true;
-}
-
-const summaryModalRef = ref(null);
-let previousActiveElement = null;
-
-function openSummaryModal() {
-  previousActiveElement = document.activeElement;
-  showSummaryModal.value = true;
-
-  setTimeout(() => {
-    summaryModalRef.value?.focus();
-  }, 50);
-
-  window.addEventListener("keydown", handleKeyDown);
-}
-
-function closeSummaryModal() {
-  showSummaryModal.value = false;
-  window.removeEventListener("keydown", handleKeyDown);
-
-  if (
-    previousActiveElement &&
-    typeof previousActiveElement.focus === "function"
-  ) {
-    previousActiveElement.focus();
-  }
-}
-
-function handleKeyDown(event) {
-  if (event.key === "Escape") {
-    closeSummaryModal();
-  }
-}
 </script>
 
 <template>
@@ -371,11 +329,27 @@ function handleKeyDown(event) {
         />
 
         <!-- Resultat efter inlämning -->
-        <div v-if="results" class="score-summary" role="status">
-          <h3>Provresultat</h3>
-          <p>
-            Du fick <strong>{{ score }}</strong> av
-            <strong>{{ questions.length }}</strong> rätt.
+        <div v-if="results && examResult" class="score-summary" role="status">
+          <h3>Prov inlämnat!</h3>
+
+          <div class="result-details">
+            <p>
+              <strong>Prov:</strong>
+              Högskoleprovet {{ examResult.semester }} {{ examResult.year }},
+              pass {{ examResult.session }}
+            </p>
+            <p>
+              <strong>Resultat:</strong>
+              {{ examResult.correctAnswers }} /
+              {{ examResult.totalQuestions }} rätt
+            </p>
+            <p><strong>Procent:</strong> {{ percent }}%</p>
+            <p><strong>Tid:</strong> {{ timeSpentText }}</p>
+          </div>
+
+          <p v-if="saved" class="saved-hint">
+            Du hittar resultatet och kan granska dina svar på
+            <router-link to="/profile">din profil</router-link>.
           </p>
         </div>
 
@@ -420,6 +394,10 @@ function handleKeyDown(event) {
             class="nav-btn primary finish-submit-btn"
           >
             {{ submitting ? "Skickar in..." : "Lämna in prov" }}
+          </button>
+
+          <button v-else class="nav-btn primary" @click="goToExamsList()">
+            Till provöversikt
           </button>
         </div>
       </div>
@@ -469,90 +447,6 @@ function handleKeyDown(event) {
       </aside>
     </div>
   </div>
-
-  <!-- Sammanfattning vid inlämnat prov -->
-  <div v-if="showSummaryModal && examResult" class="modal-backdrop">
-    <div
-      ref="summaryModalRef"
-      class="modal-card card"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Provresultat"
-      tabindex="-1"
-    >
-      <h2>Prov inlämnat!</h2>
-      <p class="subtitle">Här är en sammanfattning av ditt provresultat:</p>
-
-      <div class="summary-result-card">
-        <div class="result-details">
-          <p>
-            <strong>Prov:</strong>
-            Högskoleprovet {{ examResult.semester }} {{ examResult.year }}, pass
-            {{ examResult.session }}
-          </p>
-          <p>
-            <strong>Resultat:</strong>
-            {{ examResult.correctAnswers }} /
-            {{ examResult.totalQuestions }} rätt
-          </p>
-          <p>
-            <strong>Procent:</strong>
-            {{
-              Math.round(
-                (examResult.correctAnswers / examResult.totalQuestions) * 100,
-              )
-            }}%
-          </p>
-          <p>
-            <strong>Tid:</strong>
-            {{ Math.floor(examResult.timeSpentSeconds / 60) }} min
-            {{ examResult.timeSpentSeconds % 60 }} sek
-          </p>
-        </div>
-      </div>
-
-      <p v-if="!saved" class="error-msg">
-        Resultatet är inte sparat.
-        <router-link :to="{ path: '/auth', query: { mode: 'login' } }"
-          >Logga in</router-link
-        >
-        eller
-        <router-link :to="{ path: '/auth', query: { mode: 'register' } }"
-          >registrera dig</router-link
-        >
-        för att spara det.
-      </p>
-
-      <div class="modal-actions">
-        <button
-          class="nav-btn"
-          @click="
-            closeSummaryModal();
-            goToExamsList();
-          "
-        >
-          Till provöversikt
-        </button>
-
-        <button
-          v-if="saved"
-          class="nav-btn primary"
-          @click="
-            closeSummaryModal();
-            openReview();
-          "
-        >
-          Granska svar &rarr;
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <ExamReviewModal
-    v-if="reviewAttemptId"
-    :attemptId="reviewAttemptId"
-    @close="handleCloseReview"
-  />
 </template>
 
 <style scoped>
@@ -683,6 +577,29 @@ function handleKeyDown(event) {
   color: var(--success-text);
 }
 
+.result-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result-details p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.score-summary .result-details {
+  text-align: left;
+  margin-top: 12px;
+}
+
+.saved-hint {
+  margin: 14px 0 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
 .error-msg {
   color: var(--error-text);
   font-weight: 700;
@@ -786,72 +703,5 @@ function handleKeyDown(event) {
 
 .finish-btn:hover {
   background-color: var(--danger-hover);
-}
-
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.65);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 20px;
-}
-
-.modal-card {
-  background: var(--bg-secondary);
-  width: 100%;
-  max-width: 480px;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.modal-card h2 {
-  margin-top: 0;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-
-.subtitle {
-  color: var(--text-secondary);
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-
-.summary-result-card {
-  padding: 20px;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  background: var(--bg-primary);
-  margin-bottom: 24px;
-  text-align: left;
-}
-
-.result-details {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.result-details p {
-  margin: 0;
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-
-.modal-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-}
-
-.modal-actions .nav-btn {
-  flex: 1;
 }
 </style>
