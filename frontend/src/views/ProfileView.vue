@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed, nextTick } from "vue";
 import ResultCard from "@/components/ResultCard.vue";
 import BadgesCard from "@/components/BadgesCard.vue";
 import { getUserResults } from "@/services/userService.js";
@@ -36,6 +36,12 @@ const exerciseHistory = ref([]); // Sparar historik för övningar i vald katego
 const isLoadingHistory = ref(false); // Indikator för laddning av historik
 const historyErrorMessage = ref(""); // Felmeddelande vid problem med att hämta historik
 let historyRequestId = 0; // Håller reda på senaste requestId för att undvika race conditions
+
+const showAllResultsModal = ref(false);
+const dialogRef = ref(null);
+const fromAllResults = ref(false); // Indikerar om modalen öppnades från "Visa alla provresultat"-knappen
+const recentResults = computed(() => results.value.slice(0, 3)); // Visar de tre senaste resultaten
+
 
 // Hämta användarens övningsstatistik
 async function loadExterciseStats() {
@@ -117,6 +123,43 @@ watch(
   },
   { immediate: true },
 );
+
+watch(showAllResultsModal, async (isOpen) => {
+  await nextTick();
+  if (isOpen) {
+    if (!dialogRef.value?.open) {
+      dialogRef.value?.showModal();
+    }
+  } else {
+    dialogRef.value?.close();
+  }
+});
+
+function openAllResultsModal() {
+  showAllResultsModal.value = true;
+}
+
+function closeAllResultsModal() {
+  showAllResultsModal.value = false;
+}
+
+// Hantera öppning av granskning från "Alla prov"-modalen
+function openReviewFromAll(attemptId) {
+  fromAllResults.value = true;
+  activeAttemptId.value = attemptId;
+}
+
+// Hantera stängning av granskningsmodalen
+function handleReviewClose() {
+  activeAttemptId.value = null;
+  
+  // Om vi kom från "Alla prov"-modalen öppnar vi den igen
+  if (fromAllResults.value) {
+    showAllResultsModal.value = true;
+    fromAllResults.value = false;
+  }
+}
+
 </script>
 
 <template>
@@ -153,21 +196,63 @@ watch(
 
     <p v-if="isLoading">Hämtar provresultat...</p>
     <p v-else-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-    <div v-else-if="results.length" class="results-list">
-      <ResultCard
-        v-for="result in results"
-        :key="result.attemptId"
-        :result="result"
-        @select="activeAttemptId = $event"
-      />
+    <div v-else-if="results.length" class="results-container">
+      <div class="results-list">
+        <ResultCard
+          v-for="result in recentResults"
+          :key="result.attemptId"
+          :result="result"
+          @select="fromAllResults = false;activeAttemptId = $event"
+        />
+      </div>
+
+      <!-- Visa knappen endast om det finns fler än 3 resultat -->
+      <button
+        v-if="results.length > 3"
+        class="nav-btn secondary show-all-btn"
+        @click="openAllResultsModal"
+      >
+        Visa alla provresultat ({{ results.length }} st)
+      </button>
     </div>
 
     <p v-else-if="user">Du har inga sparade provresultat ännu.</p>
 
+    <!-- MODAL: Alla provresultat -->
+    <dialog
+      ref="dialogRef"
+      class="history-modal"
+      aria-labelledby="all-results-title"
+      @close="closeAllResultsModal"
+    >
+      <div class="modal-header">
+        <h2 id="all-results-title">Alla provresultat</h2>
+        <button
+          type="button"
+          class="close-button"
+          aria-label="Stäng"
+          @click="closeAllResultsModal"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div class="modal-content">
+        <div class="results-list">
+          <ResultCard
+            v-for="result in results"
+            :key="result.attemptId"
+            :result="result"
+            @select="closeAllResultsModal(); openReviewFromAll($event)"
+          />
+        </div>
+      </div>
+    </dialog>
+
     <ExamReviewModal
       v-if="activeAttemptId"
       :attempt-id="activeAttemptId"
-      @close="activeAttemptId = null"
+      @close="handleReviewClose"
     />
 
     <hr class="section-divider" />
@@ -207,5 +292,131 @@ watch(
   border: 0;
   border-top: 1px solid var(--border-color);
   margin: 32px 0;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.show-all-btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Modal Stilar */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-card {
+  background: var(--bg-secondary);
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.all-results-scroll {
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.history-modal {
+  width: min(600px, calc(100% - 32px));
+  max-height: 80vh;
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  display: none; /* Dold som standard, visas via [open] */
+}
+
+.history-modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-modal::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.modal-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.close-button {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  opacity: 0.7;
 }
 </style>
