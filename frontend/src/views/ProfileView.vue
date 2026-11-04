@@ -7,6 +7,8 @@ import ExerciseStats from "@/components/ExerciseStats.vue";
 import { getExterciseStats } from "@/services/userService.js";
 import { getUserBadges } from "@/services/userService.js";
 import ExamReviewModal from "@/components/ExamReviewModal.vue";
+import { getExerciseHistory } from "@/services/userService.js";
+import ExerciseHistoryModal from "@/components/ExerciseHistoryModal.vue";
 
 const props = defineProps({
   user: {
@@ -29,6 +31,13 @@ const badgeErrorMessage = ref(""); // Felmeddelande vid problem med att hämta p
 
 const activeAttemptId = ref(null); // Sparar valt attemptId för modalen
 
+const selectedCategory = ref(null); // Sparar valt category för modalen
+const exerciseHistory = ref([]); // Sparar historik för övningar i vald kategori
+const isLoadingHistory = ref(false); // Indikator för laddning av historik
+const historyErrorMessage = ref(""); // Felmeddelande vid problem med att hämta historik
+let historyRequestId = 0; // Håller reda på senaste requestId för att undvika race conditions
+
+// Hämta användarens övningsstatistik
 async function loadExterciseStats() {
   isLoadingStats.value = true;
   statsErrorMessage.value = "";
@@ -39,6 +48,30 @@ async function loadExterciseStats() {
     statsErrorMessage.value = "Kunde inte hämta övningsstatistiken.";
   } finally {
     isLoadingStats.value = false;
+  }
+}
+
+// Hämta historik för övningar i vald kategori
+async function loadExerciseHistory(category) {
+  const requestId = ++historyRequestId;
+  selectedCategory.value = category;
+  exerciseHistory.value = [];
+  isLoadingHistory.value = true;
+  historyErrorMessage.value = "";
+
+  try {
+    const history = await getExerciseHistory(category);
+    if (requestId === historyRequestId) {
+      exerciseHistory.value = history;
+    }
+  } catch (erroro) {
+    if (requestId === historyRequestId) {
+      historyErrorMessage.value = "Kunde inte hämta övningshistoriken.";
+    }
+  } finally {
+    if (requestId === historyRequestId) {
+      isLoadingHistory.value = false;
+    }
   }
 }
 
@@ -100,7 +133,19 @@ watch(
     <p v-else-if="statsErrorMessage" class="error-message">
       {{ statsErrorMessage }}
     </p>
-    <ExerciseStats v-else :stats="exerciseStats" />
+    <ExerciseStats
+      v-else
+      :stats="exerciseStats"
+      @select-category="loadExerciseHistory"
+    />
+
+    <ExerciseHistoryModal
+      :category="selectedCategory"
+      :history="exerciseHistory"
+      :is-loading="isLoadingHistory"
+      :error-message="historyErrorMessage"
+      @close="selectedCategory = null"
+    />
 
     <hr class="section-divider" />
 
