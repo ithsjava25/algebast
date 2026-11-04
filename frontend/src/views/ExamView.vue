@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed, onMounted, onUnmounted } from "vue";
+import { ref, watch, computed, nextTick, onMounted, onUnmounted } from "vue";
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from "vue-router";
 import QuestionCard from "@/components/QuestionCard.vue";
 import {
@@ -7,9 +7,6 @@ import {
   turnInAnswers,
 } from "@/services/questionService.js";
 import { getExams } from "@/services/examService.js";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
 
 const props = defineProps({
   examId: {
@@ -33,6 +30,7 @@ const saved = ref(true);
 const isSidebarCollapsed = ref(false);
 
 const examResult = ref(null);
+const scoreSummaryRef = ref(null);
 
 // Timer: 55 minuter
 const EXAM_DURATION = 55 * 60;
@@ -169,6 +167,11 @@ async function finishExam({ automatic = false } = {}) {
       timeSpentSeconds: timeSpentSeconds,
       completedAt: new Date().toISOString(),
     };
+    await nextTick();
+    scoreSummaryRef.value?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   } catch (err) {
     if (requestId !== latestRequestId) return;
 
@@ -252,10 +255,6 @@ function handleBeforeUnload(event) {
 }
 
 const currentQuestion = computed(() => questions.value[currentIndex.value]);
-
-function goToExamsList() {
-  router.push("/exams");
-}
 </script>
 
 <template>
@@ -329,7 +328,12 @@ function goToExamsList() {
         />
 
         <!-- Resultat efter inlämning -->
-        <div v-if="results && examResult" class="score-summary" role="status">
+        <div
+          v-if="results && examResult"
+          ref="scoreSummaryRef"
+          class="score-summary"
+          role="status"
+        >
           <h3>Prov inlämnat!</h3>
 
           <div class="result-details">
