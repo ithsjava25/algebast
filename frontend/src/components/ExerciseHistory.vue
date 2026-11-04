@@ -1,4 +1,6 @@
 <script setup>
+import { renderMath } from "@/utils/rendermath.js";
+
 defineProps({
   history: {
     type: Array,
@@ -29,7 +31,9 @@ defineProps({
         </span>
       </div>
 
-      <p class="question-text">{{ answer.questionText }}</p>
+
+      <p class="question-text" v-html="renderMath(answer.questionText)">
+      </p>
 
       <img
         v-if="answer.imageUrl"
@@ -41,18 +45,18 @@ defineProps({
       <div class="answer-details">
         <p>
           <strong>Ditt svar:</strong>
-          {{ answer.selectedAnswer ?? "Inget svar" }}
+          <span v-html="renderMath(answer.userAnswer ?? 'Inget svar')"></span>
         </p>
 
         <p>
           <strong>Rätt svar:</strong>
-          {{ answer.correctAnswer ?? "Saknas" }}
+            <span v-html="renderMath(answer.correctAnswer ?? 'Saknas')"></span>
         </p>
       </div>
 
 <!--       <p v-if="answer.explanation" class="explanation">
         <strong>Förklaring:</strong>
-        {{ answer.explanation }}
+        <p v-html="renderMath(answer.explanation)"></p>
       </p> -->
 
       <time v-if="answer.answeredAt" :datetime="answer.answeredAt">
