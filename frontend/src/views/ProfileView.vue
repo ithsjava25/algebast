@@ -202,7 +202,7 @@ function handleReviewClose() {
           v-for="result in recentResults"
           :key="result.attemptId"
           :result="result"
-          @select="fromAllResults = falseactiveAttemptId = $event"
+          @select="fromAllResults = false;activeAttemptId = $event"
         />
       </div>
 
