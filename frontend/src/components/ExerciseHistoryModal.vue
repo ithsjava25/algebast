@@ -54,9 +54,7 @@ function closeModal() {
     @close="emit('close')"
   >
     <div class="modal-header">
-      <h2 id="history-modal-title">
-        Övningshistorik: {{ category }}
-      </h2>
+      <h2 id="history-modal-title">Övningshistorik: {{ category }}</h2>
 
       <button
         type="button"
@@ -89,7 +87,7 @@ function closeModal() {
   border-radius: 12px;
   background: var(--bg-secondary);
   color: var(--text-primary);
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .history-modal[open] {

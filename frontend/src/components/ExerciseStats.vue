@@ -76,20 +76,20 @@ const totalPercentage = computed(() =>
           :disabled="category.answered === 0"
           @click="selectCategory(category)"
         >
-        <div class="category-header">
-          <h3>{{ category.code }}</h3>
-          <h3>{{ category.percentage }}%</h3>
-        </div>
+          <div class="category-header">
+            <h3>{{ category.code }}</h3>
+            <h3>{{ category.percentage }}%</h3>
+          </div>
 
-        <p>{{ category.name }}</p>
-        <p>{{ category.correct }} / {{ category.answered }} rätt</p>
+          <p>{{ category.name }}</p>
+          <p>{{ category.correct }} / {{ category.answered }} rätt</p>
 
-        <div class="progress-bar">
-          <div
-            class="progress-fill"
-            :style="{ width: `${category.percentage}%` }"
-          ></div>
-        </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              :style="{ width: `${category.percentage}%` }"
+            ></div>
+          </div>
         </button>
       </article>
     </div>

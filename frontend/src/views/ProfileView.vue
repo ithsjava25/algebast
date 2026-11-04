@@ -53,7 +53,6 @@ async function loadExterciseStats() {
 
 // Hämta historik för övningar i vald kategori
 async function loadExerciseHistory(category) {
-  
   selectedCategory.value = category;
   exerciseHistory.value = [];
   isLoadingHistory.value = true;
@@ -126,10 +125,11 @@ watch(
     <p v-else-if="statsErrorMessage" class="error-message">
       {{ statsErrorMessage }}
     </p>
-    <ExerciseStats 
-      v-else 
+    <ExerciseStats
+      v-else
       :stats="exerciseStats"
-      @select-category="loadExerciseHistory" />
+      @select-category="loadExerciseHistory"
+    />
 
     <ExerciseHistoryModal
       :category="selectedCategory"

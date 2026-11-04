@@ -34,8 +34,8 @@ const saved = ref(true);
 const isSidebarCollapsed = ref(false);
 
 const showSummaryModal = ref(false);
-const examResult = ref(null); 
-const reviewAttemptId = ref(null); 
+const examResult = ref(null);
+const reviewAttemptId = ref(null);
 
 // Timer: 55 minuter
 const EXAM_DURATION = 55 * 60;
@@ -156,20 +156,19 @@ async function finishExam({ automatic = false } = {}) {
       data.results.map((r) => [r.questionId, r]),
     );
     saved.value = data.saved;
-  examResult.value = {
-    attemptId: data.attemptId,
-    semester: examDetails.value?.semester,
-    year: examDetails.value?.year,
-    session: examDetails.value?.session,
-    correctAnswers: Object.values(results.value).filter((r) => r.isCorrect).length,
-    totalQuestions: questions.value.length,
-    timeSpentSeconds: timeSpentSeconds,
-    completedAt: new Date().toISOString(),
-  };
+    examResult.value = {
+      attemptId: data.attemptId,
+      semester: examDetails.value?.semester,
+      year: examDetails.value?.year,
+      session: examDetails.value?.session,
+      correctAnswers: Object.values(results.value).filter((r) => r.isCorrect)
+        .length,
+      totalQuestions: questions.value.length,
+      timeSpentSeconds: timeSpentSeconds,
+      completedAt: new Date().toISOString(),
+    };
 
-  showSummaryModal.value = true;
-  
-  
+    showSummaryModal.value = true;
   } catch (err) {
     if (requestId !== latestRequestId) return;
 
@@ -254,9 +253,8 @@ function handleBeforeUnload(event) {
 
 const currentQuestion = computed(() => questions.value[currentIndex.value]);
 
-
 function goToExamsList() {
-  router.push("/exams"); 
+  router.push("/exams");
 }
 
 function openReview() {
@@ -266,7 +264,7 @@ function openReview() {
 
 function handleCloseReview() {
   reviewAttemptId.value = null;
-  showSummaryModal.value = true; 
+  showSummaryModal.value = true;
 }
 
 const summaryModalRef = ref(null);
@@ -275,8 +273,7 @@ let previousActiveElement = null;
 function openSummaryModal() {
   previousActiveElement = document.activeElement;
   showSummaryModal.value = true;
-  
-  
+
   setTimeout(() => {
     summaryModalRef.value?.focus();
   }, 50);
@@ -288,8 +285,10 @@ function closeSummaryModal() {
   showSummaryModal.value = false;
   window.removeEventListener("keydown", handleKeyDown);
 
-  
-  if (previousActiveElement && typeof previousActiveElement.focus === "function") {
+  if (
+    previousActiveElement &&
+    typeof previousActiveElement.focus === "function"
+  ) {
     previousActiveElement.focus();
   }
 }
@@ -299,8 +298,6 @@ function handleKeyDown(event) {
     closeSummaryModal();
   }
 }
-
-
 </script>
 
 <template>
@@ -474,70 +471,88 @@ function handleKeyDown(event) {
   </div>
 
   <!-- Sammanfattning vid inlämnat prov -->
-    <div v-if="showSummaryModal && examResult" class="modal-backdrop">
-      <div ref="summaryModalRef" class="modal-card card" role="dialog" aria-modal="true" aria-label="Provresultat" tabindex="-1">
-        <h2>Prov inlämnat!</h2>
-        <p class="subtitle">Här är en sammanfattning av ditt provresultat:</p>
+  <div v-if="showSummaryModal && examResult" class="modal-backdrop">
+    <div
+      ref="summaryModalRef"
+      class="modal-card card"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Provresultat"
+      tabindex="-1"
+    >
+      <h2>Prov inlämnat!</h2>
+      <p class="subtitle">Här är en sammanfattning av ditt provresultat:</p>
 
-        
-        <div class="summary-result-card">
-          <div class="result-details">
-            <p>
-              <strong>Prov:</strong>
-              Högskoleprovet {{ examResult.semester }} {{ examResult.year }}, pass
-              {{ examResult.session }}
-            </p>
-            <p>
-              <strong>Resultat:</strong>
-              {{ examResult.correctAnswers }} / {{ examResult.totalQuestions }} rätt
-            </p>
-            <p>
-              <strong>Procent:</strong>
-              {{ Math.round((examResult.correctAnswers / examResult.totalQuestions) * 100) }}%
-            </p>
-            <p>
-              <strong>Tid:</strong>
-              {{ Math.floor(examResult.timeSpentSeconds / 60) }} min {{ examResult.timeSpentSeconds % 60 }} sek
-            </p>
-          </div>
-        </div>
-
-        
-        <p v-if="!saved" class="error-msg">
-          Resultatet är inte sparat.
-          <router-link :to="{ path: '/auth', query: { mode: 'login' } }"
-            >Logga in</router-link
-          >
-          eller
-          <router-link :to="{ path: '/auth', query: { mode: 'register' } }"
-            >registrera dig</router-link
-          >
-          för att spara det.
-        </p>
-
-        
-        <div class="modal-actions">
-          <button class="nav-btn" @click="closeSummaryModal(); goToExamsList();">
-            Till provöversikt
-          </button>
-          
-          <button 
-            v-if="saved" 
-            class="nav-btn primary" 
-            @click="closeSummaryModal(); openReview();"
-          >
-            Granska svar &rarr;
-          </button>
+      <div class="summary-result-card">
+        <div class="result-details">
+          <p>
+            <strong>Prov:</strong>
+            Högskoleprovet {{ examResult.semester }} {{ examResult.year }}, pass
+            {{ examResult.session }}
+          </p>
+          <p>
+            <strong>Resultat:</strong>
+            {{ examResult.correctAnswers }} /
+            {{ examResult.totalQuestions }} rätt
+          </p>
+          <p>
+            <strong>Procent:</strong>
+            {{
+              Math.round(
+                (examResult.correctAnswers / examResult.totalQuestions) * 100,
+              )
+            }}%
+          </p>
+          <p>
+            <strong>Tid:</strong>
+            {{ Math.floor(examResult.timeSpentSeconds / 60) }} min
+            {{ examResult.timeSpentSeconds % 60 }} sek
+          </p>
         </div>
       </div>
-    </div>
 
-    
-    <ExamReviewModal
-      v-if="reviewAttemptId"
-      :attemptId="reviewAttemptId"
-      @close="handleCloseReview"
-    />
+      <p v-if="!saved" class="error-msg">
+        Resultatet är inte sparat.
+        <router-link :to="{ path: '/auth', query: { mode: 'login' } }"
+          >Logga in</router-link
+        >
+        eller
+        <router-link :to="{ path: '/auth', query: { mode: 'register' } }"
+          >registrera dig</router-link
+        >
+        för att spara det.
+      </p>
+
+      <div class="modal-actions">
+        <button
+          class="nav-btn"
+          @click="
+            closeSummaryModal();
+            goToExamsList();
+          "
+        >
+          Till provöversikt
+        </button>
+
+        <button
+          v-if="saved"
+          class="nav-btn primary"
+          @click="
+            closeSummaryModal();
+            openReview();
+          "
+        >
+          Granska svar &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ExamReviewModal
+    v-if="reviewAttemptId"
+    :attemptId="reviewAttemptId"
+    @close="handleCloseReview"
+  />
 </template>
 
 <style scoped>
@@ -839,5 +854,4 @@ function handleKeyDown(event) {
 .modal-actions .nav-btn {
   flex: 1;
 }
-
 </style>

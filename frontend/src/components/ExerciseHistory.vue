@@ -11,9 +11,7 @@ defineProps({
 
 <template>
   <section class="exercise-history">
-    <p v-if="history.length === 0">
-      Inga besvarade frågor hittades.
-    </p>
+    <p v-if="history.length === 0">Inga besvarade frågor hittades.</p>
 
     <article
       v-for="(answer, index) in history"
@@ -31,9 +29,7 @@ defineProps({
         </span>
       </div>
 
-
-      <p class="question-text" v-html="renderMath(answer.questionText)">
-      </p>
+      <p class="question-text" v-html="renderMath(answer.questionText)"></p>
 
       <img
         v-if="answer.imageUrl"
@@ -50,11 +46,11 @@ defineProps({
 
         <p>
           <strong>Rätt svar:</strong>
-            <span v-html="renderMath(answer.correctAnswer ?? 'Saknas')"></span>
+          <span v-html="renderMath(answer.correctAnswer ?? 'Saknas')"></span>
         </p>
       </div>
 
-<!--       <p v-if="answer.explanation" class="explanation">
+      <!--       <p v-if="answer.explanation" class="explanation">
         <strong>Förklaring:</strong>
         <p v-html="renderMath(answer.explanation)"></p>
       </p> -->
