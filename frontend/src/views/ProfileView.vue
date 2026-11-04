@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import ResultCard from "@/components/ResultCard.vue";
 import BadgesCard from "@/components/BadgesCard.vue";
 import { getUserResults } from "@/services/userService.js";
@@ -36,6 +36,10 @@ const exerciseHistory = ref([]); // Sparar historik för övningar i vald katego
 const isLoadingHistory = ref(false); // Indikator för laddning av historik
 const historyErrorMessage = ref(""); // Felmeddelande vid problem med att hämta historik
 let historyRequestId = 0; // Håller reda på senaste requestId för att undvika race conditions
+
+const showAllResultsModal = ref(false);
+const recentResults = computed(() => results.value.slice(0, 5));
+
 
 // Hämta användarens övningsstatistik
 async function loadExterciseStats() {
@@ -153,16 +157,48 @@ watch(
 
     <p v-if="isLoading">Hämtar provresultat...</p>
     <p v-else-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-    <div v-else-if="results.length" class="results-list">
-      <ResultCard
-        v-for="result in results"
-        :key="result.attemptId"
-        :result="result"
-        @select="activeAttemptId = $event"
-      />
+    <div v-else-if="results.length" class="results-container">
+      <div class="results-list">
+        <ResultCard
+          v-for="result in recentResults"
+          :key="result.attemptId"
+          :result="result"
+          @select="activeAttemptId = $event"
+        />
+      </div>
+
+      <!-- Visa knappen endast om det finns fler än 5 resultat -->
+      <button
+        v-if="results.length > 5"
+        class="nav-btn secondary show-all-btn"
+        @click="showAllResultsModal = true"
+      >
+        Visa alla provresultat ({{ results.length }} st)
+      </button>
     </div>
 
     <p v-else-if="user">Du har inga sparade provresultat ännu.</p>
+
+    <!-- MODAL: Alla provresultat -->
+    <div v-if="showAllResultsModal" class="modal-backdrop" @click.self="showAllResultsModal = false">
+      <div class="modal-card card" role="dialog" aria-modal="true" aria-label="Alla provresultat">
+        <div class="modal-header">
+          <h2>Alla provresultat</h2>
+          <button class="close-btn" @click="showAllResultsModal = false" aria-label="Stäng">✕</button>
+        </div>
+
+        <div class="all-results-scroll">
+          <div class="results-list">
+            <ResultCard
+              v-for="result in results"
+              :key="result.attemptId"
+              :result="result"
+              @select="showAllResultsModal = false; activeAttemptId = $event"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
 
     <ExamReviewModal
       v-if="activeAttemptId"
@@ -207,5 +243,75 @@ watch(
   border: 0;
   border-top: 1px solid var(--border-color);
   margin: 32px 0;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.show-all-btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Modal Stilar */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-card {
+  background: var(--bg-secondary);
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.all-results-scroll {
+  overflow-y: auto;
+  padding-right: 4px;
 }
 </style>
