@@ -67,7 +67,7 @@ const totalPercentage = computed(() =>
       <article
         v-for="category in categoryStats"
         :key="category.code"
-        class="category-card card"
+        class="category-result card"
         :class="{ 'is-disabled': category.answered === 0 }"
       >
         <button
@@ -149,7 +149,6 @@ const totalPercentage = computed(() =>
 .category-result p {
   margin: 10px 0;
   font-size: 14px;
-  
 }
 
 .progress-bar {
@@ -177,8 +176,6 @@ const totalPercentage = computed(() =>
   text-align: left;
   font: inherit;
   cursor: pointer;
-  transition: all 0.2s ease;
-  
 }
 
 .category-button:hover:not(:disabled) {

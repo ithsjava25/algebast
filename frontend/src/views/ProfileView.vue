@@ -7,6 +7,7 @@ import ExerciseStats from "@/components/ExerciseStats.vue";
 import { getExterciseStats } from "@/services/userService.js";
 import { getUserBadges } from "@/services/userService.js";
 import ExamReviewModal from "@/components/ExamReviewModal.vue";
+import { getExerciseHistory } from "@/services/userService.js";
 
 const props = defineProps({
   user: {
@@ -29,6 +30,12 @@ const badgeErrorMessage = ref(""); // Felmeddelande vid problem med att hämta p
 
 const activeAttemptId = ref(null); // Sparar valt attemptId för modalen
 
+const selectedCategory = ref(null); // Sparar valt category för modalen
+const exerciseHistory = ref([]); // Sparar historik för övningar i vald kategori
+const isLoadingHistory = ref(false); // Indikator för laddning av historik
+const historyErrorMessage = ref(""); // Felmeddelande vid problem med att hämta historik
+
+// Hämta användarens övningsstatistik
 async function loadExterciseStats() {
   isLoadingStats.value = true;
   statsErrorMessage.value = "";
@@ -39,6 +46,22 @@ async function loadExterciseStats() {
     statsErrorMessage.value = "Kunde inte hämta övningsstatistiken.";
   } finally {
     isLoadingStats.value = false;
+  }
+}
+
+// Hämta historik för övningar i vald kategori
+async function loadExerciseHistory(category) {
+  selectedCategory.value = category;
+  exerciseHistory.value = [];
+  isLoadingHistory.value = true;
+  historyErrorMessage.value = "";
+
+  try {
+    exerciseHistory.value = await getExerciseHistory(category);
+  } catch (erroro) {
+    historyErrorMessage.value = "Kunde inte hämta övningshistoriken.";
+  } finally {
+    isLoadingHistory.value = false;
   }
 }
 
@@ -100,7 +123,22 @@ watch(
     <p v-else-if="statsErrorMessage" class="error-message">
       {{ statsErrorMessage }}
     </p>
-    <ExerciseStats v-else :stats="exerciseStats" />
+    <ExerciseStats 
+      v-else 
+      :stats="exerciseStats"
+      @select-category="loadExerciseHistory" />
+
+      <div v-if="selectedCategory" class="exercise-history">
+        <h2>Övningshistorik: {{ selectedCategory }}</h2>
+
+        <p v-if="isLoadingHistory">Hämtar övningshistorik...</p>
+
+        <p v-else-if="historyErrorMessage" class="error-message">
+          {{ historyErrorMessage }}
+        </p>
+
+        <p v-else>Antal besvarade frågor: {{ exerciseHistory.length }}</p>
+      </div>
 
     <hr class="section-divider" />
 
