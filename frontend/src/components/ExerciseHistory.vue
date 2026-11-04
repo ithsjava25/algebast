@@ -41,12 +41,30 @@ defineProps({
       <div class="answer-details">
         <p>
           <strong>Ditt svar:</strong>
-          <span v-html="renderMath(answer.selectedAnswer ?? 'Inget svar')"></span>
+          <span
+            v-if="answer.selectedAnswer != null || !answer.selectedAnswerImage"
+            v-html="renderMath(answer.selectedAnswer ?? 'Inget svar')"
+          ></span>
+          <img
+            v-if="answer.selectedAnswerImage"
+            :src="answer.selectedAnswerImage"
+            alt="Ditt svar som bild"
+            class="question-image"
+          />
         </p>
 
         <p>
           <strong>Rätt svar:</strong>
-          <span v-html="renderMath(answer.correctAnswer ?? 'Saknas')"></span>
+          <span
+            v-if="answer.correctAnswer != null || !answer.correctAnswerImage"
+            v-html="renderMath(answer.correctAnswer ?? 'Saknas')"
+          ></span>
+          <img
+            v-if="answer.correctAnswerImage"
+            :src="answer.correctAnswerImage"
+            alt="Rätt svar som bild"
+            class="question-image"
+          />
         </p>
       </div>
 
