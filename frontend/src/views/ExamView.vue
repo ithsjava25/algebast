@@ -399,10 +399,6 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
           >
             {{ submitting ? "Skickar in..." : "Lämna in prov" }}
           </button>
-
-          <button v-else class="nav-btn primary" @click="goToExamsList()">
-            Till provöversikt
-          </button>
         </div>
       </div>
 
@@ -579,6 +575,12 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
 .score-summary h3 {
   margin: 0 0 6px 0;
   color: var(--success-text);
+}
+
+@media (max-width: 767px) {
+  .score-summary {
+    scroll-margin-top: 73px;
+  }
 }
 
 .result-details {
