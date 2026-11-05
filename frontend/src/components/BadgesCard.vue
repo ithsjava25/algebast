@@ -22,7 +22,6 @@ defineProps({
   },
 });
 
-
 const iconMap = {
   first_step: CheckCircle2,
   getting_started: Flame,
@@ -45,8 +44,6 @@ function getBadgeIcon(id) {
 
 <template>
   <article class="badges-card card">
-    
-
     <div v-if="badges.length === 0" class="no-badges">
       <p>Laddar pokaler...</p>
     </div>
@@ -58,7 +55,6 @@ function getBadgeIcon(id) {
         class="badge-item"
         :class="{ unlocked: badge.unlocked, locked: !badge.unlocked }"
         :aria-label="`${badge.title}: ${badge.description} (${badge.unlocked ? 'Upplåst' : 'Låst'})`"
-
       >
         <div class="badge-icon-wrapper">
           <component :is="getBadgeIcon(badge.id)" class="badge-icon" />
@@ -79,6 +75,11 @@ function getBadgeIcon(id) {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   background: var(--bg-secondary);
+}
+
+.badges-card:hover {
+  border-color: var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .badges-card h3 {

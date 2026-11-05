@@ -42,7 +42,6 @@ const dialogRef = ref(null);
 const fromAllResults = ref(false); // Indikerar om modalen öppnades från "Visa alla provresultat"-knappen
 const recentResults = computed(() => results.value.slice(0, 3)); // Visar de tre senaste resultaten
 
-
 // Hämta användarens övningsstatistik
 async function loadExterciseStats() {
   isLoadingStats.value = true;
@@ -152,14 +151,13 @@ function openReviewFromAll(attemptId) {
 // Hantera stängning av granskningsmodalen
 function handleReviewClose() {
   activeAttemptId.value = null;
-  
+
   // Om vi kom från "Alla prov"-modalen öppnar vi den igen
   if (fromAllResults.value) {
     showAllResultsModal.value = true;
     fromAllResults.value = false;
   }
 }
-
 </script>
 
 <template>
@@ -192,7 +190,7 @@ function handleReviewClose() {
 
     <hr class="section-divider" />
 
-    <h2>Provresultat</h2>
+    <h2>Senaste provresultat</h2>
 
     <p v-if="isLoading">Hämtar provresultat...</p>
     <p v-else-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -202,7 +200,10 @@ function handleReviewClose() {
           v-for="result in recentResults"
           :key="result.attemptId"
           :result="result"
-          @select="fromAllResults = false;activeAttemptId = $event"
+          @select="
+            fromAllResults = false;
+            activeAttemptId = $event;
+          "
         />
       </div>
 
@@ -243,7 +244,10 @@ function handleReviewClose() {
             v-for="result in results"
             :key="result.attemptId"
             :result="result"
-            @select="closeAllResultsModal(); openReviewFromAll($event)"
+            @select="
+              closeAllResultsModal();
+              openReviewFromAll($event);
+            "
           />
         </div>
       </div>
