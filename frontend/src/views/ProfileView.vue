@@ -192,7 +192,7 @@ function handleReviewClose() {
 
     <hr class="section-divider" />
 
-    <h2>Provresultat</h2>
+    <h2>Senaste provresultat</h2>
 
     <p v-if="isLoading">Hämtar provresultat...</p>
     <p v-else-if="errorMessage" class="error-message">{{ errorMessage }}</p>
