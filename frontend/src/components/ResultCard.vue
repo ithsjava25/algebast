@@ -14,7 +14,7 @@ defineEmits(["select"]);
 const percentage = computed(() => {
   if (!props.result.totalQuestions) return 0;
   return Math.round(
-    (props.result.correctAnswers / props.result.totalQuestions) * 100
+    (props.result.correctAnswers / props.result.totalQuestions) * 100,
   );
 });
 
@@ -52,7 +52,12 @@ const formattedTimestamp = computed(() => {
 </script>
 
 <template>
-  <article class="result-card" tabindex="0" role="button" @click="$emit('select', result.attemptId)">
+  <article
+    class="result-card"
+    tabindex="0"
+    role="button"
+    @click="$emit('select', result.attemptId)"
+  >
     <h3>
       {{ formattedTimestamp }}
     </h3>
@@ -89,7 +94,9 @@ const formattedTimestamp = computed(() => {
   border-radius: 12px;
   background: var(--bg-secondary);
   cursor: pointer;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .result-card:hover {
