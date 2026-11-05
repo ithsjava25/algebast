@@ -81,6 +81,11 @@ function getBadgeIcon(id) {
   background: var(--bg-secondary);
 }
 
+.badges-card:hover {
+  border-color: var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
 .badges-card h3 {
   margin: 0 0 20px;
   font-size: 18px;

@@ -93,7 +93,6 @@ const formattedTimestamp = computed(() => {
 }
 
 .result-card:hover {
-  transform: translateY(-2px);
   border-color: var(--accent-color, #3498db);
 }
 
