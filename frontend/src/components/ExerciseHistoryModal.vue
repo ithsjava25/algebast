@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, nextTick } from "vue";
 import ExerciseHistory from "@/components/ExerciseHistory.vue";
+import { useScrollLock } from "@vueuse/core";
 
 const props = defineProps({
   category: {
@@ -23,6 +24,7 @@ const props = defineProps({
 
 const emit = defineEmits(["close"]);
 const dialogRef = ref(null);
+const isScrollLocked = useScrollLock(document.body);
 
 watch(
   () => props.category,
@@ -33,8 +35,11 @@ watch(
       if (!dialogRef.value?.open) {
         dialogRef.value?.showModal();
       }
+
+      isScrollLocked.value = true;
     } else {
       dialogRef.value?.close();
+      isScrollLocked.value = false;
     }
   },
   { immediate: true },
@@ -42,6 +47,10 @@ watch(
 
 function closeModal() {
   dialogRef.value?.close();
+}
+
+function handleDialogClose() {
+  isScrollLocked.value = false;
   emit("close");
 }
 </script>
@@ -51,7 +60,7 @@ function closeModal() {
     ref="dialogRef"
     class="history-modal"
     aria-labelledby="history-modal-title"
-    @close="emit('close')"
+    @close="handleDialogClose"
   >
     <div class="modal-header">
       <h2 id="history-modal-title">Övningshistorik: {{ category }}</h2>
@@ -112,12 +121,6 @@ function closeModal() {
   margin: 0;
 }
 
-.modal-content {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-
 .close-button {
   padding: 8px 12px;
   border: none;
@@ -132,11 +135,36 @@ function closeModal() {
   opacity: 0.7;
 }
 
-.modal-content {
-  overflow-y: auto;
-}
-
 .error-message {
   color: var(--error-text);
+}
+
+.modal-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 8px;
+
+  /* Anpassad scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+
+/* Chrome, Edge och Safari */
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
 }
 </style>

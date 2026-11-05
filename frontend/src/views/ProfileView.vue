@@ -365,7 +365,7 @@ function handleReviewClose() {
 }
 
 .history-modal {
-  width: min(600px, calc(100% - 32px));
+  width: min(1000px, calc(100% - 32px));
   max-height: 80vh;
   padding: 24px;
   border: 1px solid var(--border-color);
