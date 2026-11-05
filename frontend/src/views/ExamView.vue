@@ -339,8 +339,13 @@ const currentQuestion = computed(() => questions.value[currentIndex.value]);
           <div class="result-details">
             <p>
               <strong>Prov:</strong>
-              Högskoleprovet {{ examResult.semester }} {{ examResult.year }},
-              pass {{ examResult.session }}
+              Högskoleprovet
+              <template v-if="examResult.semester && examResult.year">
+                {{ examResult.semester }} {{ examResult.year }}
+              </template>
+              <template v-if="examResult.session"
+                >, pass {{ examResult.session }}</template
+              >
             </p>
             <p>
               <strong>Resultat:</strong>
