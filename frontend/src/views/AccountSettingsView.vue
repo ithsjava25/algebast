@@ -15,8 +15,10 @@ const emit = defineEmits(["profile-updated", "account-deleted"]);
 
 <template>
   <section class="account-settings">
-    <h1>Hantera konto</h1>
-
+    <div class="account-header">
+      <h1>Hantera konto</h1>
+      <RouterLink to="/profile" class="nav-btn"> Tillbaka </RouterLink>
+    </div>
     <template v-if="props.user">
       <EditProfileForm
         :user="props.user"
@@ -39,6 +41,13 @@ const emit = defineEmits(["profile-updated", "account-deleted"]);
   max-width: 800px;
   margin: 0 auto;
   padding: 40px 20px;
+}
+
+.account-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
 }
 
 .section-divider {
